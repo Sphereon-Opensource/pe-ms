@@ -8,9 +8,10 @@
     "build": "tsc --project ./",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Maikel Maas",
+  "author": "Sphereon",
   "license": "ISC",
   "dependencies": {
+    "@sphereon/pe-models": "file:sphereon-pe-models-0.0.4.tgz",
     "compression": "^1.7.4",
     "express": "^4.17.1"
   },
