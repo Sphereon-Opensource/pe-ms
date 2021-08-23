@@ -1,0 +1,277 @@
+{
+	"info": {
+		"_postman_id": "174de53e-42ab-425a-8df7-f4091142c87b",
+		"name": "DIF PE API",
+		"description": "Decentralized Identity Foundation Presentation Exchange API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create thread",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"test\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/pe/v1/threads",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"pe",
+						"v1",
+						"threads"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create definition",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"callback\": {\r\n        \"url\": \"http:localhost:8080\"\r\n    },\r\n    \"challenge\": {\r\n        \"token\": \"asdfasdfjlk;adsjf\",\r\n        \"holder\": \"did:example:123\"\r\n    },\r\n    \"thread\": {\r\n        \"id\": \"asdlfas;dlf\"\r\n    },\r\n    \"presentation_definition\": {\r\n        \"id\": \"test\",\r\n        \"input_descriptors\": [\r\n            {\r\n                \"id\": \"test\",\r\n                \"schema\": [\r\n                    {\r\n                        \"uri\": \"http://test.com\"\r\n                    }\r\n                ]\r\n            }\r\n        ]\r\n    }\r\n}"
+				},
+				"url": {
+					"raw": "{{host}}/pe/v1/definitions",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"pe",
+						"v1",
+						"definitions"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve definition",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/pe/v1/definitions/1",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"pe",
+						"v1",
+						"definitions",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve definition statuses",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/pe/v1/definitions/1/statuses",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"pe",
+						"v1",
+						"definitions",
+						"1",
+						"statuses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create presentation",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"presentation_submission\": {\r\n        \"id\": \"test\",\r\n        \"definition_id\": \"test\",\r\n        \"descriptor_map\": [\r\n            {\r\n                \"id\": \"test\",\r\n                \"format\": \"test\",\r\n                \"path\": \"$.verifiableCredential[0]\"\r\n            }\r\n        ]\r\n    },\r\n    \"callback\": {\r\n        \"url\": \"http:localhost:8080\"\r\n    },\r\n    \"challenge\": {\r\n        \"token\": \"asdfasdfjlk;adsjf\",\r\n        \"holder\": \"did:example:123\"\r\n    }\r\n}"
+				},
+				"url": {
+					"raw": "{{host}}/pe/v1/presentations",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"pe",
+						"v1",
+						"presentations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve presentation",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/pe/v1/presentations/1",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"pe",
+						"v1",
+						"presentations",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update status",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n     \"presentation_id\": \"test\",\r\n        \"status\": \"ACCEPTED\"\r\n}"
+				},
+				"url": {
+					"raw": "{{host}}/pe/v1/presentations/1/statuses",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"pe",
+						"v1",
+						"presentations",
+						"1",
+						"statuses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve presentation statuses",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/pe/v1/presentations/1/statuses",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"pe",
+						"v1",
+						"presentations",
+						"1",
+						"statuses"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "protocol",
+			"value": "https",
+			"type": "any",
+			"description": " (This can only be one of http,https)"
+		},
+		{
+			"key": "environment",
+			"value": "api.dev",
+			"type": "any",
+			"description": " (This can only be one of api,api.dev,api.staging)"
+		},
+		{
+			"key": "projectName",
+			"value": "pe",
+			"type": "any",
+			"description": "Project Name"
+		},
+		{
+			"key": "port",
+			"value": "443",
+			"type": "any",
+			"description": " (This can only be one of 443,8443)"
+		},
+		{
+			"key": "baseUrl",
+			"value": "{{protocol}}://{{environment}}.{{projectName}}.sphereon.io:{{port}}/pe",
+			"type": "string"
+		}
+	]
+}

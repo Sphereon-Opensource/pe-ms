@@ -1,0 +1,10 @@
+.vscode/*
+.idea/*
+*.iml
+.nyc_output
+dist/*
+node_modules
+coverage
+*.log
+.env
+package-lock.json
