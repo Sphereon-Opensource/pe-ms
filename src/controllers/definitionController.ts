@@ -1,14 +1,14 @@
 import { ExchangeStatus, PresentationDefinitionWrapper, PresentationStatus, PresentationStatusWrapper, Status } from '@sphereon/pe-models';
-import { Request, Response, NextFunction, Router } from 'express';
+import { Request, Response, Router } from 'express';
 
 export const DEFINITIONS_CONTROLLER = Router();
 
-const createDefinition = (req: Request, res: Response, next: NextFunction) => {
+const createDefinition = (req: Request, res: Response) => {
     const presentationDefinition: PresentationDefinitionWrapper  = req.body;
     res.status(201).json(presentationDefinition);
 }
 
-const retrieveDefinition = (req: Request, res: Response, next: NextFunction) => {
+const retrieveDefinition = (req: Request, res: Response) => {
     const presentationDefinition: PresentationDefinitionWrapper = {
         "callback": {
             "url": "http:localhost:8080"
@@ -37,7 +37,7 @@ const retrieveDefinition = (req: Request, res: Response, next: NextFunction) => 
     res.status(200).json(presentationDefinition);
 }
 
-const retrieveDefinitionStatuses = (req: Request, res: Response, next: NextFunction) => {
+const retrieveDefinitionStatuses = (req: Request, res: Response) => {
     const status: PresentationStatusWrapper = { definition_id: 'test', statuses: [{ presentation_id: 'test',status: ExchangeStatus.Accepted }]}
     res.status(200).json(status);
 }
