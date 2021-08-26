@@ -6,12 +6,13 @@
   "scripts": {
     "start": "nodemon src/index.ts",
     "build": "tsc --project ./",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prod": "NODE_ENV=production node ./dist/src/index.js >> /var/log/sphereon-api.log 2>> /var/log/sphereon_error.log"
   },
   "author": "Sphereon",
   "license": "ISC",
   "dependencies": {
-    "@sphereon/pe-models": "file:sphereon-pe-models-0.0.4.tgz",
+    "@sphereon/pe-js": "^0.0.1",
+    "@sphereon/pe-models": "^0.0.5",
     "compression": "^1.7.4",
     "express": "^4.17.1"
   },

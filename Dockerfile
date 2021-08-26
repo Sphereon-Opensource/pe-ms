@@ -7,13 +7,13 @@ WORKDIR /usr/src/app
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
 # where available (npm@5+)
 COPY package*.json ./
-COPY sphereon-pe-models-*.tgz ./
-RUN npm install
-# If you are building your code for production
-# RUN npm ci --only=production
+RUN yarn install
 
-# Bundle app source
 EXPOSE 3000
 COPY src ./src
-RUN cd src
-RUN npm start ./index.ts
+COPY tsconfig.json ./
+RUN yarn build
+
+RUN npm run-script prod
+RUN yarn install --production
+CMD ["node", "./dist/src/index.js"]
