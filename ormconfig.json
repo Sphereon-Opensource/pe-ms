@@ -1,0 +1,10 @@
+{
+  "type": "mysql",
+  "host": "localhost",
+  "username": "root",
+  "password": "admin",
+  "database": "PE_MS",
+  "synchronize": true,
+  "logging": ["error", "info", "warn"],
+  "entities": ["src/entity/*.ts"]
+}
