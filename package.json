@@ -17,21 +17,11 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@sphereon/pe-models": "0.0.5",
-    "@veramo/core": "^2.1.0",
-    "@veramo/credential-w3c": "^2.1.0",
-    "@veramo/data-store": "^2.1.0",
-    "@veramo/did-manager": "^2.1.0",
-    "@veramo/did-provider-ethr": "^2.1.0",
-    "@veramo/did-provider-web": "^2.1.0",
-    "@veramo/did-resolver": "^2.1.0",
-    "@veramo/key-manager": "^2.1.0",
-    "@veramo/kms-local": "^2.1.1",
     "compression": "^1.7.4",
-    "ethr-did-resolver": "^4.3.4",
     "express": "^4.17.1",
-    "mysql": "^2.18.1",
+    "mongodb": "3.7.1",
     "reflect-metadata": "^0.1.13",
-    "web-did-resolver": "^2.0.4"
+    "typeorm": "^0.2.40"
   },
   "devDependencies": {
     "@types/compression": "^1.7.1",

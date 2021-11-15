@@ -1,9 +1,9 @@
-import { Thread } from '@sphereon/pe-models';
-import { Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {Entity, ObjectID, ObjectIdColumn} from "typeorm";
 
-@Entity({ name: 'Thread' })
-export class ThreadEntity implements Thread {
-  @PrimaryGeneratedColumn('uuid')
-  //@ts-ignore
-  id: string;
+@Entity('thread')
+export class ThreadEntity {
+
+    @ObjectIdColumn({name: '_id'})
+    // @ts-ignore
+    id: ObjectID;
 }

@@ -1,48 +1,33 @@
-import { PresentationStatus, PresentationWrapper } from '@sphereon/pe-models';
 import { Request, Response, Router } from 'express';
+import {getMongoRepository} from "typeorm";
+
+import {PresentationWrapperEntity} from "../entity/presentationWrapper/presentationWrapperEntity";
 
 export const PRESENTATION_CONTROLLER = Router();
 
-const createPresentation = (req: Request, res: Response) => {
-  const presentation: PresentationWrapper = req.body;
-  res.status(201).json(presentation);
+const createPresentation = async (req: Request, res: Response) => {
+  const presentation: PresentationWrapperEntity = req.body;
+  const repository = getMongoRepository(PresentationWrapperEntity);
+  const result = await repository.save(presentation);
+  res.status(201).json(result); //presentation wrapper
 };
 
-const retrievePresentation = (req: Request, res: Response) => {
-  const presentation: PresentationWrapper = {
-    presentation_submission: {
-      id: 'test',
-      definition_id: 'test',
-      descriptor_map: [
-        {
-          id: 'test',
-          format: 'test',
-          path: '$.verifiableCredential[0]',
-        },
-      ],
-    },
-    callback: {
-      url: 'http:localhost:8080',
-    },
-    challenge: {
-      token: 'asdfasdfjlk;adsjf',
-      holder: 'did:example:123',
-    },
-  };
-  res.status(200).json(presentation);
+const retrievePresentation = async (req: Request, res: Response) => {
+  const repository = getMongoRepository(PresentationWrapperEntity);
+  const result = await repository.findOne(req.params['id']); //presentation wrapper
+  if (result) {
+    res.status(200).json(result);
+  }
+  res.status(404);
 };
 
 const retrievePresentationStatus = (req: Request, res: Response) => {
-  const status = {
-    presentation_id: 'test',
-    status: 'ACCEPTED',
-  };
-  res.status(200).json(status);
+  res.status(200).json({ message: "presentation wrapper does not contain status"}); // presentation status
 };
 
 const updatePresentationStatus = (req: Request, res: Response) => {
-  const status: PresentationStatus = req.body;
-  res.status(201).json(status);
+  //status response
+  res.status(201).json({message: "presentation wrapper does not have status"}); // presentation status
 };
 
 PRESENTATION_CONTROLLER.post('/presentations', createPresentation);

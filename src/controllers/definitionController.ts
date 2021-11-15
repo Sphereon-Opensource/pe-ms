@@ -1,63 +1,37 @@
-import {
-  Callback,
-  ExchangeStatus,
-  PresentationDefinitionWrapper,
-  PresentationStatusWrapper,
-} from '@sphereon/pe-models';
+import {Resource} from "@sphereon/pe-models";
 import { Request, Response, Router } from 'express';
-import { getConnection } from 'typeorm';
-import { getRepository } from 'typeorm';
+import {getMongoRepository } from 'typeorm';
 
-import { CallbackEntity } from '../entity/callbackEntity';
-import { ChallengeEntity } from '../entity/challengeEntity';
-import { PresentationDefinitionEntity } from '../entity/presentationDefinitionEntity';
-import { PresentationDefinitionWrapperEntity } from '../entity/presentationDefinitionWrapperEntity';
-import { ThreadEntity } from '../entity/threadEntity';
+import { PresentationDefinitionEntity } from "../entity/presentationDefinition/presentationDefinitionEntity";
 
 export const DEFINITIONS_CONTROLLER = Router();
 
 const createDefinition = async (req: Request, res: Response) => {
-  const pdwRepository = getRepository(PresentationDefinitionEntity);
-  const pdwe = await pdwRepository.create(req.body.presentation_definition);
-  const result = await pdwRepository.save(pdwe);
+  const presentationDefinition: PresentationDefinitionEntity = req.body.presentation_definition
+  const repository = getMongoRepository(PresentationDefinitionEntity);
+  const result = await repository.save(presentationDefinition); // presentation definition wrapper
   res.status(201).json(result);
 };
 
 const retrieveDefinition = async (req: Request, res: Response) => {
-  const presentationDefinition: PresentationDefinitionWrapper = {
-    callback: {
-      url: 'http:localhost:8080',
-    },
-    challenge: {
-      token: 'asdfasdfjlk;adsjf',
-      holder: 'did:example:123',
-    },
-    thread: {
-      id: 'asdlfas;dlf',
-    },
-    presentation_definition: {
-      id: 'test',
-      input_descriptors: [
-        {
-          id: 'test',
-          schema: [
-            {
-              uri: 'http://test.com',
-            },
-          ],
-        },
-      ],
-    },
-  };
-  res.status(200).json(presentationDefinition);
+  const definitionRepository = getMongoRepository(PresentationDefinitionEntity);
+  const result = await definitionRepository.findOne(req.params['id']); //presentation definition wrapper
+  if (result) {
+    res.status(200).json(result);
+  }
+  res.status(404);
 };
 
 const retrieveDefinitionStatuses = async (req: Request, res: Response) => {
-  const status: PresentationStatusWrapper = {
-    definition_id: 'test',
-    statuses: [{ presentation_id: 'test', status: ExchangeStatus.Accepted }],
-  };
-  res.status(200).json(status);
+  const definitionRepository = getMongoRepository(PresentationDefinitionEntity);
+  const result = await definitionRepository.findOne(req.params['id']);
+  if (result) {
+    res.status(200).json({
+      definition_id: req.params['id'],
+      statuses: result?.input_descriptors.map(id => id.constraints?.statuses)
+    });
+  }
+  res.status(404); //presentation status wrapper
 };
 
 DEFINITIONS_CONTROLLER.post('/definitions', createDefinition);

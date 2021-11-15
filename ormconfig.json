@@ -1,10 +1,10 @@
 {
-  "type": "mysql",
-  "host": "localhost",
+  "type": "mongodb",
   "username": "root",
-  "password": "admin",
+  "password": "example",
+  "authSource": "admin",
   "database": "PE_MS",
-  "synchronize": true,
+  "useUnifiedTopology": true,
   "logging": ["error", "info", "warn"],
-  "entities": ["src/entity/*.ts"]
+  "entities": ["src/entity/**/*.ts"]
 }
