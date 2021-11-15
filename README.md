@@ -1,49 +1,52 @@
 <h1 align="center">
   <br>
   <a href="https://www.sphereon.com"><img src="https://sphereon.com/content/themes/sphereon/assets/img/logo.svg" alt="Sphereon" width="400"></a>
-  <br>PE-JS   DIF Presentation Exchange JavaScript Library 
+  <br>PE-MS   DIF Presentation Exchange Micro Service 
   <br>
 </h1>
-
-[![CI](https://github.com/Sphereon-Opensource/pe-js/actions/workflows/main.yml/badge.svg)](https://github.com/Sphereon-Opensource/pe-js/actions/workflows/main.yml)
 
 ## Active Development
 _IMPORTANT: This software still is in early development stage. As such you should expect breaking changes in APIs, we expect to keep that to a minimum though._
 
 ## Background
 
-The pe-state-machine project aims to implement the PE-OPENAPI and use PE-JS library and Veramo API as a dependency. 
+This is a NodeJS project which has PE-JS library, and PE-OPEN-API project as dependencies. This project is a stateful REST API project.
 
-## How to run it
 
-From the root folder:
+This project uses Veramo for ORM + MongoDB
 
+For further information on the API, see the following:
+
+essifi-deliverables/interface_specification_of_pe_rest_api_component.md at master · Sphereon-Opensource/essifi-deliverables
+
+pe-openapi/pe-openapi-0.0.1.yaml at master · Sphereon-Opensource/pe-openapi
+
+## For PE-MS developers
+
+This project has been created using:
+* `yarn` version 1.22.11
+* `node` version 14.17.5
+* `docker-compose` version 1.26.2
+
+### Running
+1. Without docker:
+For running without docker, you can use the following steps:
+#### Install
 ```shell
-# running it via yarn
 yarn install
-
-yarn build
-
-node dist/src/index.js
-
-# running it via npm
-npm install
-
-npm run build
-
-node dist/src/index.js
 ```
-
-## Environment variables
-
-There are two environment variables that may be set
-
+#### Build
 ```shell
-# PORT - defaults to 3000
-export PORT=5000
-
-# ENV - defaults to development
-export ENV=prod
+yarn build
 ```
+#### Test
+The test command runs:
+* `eslint`
+* `prettier`
+* `unit`
+```shell
+nodemon src/index.ts
+```
+2. With docker
 
-## Docker
+You can simply start the service with running `docker-compose up` at the root of project

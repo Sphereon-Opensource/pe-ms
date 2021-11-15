@@ -6,6 +6,7 @@
   "scripts": {
     "start": "nodemon src/index.ts",
     "build": "tsc --project ./",
+    "prod": "NODE_ENV=production node ./dist/src/index.js >> /var/log/sphereon-api.log 2>> /var/log/sphereon_error.log"
     "test": "echo \"Error: no test specified\" && exit 1",
     "id:list": "ts-node ./src/list-identifiers",
     "id:create": "ts-node ./src/create-identifier",
