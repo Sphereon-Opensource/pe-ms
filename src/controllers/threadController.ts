@@ -1,11 +1,11 @@
-import { Thread } from '@sphereon/pe-models';
-import { Request, Response, Router, NextFunction } from 'express';
+import { Request, Response, Router } from 'express';
+import { getRepository } from 'typeorm';
 
+import { ThreadEntity } from '../entity/threadEntity'
 export const THREAD_CONTROLLER = Router();
 
-const createThread = (req: Request, res: Response, next: NextFunction) => {
-    const thread: Thread = req.body;
-    res.status(201).json(thread);
-}
+const createThread = async (req: Request, res: Response) => {
+  res.status(201).json(await getRepository(ThreadEntity).save(new ThreadEntity()));
+};
 
 THREAD_CONTROLLER.post('/threads', createThread);
