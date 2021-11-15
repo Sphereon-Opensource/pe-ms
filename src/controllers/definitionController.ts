@@ -1,4 +1,3 @@
-import {Resource} from "@sphereon/pe-models";
 import { Request, Response, Router } from 'express';
 import {getMongoRepository } from 'typeorm';
 
@@ -6,32 +5,25 @@ import { PresentationDefinitionEntity } from "../entity/presentationDefinition/p
 
 export const DEFINITIONS_CONTROLLER = Router();
 
-const createDefinition = async (req: Request, res: Response) => {
+const createDefinition = (req: Request, res: Response) => {
   const presentationDefinition: PresentationDefinitionEntity = req.body.presentation_definition
   const repository = getMongoRepository(PresentationDefinitionEntity);
-  const result = await repository.save(presentationDefinition); // presentation definition wrapper
-  res.status(201).json(result);
+  repository.save(presentationDefinition).then(data => res.status(201).json(data)); // presentation definition wrapper
 };
 
-const retrieveDefinition = async (req: Request, res: Response) => {
+const retrieveDefinition = (req: Request, res: Response) => {
   const definitionRepository = getMongoRepository(PresentationDefinitionEntity);
-  const result = await definitionRepository.findOne(req.params['id']); //presentation definition wrapper
-  if (result) {
-    res.status(200).json(result);
-  }
-  res.status(404);
+  definitionRepository.findOne(req.params['id']).then(data =>
+        res.status(200).json(data)).catch(error => res.status(404).json(error)); //presentation definition wrapper
 };
 
-const retrieveDefinitionStatuses = async (req: Request, res: Response) => {
+const retrieveDefinitionStatuses = (req: Request, res: Response) => {
   const definitionRepository = getMongoRepository(PresentationDefinitionEntity);
-  const result = await definitionRepository.findOne(req.params['id']);
-  if (result) {
+  definitionRepository.findOne(req.params['id']).then(data =>
     res.status(200).json({
-      definition_id: req.params['id'],
-      statuses: result?.input_descriptors.map(id => id.constraints?.statuses)
-    });
-  }
-  res.status(404); //presentation status wrapper
+      definition_id: data?._id,
+      statuses: data?.input_descriptors.map(inDesc => inDesc.constraints?.statuses)
+    })).catch(error => res.status(404)); //presentation status wrapper
 };
 
 DEFINITIONS_CONTROLLER.post('/definitions', createDefinition);

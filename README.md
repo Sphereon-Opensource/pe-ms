@@ -39,14 +39,16 @@ yarn install
 ```shell
 yarn build
 ```
-#### Test
-The test command runs:
-* `eslint`
-* `prettier`
-* `unit`
+#### Run
 ```shell
-nodemon src/index.ts
+yarn start
 ```
-2. With docker
 
-You can simply start the service with running `docker-compose up` at the root of project
+#### Test
+Test are ran manually using Postman:
+
+1. Import the collection from <root_folder>/test/postman_collections
+
+### Run with Docker-Compose
+
+You can simply start the service with running `yarn docker:start` at the root of project

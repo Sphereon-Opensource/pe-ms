@@ -2,14 +2,11 @@
   "name": "@sphereon/pe-ms",
   "version": "0.0.1",
   "description": "State Machine REST API",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "start": "nodemon src/index.ts",
+    "docker:start": "docker-compose up --build",
     "build": "tsc --project ./",
-    "prod": "NODE_ENV=production node ./dist/src/index.js >> /var/log/sphereon-api.log 2>> /var/log/sphereon_error.log"
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "id:list": "ts-node ./src/list-identifiers",
-    "id:create": "ts-node ./src/create-identifier",
     "fix": "run-s fix:*",
     "fix:prettier": "prettier \"{src, test}/**/*.ts\" --write",
     "fix:lint": "eslint . --ext .ts --fix"
