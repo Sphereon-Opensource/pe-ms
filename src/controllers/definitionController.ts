@@ -9,7 +9,6 @@ export const DEFINITIONS_CONTROLLER = Router();
 const createDefinition = (req: Request, res: Response) => {
   const pejs: PEJS = new PEJS();
   const presentationDefinitionWrapper: PresentationDefinitionWrapperEntity = req.body;
-  console.log('presentationDefinitionWrapper:', presentationDefinitionWrapper);
   if (req.body?.presentation_definition) {
     const validationResult: Validated = pejs.validateDefinition(req.body?.presentation_definition);
     if (Array.isArray(validationResult) && validationResult[0].message != 'ok') {
@@ -24,8 +23,7 @@ const createDefinition = (req: Request, res: Response) => {
 
 const retrieveDefinition = (req: Request, res: Response) => {
   const definitionWrapperRepository = getMongoRepository(PresentationDefinitionWrapperEntity);
-  console.log('req.query: ', req.query);
-  if (req.query['id']) {
+  if (req.query) {
     definitionWrapperRepository
       .find(req.query)
       .then((data) => {
@@ -34,7 +32,22 @@ const retrieveDefinition = (req: Request, res: Response) => {
       })
       .catch((error) => res.status(404).json(error));
   } else {
-    throw 'no param received!';
+    res.status(400).json({message: "request doesn't have query params."});
+  }
+};
+
+const retrieveDefinitionById = (req: Request, res: Response) => {
+  const definitionWrapperRepository = getMongoRepository(PresentationDefinitionWrapperEntity);
+  if (req.params['id']) {
+    definitionWrapperRepository
+      .find({ id: req.params['id'] })
+      .then((data) => {
+        console.log(data);
+        res.status(200).json(data);
+      })
+      .catch((error) => res.status(404).json(error));
+  } else {
+    res.status(400).json({message: "request doesn't have id param."});
   }
 };
 
@@ -47,5 +60,6 @@ const retrieveDefinitionStatuses = (req: Request, res: Response) => {
 };
 
 DEFINITIONS_CONTROLLER.post('/definitions', createDefinition);
+DEFINITIONS_CONTROLLER.get('/definitions/id/:id', retrieveDefinitionById);
 DEFINITIONS_CONTROLLER.get('/definitions', retrieveDefinition);
 DEFINITIONS_CONTROLLER.get('/definitions/:id/statuses', retrieveDefinitionStatuses);
