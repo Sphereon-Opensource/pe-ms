@@ -68,7 +68,7 @@
 			"response": []
 		},
 		{
-			"name": "Retrieve definition",
+			"name": "Retrieve definition by query",
 			"request": {
 				"method": "GET",
 				"header": [
@@ -79,7 +79,7 @@
 					}
 				],
 				"url": {
-					"raw": "{{host}}/pe/v1/definitions/1",
+					"raw": "{{host}}/pe/v1/definitions/?id=93670465-7611-4348-b252-89abd338d657",
 					"host": [
 						"{{host}}"
 					],
@@ -87,7 +87,40 @@
 						"pe",
 						"v1",
 						"definitions",
-						"1"
+						""
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "93670465-7611-4348-b252-89abd338d657"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve definition by id",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/pe/v1/definitions/id/93670465-7611-4348-b252-89abd338d657",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"pe",
+						"v1",
+						"definitions",
+						"id",
+						"93670465-7611-4348-b252-89abd338d657"
 					]
 				}
 			},
