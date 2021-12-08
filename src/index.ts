@@ -3,7 +3,7 @@ import express, { NextFunction, Request, Response } from 'express';
 import { createConnection } from 'typeorm';
 
 import { DEFINITIONS_CONTROLLER } from './controllers/definitionController';
-import { HANDLE_400, HANDLE_404, HANDLE_500 } from './controllers/errorHandler';
+import { HANDLE_404, HANDLE_500 } from './controllers/errorHandler';
 import { PRESENTATION_CONTROLLER } from './controllers/presentationController';
 import { THREAD_CONTROLLER } from './controllers/threadController';
 

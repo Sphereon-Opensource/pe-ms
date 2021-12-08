@@ -14,6 +14,7 @@
   "author": "Sphereon",
   "license": "Apache-2.0",
   "dependencies": {
+    "@sphereon/pe-js": "^0.5.1",
     "@sphereon/pe-models": "0.0.5",
     "compression": "^1.7.4",
     "express": "^4.17.1",

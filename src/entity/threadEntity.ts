@@ -1,9 +1,8 @@
-import {Entity, ObjectID, ObjectIdColumn} from "typeorm";
+import { Entity, ObjectID, ObjectIdColumn } from 'typeorm';
 
 @Entity('thread')
 export class ThreadEntity {
-
-    @ObjectIdColumn({name: '_id'})
-    // @ts-ignore
-    id: ObjectID;
+  @ObjectIdColumn({ name: '_id' })
+  // @ts-ignore
+  id: ObjectID;
 }
