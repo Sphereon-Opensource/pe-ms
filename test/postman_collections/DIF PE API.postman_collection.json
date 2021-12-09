@@ -44,7 +44,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"callback\": {\r\n        \"url\": \"http:localhost:8080\"\r\n    },\r\n    \"challenge\": {\r\n        \"token\": \"asdfasdfjlk;adsjf\",\r\n        \"holder\": \"did:example:123\"\r\n    },\r\n    \"thread\": {\r\n        \"id\": \"93670465-7611-4348-b252-89abd338d650\"\r\n    },\r\n    \"presentation_definition\": {\r\n        \"id\": \"test\",\r\n        \"input_descriptors\": [\r\n            {\r\n                \"id\": \"test\",\r\n                \"schema\": [\r\n                    {\r\n                        \"uri\": \"http://test.com\"\r\n                    }\r\n                ]\r\n            }\r\n        ]\r\n    }\r\n}"
+					"raw": "{\"callback\":{\"url\":\"http:localhost:8080\"},\"challenge\":{\"token\":\"asdfasdfjlk;adsjf\",\"holder\":\"did:example:123\"},\"thread\":{\"id\":\"93670465-7611-4348-b252-89abd338d650\"},\"id\":\"93670465-7611-4348-b252-89abd338d657\",\"comment\":\"test presentation_definition\",\"name\":\"test1 of presentation_definition\",\"presentation_definition\": {\"id\": \"test\",\"input_descriptors\": [{\"id\": \"test\",\"schema\": [{\"uri\":\"http://test.com\"}]}]}}"
 				},
 				"url": {
 					"raw": "{{host}}/pe/v1/definitions",

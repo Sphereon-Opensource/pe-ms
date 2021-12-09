@@ -1,12 +1,11 @@
-import {Callback} from "@sphereon/pe-models";
-import {Column} from "typeorm";
+import { Callback } from '@sphereon/pe-models';
+import { Column } from 'typeorm';
 
 export class CallbackEntity implements Callback {
+  @Column()
+  url: string;
 
-    @Column()
-    url: string;
-
-    constructor(url: string) {
-        this.url = url;
-    }
+  constructor(url: string) {
+    this.url = url;
+  }
 }
