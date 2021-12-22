@@ -1,5 +1,8 @@
-import { PresentationDefinition } from '@sphereon/pe-models';
+import { PresentationDefinition} from '@sphereon/pe-models';
 import { Column, Entity, ObjectID, ObjectIdColumn } from 'typeorm';
+
+import { CallbackEntity } from "../callbackEntity";
+import { ChallengeEntity } from "../challengeEntity";
 
 /**
  * A wrapper object for our presentation_definition. For
@@ -26,4 +29,12 @@ export class PresentationDefinitionWrapperEntity {
 
   @Column()
   purpose?: string;
+
+  @Column()
+  // @ts-ignore
+  challenge: ChallengeEntity;
+
+  @Column()
+  // @ts-ignore
+  callback: CallbackEntity;
 }
