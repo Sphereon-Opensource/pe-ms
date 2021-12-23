@@ -1,36 +1,33 @@
-import { randomBytes } from "crypto";
-
-import { PEJS } from '@sphereon/pe-js/dist/main/lib';
-import { Validated } from '@sphereon/pe-js/dist/module';
-import { Request, Response, Router } from 'express';
+import { NextFunction, Request, Response, Router } from 'express';
 import { getMongoRepository } from 'typeorm';
 
 import { PresentationDefinitionWrapperEntity } from '../entity/presentationDefinition/presentationDefinitionWrapperEntity';
+import { PresentationDefinitionService } from "../service/presentationDefinitionService";
+import { setCallbackUrl, validateProperties } from "../utils/apiUtils";
 
+import { ApiError } from "./error_handler/errorHandler";
 
+const requestBodyProperties = ['thread', 'presentation_definition']
 export const DEFINITIONS_CONTROLLER = Router();
-const createDefinition = (req: Request, res: Response) => {
-  const pejs: PEJS = new PEJS();
-  const presentationDefinitionWrapper: PresentationDefinitionWrapperEntity = req.body;
-  if (req.body?.presentation_definition) {
-    const validationResult: Validated = pejs.validateDefinition(req.body?.presentation_definition);
-    if (Array.isArray(validationResult) && validationResult[0].message != 'ok') {
-      res.status(400).json(validationResult);
+
+const createDefinition = (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const service = new PresentationDefinitionService()
+    const presentationDefinitionWrapper: PresentationDefinitionWrapperEntity = req.body;
+    validateProperties(requestBodyProperties, req)
+    if (presentationDefinitionWrapper.presentation_definition) {
+      presentationDefinitionWrapper.challenge = service.createChallengeToken(presentationDefinitionWrapper.challenge)
+      service.evaluateDefinition(presentationDefinitionWrapper)
+      getMongoRepository(PresentationDefinitionWrapperEntity).save(presentationDefinitionWrapper).then((data) => {
+        presentationDefinitionWrapper.callback = setCallbackUrl(req, data),
+            res.status(201).json(data)
+      });
+    } else {
+      throw new ApiError('presentation_definition_wrapper does not have a presentation_definition');
     }
-  } else {
-    res.status(400).json({ error: 'presentation_definition_wrapper does not have a presentation_definition' });
+  } catch(error) {
+    next(error)
   }
-  presentationDefinitionWrapper.challenge = {
-    ...presentationDefinitionWrapper.challenge,
-    token: randomBytes(64).toString('hex')
-  }
-  getMongoRepository(PresentationDefinitionWrapperEntity).save(presentationDefinitionWrapper).then((data) => {
-    const path = `${new URL(`${req.protocol}://${req.headers.host}${req.originalUrl}`).pathname}/${data._id.toHexString()}`
-    presentationDefinitionWrapper.callback = {
-      url: `${req.protocol}://${req.headers.host}${path}`
-    }
-    res.status(201).json(data)
-  });
 };
 
 const retrieveDefinition = (req: Request, res: Response) => {
