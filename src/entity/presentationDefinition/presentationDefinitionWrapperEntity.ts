@@ -14,8 +14,21 @@ export class PresentationDefinitionWrapperEntity {
   _id: ObjectID;
 
   @Column()
+  presentation_definition?: PresentationDefinition;
+
+  @Column()
   // @ts-ignore
-  presentation_definition: PresentationDefinition;
+  id: string;
+
+  @Column()
+  // @ts-ignore
+  comment: string;
+
+  @Column()
+  name?: string;
+
+  @Column()
+  purpose?: string;
 
   @Column()
   // @ts-ignore
