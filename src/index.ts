@@ -3,11 +3,12 @@ import express, { NextFunction, Request, Response } from 'express';
 import { createConnection } from 'typeorm';
 
 import { DEFINITIONS_CONTROLLER } from './controllers/definitionController';
-import { HANDLE_404, HANDLE_500 } from './controllers/errorHandler';
+import { HANDLE_400, HANDLE_404, HANDLE_500 } from './controllers/error_handler/errorHandler';
 import { PRESENTATION_CONTROLLER } from './controllers/presentationController';
 import { THREAD_CONTROLLER } from './controllers/threadController';
 
 createConnection().then((connection) => {
+  const baseUrl = '/pe/v1';
   const APP: express.Application = express();
 
   APP.use(compression());
@@ -22,10 +23,10 @@ createConnection().then((connection) => {
     next();
   });
 
-  //APP.use(HANDLE_400);
-  APP.use('/pe/v1', THREAD_CONTROLLER);
-  APP.use('/pe/v1', PRESENTATION_CONTROLLER);
-  APP.use('/pe/v1', DEFINITIONS_CONTROLLER);
+  APP.use(baseUrl, THREAD_CONTROLLER);
+  APP.use(baseUrl, PRESENTATION_CONTROLLER);
+  APP.use(baseUrl, DEFINITIONS_CONTROLLER);
+  APP.use(HANDLE_400);
   APP.use(HANDLE_404);
   APP.use(HANDLE_500);
 
