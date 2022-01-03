@@ -20,7 +20,7 @@ const createPresentation = async (req: Request, res: Response, next: NextFunctio
     validateProperties(requestBodyProperties, req)
     service.validateProof(pWrapper)
     const pdWrapper = await getMongoRepository(PresentationDefinitionWrapperEntity).findOne(req.body.pdId);
-    if (pWrapper?.presentation && pdWrapper?.presentation_definition) {
+    if (pdWrapper) {
       service.validateChallengeToken(pdWrapper, pWrapper)
       service.evaluatePresentation(pdWrapper, pWrapper)
       getMongoRepository(PresentationWrapperEntity).save(pWrapper).then((data) => {
@@ -28,7 +28,7 @@ const createPresentation = async (req: Request, res: Response, next: NextFunctio
         res.status(201).json(data)
       });
     } else {
-      throw new ApiError('presentation_wrapper does not contain a presentation');
+      throw new ApiError('presentation_definition_wrapper not found');
     }
   } catch (error) {
     next(error)
