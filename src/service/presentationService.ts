@@ -2,10 +2,10 @@ import {Proof, ProofType} from "@sphereon/pe-js";
 import {PEJS} from "@sphereon/pe-js/dist/main/lib";
 
 import {ApiError} from "../controllers/error_handler/errorHandler";
+import {PresentationWrapperEntity} from "../entity/presentation/presentationWrapperEntity";
 import {
     PresentationDefinitionWrapperEntity
 } from "../entity/presentationDefinition/presentationDefinitionWrapperEntity";
-import {PresentationWrapperEntity} from "../entity/presentationWrapper/presentationWrapperEntity";
 
 export class PresentationService {
 
