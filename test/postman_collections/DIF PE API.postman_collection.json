@@ -44,7 +44,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"callback\":{\"url\":\"http:localhost:8080\"},\"challenge\":{\"token\":\"asdfasdfjlk;adsjf\",\"holder\":\"did:example:123\"},\"thread\":{\"id\":\"93670465-7611-4348-b252-89abd338d650\"},\"id\":\"93670465-7611-4348-b252-89abd338d657\",\"comment\":\"test presentation_definition\",\"name\":\"test1 of presentation_definition\",\"presentation_definition\": {\"id\": \"test\",\"input_descriptors\": [{\"id\": \"test\",\"schema\": [{\"uri\":\"http://test.com\"}]}]}}"
+					"raw": "{\r\n    \"thread\": {\r\n        \"id\": \"93670465-7611-4348-b252-89abd338d650\"\r\n    },\r\n    \"presentation_definition\": {\r\n        \"id\": \"test\",\r\n        \"input_descriptors\": [\r\n            {\r\n                \"id\": \"test\",\r\n                \"schema\": [\r\n                    {\r\n                        \"uri\": \"http://test.com\"\r\n                    }\r\n                ],\r\n                \"constraints\": {\r\n                    \"limit_disclosure\": \"required\",\r\n                    \"fields\": [\r\n                        {\r\n                            \"path\": [\r\n                                \"$.issuer\",\r\n                                \"$.vc.issuer\",\r\n                                \"$.iss\"\r\n                            ],\r\n                            \"purpose\": \"We can only verify bank accounts if they are attested by a trusted bank, auditor, or regulatory authority.\",\r\n                            \"filter\": {\r\n                                \"type\": \"string\",\r\n                                \"pattern\": \"did:example:123|did:example:456\"\r\n                            }\r\n                        }\r\n                    ],\r\n                    \"statuses\": {\r\n                        \"active\": {\r\n                            \"directive\": \"required\"\r\n                        }\r\n                    }\r\n                }\r\n            },\r\n            {\r\n                \"id\": \"test1\",\r\n                \"schema\": [\r\n                    {\r\n                        \"uri\": \"http://test.com\"\r\n                    }\r\n                ],\r\n                \"constraints\": {\r\n                    \"statuses\": {\r\n                        \"active\": {\r\n                            \"directive\": \"allowed\"\r\n                        }\r\n                    }\r\n                }\r\n            },\r\n            {\r\n                \"id\": \"test2\",\r\n                \"schema\": [\r\n                    {\r\n                        \"uri\": \"http://test.com\"\r\n                    }\r\n                ],\r\n                \"constraints\": {\r\n                    \"statuses\": {\r\n                        \"active\": {\r\n                            \"directive\": \"disallowed\"\r\n                        }\r\n                    }\r\n                }\r\n            }\r\n        ]\r\n    }\r\n}"
 				},
 				"url": {
 					"raw": "{{host}}/pe/v1/definitions",
@@ -68,7 +68,7 @@
 			"response": []
 		},
 		{
-			"name": "Retrieve definition by query",
+			"name": "Retrieve definition",
 			"request": {
 				"method": "GET",
 				"header": [
@@ -79,7 +79,7 @@
 					}
 				],
 				"url": {
-					"raw": "{{host}}/pe/v1/definitions/?id=93670465-7611-4348-b252-89abd338d657",
+					"raw": "{{host}}/pe/v1/definitions/61c1ea30221f51c2b6078c92",
 					"host": [
 						"{{host}}"
 					],
@@ -87,40 +87,7 @@
 						"pe",
 						"v1",
 						"definitions",
-						""
-					],
-					"query": [
-						{
-							"key": "id",
-							"value": "93670465-7611-4348-b252-89abd338d657"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Retrieve definition by id",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "{{host}}/pe/v1/definitions/id/93670465-7611-4348-b252-89abd338d657",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
-						"pe",
-						"v1",
-						"definitions",
-						"id",
-						"93670465-7611-4348-b252-89abd338d657"
+						"61c1ea30221f51c2b6078c92"
 					]
 				}
 			},
@@ -138,7 +105,7 @@
 					}
 				],
 				"url": {
-					"raw": "{{host}}/pe/v1/definitions/1/statuses",
+					"raw": "{{host}}/pe/v1/definitions/61923fa1e91d4b002b35570c/statuses",
 					"host": [
 						"{{host}}"
 					],
@@ -146,7 +113,7 @@
 						"pe",
 						"v1",
 						"definitions",
-						"1",
+						"61923fa1e91d4b002b35570c",
 						"statuses"
 					]
 				}
@@ -166,7 +133,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"presentation_submission\": {\r\n        \"id\": \"test\",\r\n        \"definition_id\": \"test\",\r\n        \"descriptor_map\": [\r\n            {\r\n                \"id\": \"test\",\r\n                \"format\": \"test\",\r\n                \"path\": \"$.verifiableCredential[0]\"\r\n            }\r\n        ]\r\n    },\r\n    \"callback\": {\r\n        \"url\": \"http:localhost:8080\"\r\n    },\r\n    \"challenge\": {\r\n        \"token\": \"asdfasdfjlk;adsjf\",\r\n        \"holder\": \"did:example:123\"\r\n    }\r\n}"
+					"raw": "{\r\n    \"presentation\": {\r\n        \"@context\": [\r\n            \"https://www.w3.org/2018/credentials/v1\",\r\n            \"https://identity.foundation/presentation-exchange/submission/v1\"\r\n        ],\r\n        \"type\": [\r\n            \"VerifiablePresentation\",\r\n            \"PresentationSubmission\"\r\n        ],\r\n        \"presentation_submission\": {\r\n            \"id\": \"a30e3b91-fb77-4d22-95fa-871689c322e2\",\r\n            \"definition_id\": \"32f54163-7166-48f1-93d8-ff217bdb0653\",\r\n            \"descriptor_map\": [\r\n                {\r\n                    \"id\": \"banking_input_2\",\r\n                    \"format\": \"jwt_vc\",\r\n                    \"path\": \"$.verifiableCredential[0]\"\r\n                },\r\n                {\r\n                    \"id\": \"employment_input\",\r\n                    \"format\": \"ldp_vc\",\r\n                    \"path\": \"$.verifiableCredential[1]\"\r\n                },\r\n                {\r\n                    \"id\": \"citizenship_input_1\",\r\n                    \"format\": \"ldp_vc\",\r\n                    \"path\": \"$.verifiableCredential[2]\"\r\n                }\r\n            ]\r\n        },\r\n        \"verifiableCredential\": [\r\n            {\r\n                \"comment\": \"IN REALWORLD VPs, THIS WILL BE A BIG UGLY OBJECT INSTEAD OF THE DECODED JWT PAYLOAD THAT FOLLOWS\",\r\n                \"vc\": {\r\n                    \"@context\": \"https://www.w3.org/2018/credentials/v1\",\r\n                    \"id\": \"https://eu.com/claims/DriversLicense\",\r\n                    \"type\": [\r\n                        \"EUDriversLicense\"\r\n                    ],\r\n                    \"issuer\": \"did:example:123\",\r\n                    \"issuanceDate\": \"2010-01-01T19:73:24Z\",\r\n                    \"credentialSubject\": {\r\n                        \"id\": \"did:example:ebfeb1f712ebc6f1c276e12ec21\",\r\n                        \"accounts\": [\r\n                            {\r\n                                \"id\": \"1234567890\",\r\n                                \"route\": \"DE-9876543210\"\r\n                            },\r\n                            {\r\n                                \"id\": \"2457913570\",\r\n                                \"route\": \"DE-0753197542\"\r\n                            }\r\n                        ]\r\n                    }\r\n                }\r\n            },\r\n            {\r\n                \"@context\": \"https://www.w3.org/2018/credentials/v1\",\r\n                \"id\": \"https://business-standards.org/schemas/employment-history.json\",\r\n                \"type\": [\r\n                    \"VerifiableCredential\",\r\n                    \"GenericEmploymentCredential\"\r\n                ],\r\n                \"issuer\": \"did:foo:123\",\r\n                \"issuanceDate\": \"2010-01-01T19:73:24Z\",\r\n                \"credentialSubject\": {\r\n                    \"id\": \"did:example:ebfeb1f712ebc6f1c276e12ec21\",\r\n                    \"active\": true\r\n                },\r\n                \"proof\": {\r\n                    \"type\": \"EcdsaSecp256k1VerificationKey2019\",\r\n                    \"created\": \"2017-06-18T21:19:10Z\",\r\n                    \"proofPurpose\": \"assertionMethod\",\r\n                    \"verificationMethod\": \"https://example.edu/issuers/keys/1\",\r\n                    \"jws\": \"...\"\r\n                }\r\n            },\r\n            {\r\n                \"@context\": \"https://www.w3.org/2018/credentials/v1\",\r\n                \"id\": \"https://eu.com/claims/DriversLicense\",\r\n                \"type\": [\r\n                    \"EUDriversLicense\"\r\n                ],\r\n                \"issuer\": \"did:foo:123\",\r\n                \"issuanceDate\": \"2010-01-01T19:73:24Z\",\r\n                \"credentialSubject\": {\r\n                    \"id\": \"did:example:ebfeb1f712ebc6f1c276e12ec21\",\r\n                    \"license\": {\r\n                        \"number\": \"34DGE352\",\r\n                        \"dob\": \"07/13/80\"\r\n                    }\r\n                },\r\n                \"proof\": {\r\n                    \"type\": \"RsaSignature2018\",\r\n                    \"created\": \"2017-06-18T21:19:10Z\",\r\n                    \"proofPurpose\": \"assertionMethod\",\r\n                    \"verificationMethod\": \"https://example.edu/issuers/keys/1\",\r\n                    \"jws\": \"...\"\r\n                }\r\n            }\r\n        ],\r\n        \"proof\": {\r\n            \"type\": \"RsaSignature2018\",\r\n            \"created\": \"2018-09-14T21:19:10Z\",\r\n            \"proofPurpose\": \"authentication\",\r\n            \"verificationMethod\": \"did:example:ebfeb1f712ebc6f1c276e12ec21#keys-1\",\r\n            \"challenge\": \"1f44d55f-f161-4938-a659-f8026467f126\",\r\n            \"domain\": \"4jt78h47fh47\",\r\n            \"jws\": \"...\"\r\n        }\r\n    },\r\n    \"challenge\": {\r\n        \"token\": \"40b6a5b86d8e6afca505ecf3ac8812c915c7ea4d17f20aebb596082f7f3103b2730b5899a38ca1e41052184cf800ba671f3d8055fa2d1f94442239f1ff74948b\"\r\n    },\r\n    \"pdId\": \"61c4801c9748884d315f6491\"\r\n}"
 				},
 				"url": {
 					"raw": "{{host}}/pe/v1/presentations",
@@ -194,7 +161,7 @@
 					}
 				],
 				"url": {
-					"raw": "{{host}}/pe/v1/presentations/1",
+					"raw": "{{host}}/pe/v1/presentations/6192463e9d733e002cf4c652",
 					"host": [
 						"{{host}}"
 					],
@@ -202,7 +169,7 @@
 						"pe",
 						"v1",
 						"presentations",
-						"1"
+						"6192463e9d733e002cf4c652"
 					]
 				}
 			},
@@ -251,7 +218,7 @@
 					}
 				],
 				"url": {
-					"raw": "{{host}}/pe/v1/presentations/1/statuses",
+					"raw": "{{host}}/pe/v1/presentations/618e70cfcda5151edec18fba/statuses",
 					"host": [
 						"{{host}}"
 					],
@@ -259,7 +226,7 @@
 						"pe",
 						"v1",
 						"presentations",
-						"1",
+						"618e70cfcda5151edec18fba",
 						"statuses"
 					]
 				}
