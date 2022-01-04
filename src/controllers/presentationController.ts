@@ -38,12 +38,16 @@ const createPresentation = async (req: Request, res: Response, next: NextFunctio
   }
 }
 
-const retrievePresentation = async (req: Request, res: Response) => {
-  const repository = getMongoRepository(PresentationWrapperEntity);
-  repository
+const retrievePresentation = (req: Request, res: Response, next: NextFunction) => {
+  return getMongoRepository(PresentationWrapperEntity)
     .findOne(req.params['id'])
-    .then((data) => res.status(200).json(data))
-    .catch((error) => res.status(404)); //presentation wrapper
+    .then((data) => {
+      if (data) {
+        res.status(200).json(data)
+      } else {
+        next()
+      }
+    });
 };
 
 const retrievePresentationStatus = (req: Request, res: Response) => {
