@@ -65,6 +65,9 @@ const retrievePresentationStatus = (req: Request, res: Response, next: NextFunct
 const updatePresentationStatus = async (req: Request, res: Response, next: NextFunction) => {
   try {
     validateProperties(requestedStatusProperties, req);
+    if (req.params['id'] !== req.body.presentation_id) {
+      throw new ApiError('presentation_id must be the same in request path parameter and body');
+    }
     return getMongoRepository(StatusWrapperEntity).updateOne({ presentation_id: req.params['id'] }, { $set: req.body }, { upsert: true })
         .then(data => {
             res.redirect(`${req.protocol}://${req.headers.host}${req.baseUrl}${req.path}`)
