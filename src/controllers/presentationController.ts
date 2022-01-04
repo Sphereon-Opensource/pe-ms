@@ -50,8 +50,16 @@ const retrievePresentation = (req: Request, res: Response, next: NextFunction) =
     });
 };
 
-const retrievePresentationStatus = (req: Request, res: Response) => {
-  res.status(200).json({ message: 'method not implemented yet' }); // presentation status
+const retrievePresentationStatus = (req: Request, res: Response, next: NextFunction) => {
+  return getMongoRepository(StatusWrapperEntity)
+      .findOne({ where: { presentation_id: req.params['id'] } })
+      .then(data => {
+        if (data) {
+          res.status(200).json(data);
+        } else {
+          next();
+        }
+      })
 };
 
 const updatePresentationStatus = async (req: Request, res: Response, next: NextFunction) => {
