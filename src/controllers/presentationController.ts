@@ -1,14 +1,16 @@
 import { NextFunction, Request, Response, Router } from 'express';
 import { getMongoRepository } from 'typeorm';
 
+import { PresentationWrapperEntity } from '../entity/presentation/presentationWrapperEntity';
 import {
   PresentationDefinitionWrapperEntity
 } from "../entity/presentationDefinition/presentationDefinitionWrapperEntity";
-import { PresentationWrapperEntity } from '../entity/presentationWrapper/presentationWrapperEntity';
+import { StatusWrapperEntity } from "../entity/status/statusWrapperEntity";
 import { PresentationService } from "../service/presentationService";
 import { setCallbackUrl, validateProperties } from "../utils/apiUtils";
 
 import { ApiError } from "./error_handler/errorHandler";
+
 
 const requestBodyProperties = ['pdId', 'presentation', 'challenge']
 export const PRESENTATION_CONTROLLER = Router();
@@ -47,8 +49,16 @@ const retrievePresentation = (req: Request, res: Response, next: NextFunction) =
     });
 };
 
-const retrievePresentationStatus = (req: Request, res: Response) => {
-  res.status(200).json({ message: 'method not implemented yet' }); // presentation status
+const retrievePresentationStatus = (req: Request, res: Response, next: NextFunction) => {
+  return getMongoRepository(StatusWrapperEntity)
+      .findOne({ where: { presentation_id: req.params['id'] } })
+      .then(data => {
+        if (data) {
+          res.status(200).json(data);
+        } else {
+          next();
+        }
+      })
 };
 
 const updatePresentationStatus = (req: Request, res: Response) => {
