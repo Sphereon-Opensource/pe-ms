@@ -1,8 +1,8 @@
 import { randomBytes } from "crypto";
 
-import { PEJS } from "@sphereon/pe-js/dist/main/lib";
-import { Validated } from "@sphereon/pe-js/dist/module";
-import { Challenge } from "@sphereon/pe-models";
+import { PEX } from "@sphereon/pex";
+import { Validated } from "@sphereon/pex";
+import { Challenge } from "@sphereon/pex-models";
 
 import { ApiError } from "../controllers/error_handler/errorHandler";
 import {
@@ -12,7 +12,7 @@ import {
 export class PresentationDefinitionService {
 
     public evaluateDefinition = (pdWrapper: PresentationDefinitionWrapperEntity) => {
-        const pejs = new PEJS();
+        const pejs = new PEX();
         const validationResult: Validated = pejs.validateDefinition(pdWrapper.presentation_definition);
         if (Array.isArray(validationResult) && validationResult[0].message != 'ok') {
             throw new ApiError(JSON.stringify(validationResult));

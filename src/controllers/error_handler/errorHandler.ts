@@ -1,4 +1,4 @@
-import { Status, StatusResponse } from '@sphereon/pe-models';
+import { Status, StatusResponse } from '@sphereon/pex-models';
 import { NextFunction, Request, Response } from 'express';
 
 export class ApiError extends Error {

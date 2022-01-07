@@ -1,4 +1,4 @@
-import { ExchangeStatus, PresentationStatus } from "@sphereon/pe-models";
+import { ExchangeStatus, PresentationStatus } from "@sphereon/pex-models";
 import { Column, Entity, ObjectID, ObjectIdColumn } from "typeorm";
 
 import {ChallengeEntity} from "../challengeEntity";

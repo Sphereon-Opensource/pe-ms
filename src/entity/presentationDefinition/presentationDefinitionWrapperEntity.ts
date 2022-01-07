@@ -1,4 +1,4 @@
-import { PresentationDefinition} from '@sphereon/pe-models';
+import { IPresentationDefinition } from "@sphereon/pex";
 import { Column, Entity, ObjectID, ObjectIdColumn } from 'typeorm';
 
 import { CallbackEntity } from "../callbackEntity";
@@ -15,7 +15,7 @@ export class PresentationDefinitionWrapperEntity {
 
   @Column()
   // @ts-ignore
-  presentation_definition: PresentationDefinition;
+  presentation_definition: IPresentationDefinition
 
   @Column()
   // @ts-ignore
