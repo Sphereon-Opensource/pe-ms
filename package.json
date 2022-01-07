@@ -14,8 +14,8 @@
   "author": "Sphereon",
   "license": "Apache-2.0",
   "dependencies": {
-    "@sphereon/pe-js": "^0.5.1",
-    "@sphereon/pe-models": "0.0.5",
+    "@sphereon/pex": "^0.6.2",
+    "@sphereon/pex-models": "^1.1.0",
     "compression": "^1.7.4",
     "express": "^4.17.1",
     "mongodb": "3.7.1",

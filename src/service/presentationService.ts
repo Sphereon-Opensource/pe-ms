@@ -1,8 +1,8 @@
-import {Proof, ProofType} from "@sphereon/pe-js";
-import {PEJS} from "@sphereon/pe-js/dist/main/lib";
+import { IProof, ProofType } from "@sphereon/pex";
+import { PEX } from "@sphereon/pex";
 
-import {ApiError} from "../controllers/error_handler/errorHandler";
-import {PresentationWrapperEntity} from "../entity/presentation/presentationWrapperEntity";
+import { ApiError } from "../controllers/error_handler/errorHandler";
+import { PresentationWrapperEntity } from "../entity/presentation/presentationWrapperEntity";
 import {
     PresentationDefinitionWrapperEntity
 } from "../entity/presentationDefinition/presentationDefinitionWrapperEntity";
@@ -12,7 +12,7 @@ export class PresentationService {
     public validateProof = (pWrapper: PresentationWrapperEntity) => {
         let proofValid;
         if (Array.isArray(pWrapper.presentation.proof)) {
-            proofValid = pWrapper.presentation.proof.find((p: Proof) => ProofType[p.type as ProofType]);
+            proofValid = pWrapper.presentation.proof.find((p: IProof) => ProofType[p.type as ProofType]);
         } else {
             proofValid = ProofType[pWrapper.presentation.proof?.type as ProofType]
         }
@@ -28,7 +28,7 @@ export class PresentationService {
     }
 
     public evaluatePresentation = (pdWrapper: PresentationDefinitionWrapperEntity, pWrapper: PresentationWrapperEntity) => {
-        const peJs = new PEJS();
+        const peJs = new PEX();
         const validationResult = peJs.evaluatePresentation(pdWrapper.presentation_definition, pWrapper.presentation);
         if (Array.isArray(validationResult) && validationResult[0].message != 'ok') {
             throw new ApiError(JSON.stringify(validationResult));

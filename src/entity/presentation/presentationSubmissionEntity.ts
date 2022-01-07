@@ -1,4 +1,4 @@
-import { PresentationSubmission } from '@sphereon/pe-models';
+import { PresentationSubmission } from '@sphereon/pex-models';
 import { Column } from 'typeorm';
 
 import { DescriptorEntity } from './descriptorEntity';

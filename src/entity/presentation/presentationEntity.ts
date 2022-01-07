@@ -1,10 +1,10 @@
-import { Presentation, Proof } from "@sphereon/pe-js";
+import { IPresentation, IProof } from "@sphereon/pex";
 import { Column } from "typeorm";
 
 import { PresentationSubmissionEntity } from "./presentationSubmissionEntity";
 import { VerifiableCredentialEntity } from "./verifiableCredentialEntity";
 
-export class PresentationEntity implements Presentation {
+export class PresentationEntity implements IPresentation {
     @Column()
     '@context': string[];
     @Column()
@@ -18,5 +18,5 @@ export class PresentationEntity implements Presentation {
     @Column()
     holder?: string;
     @Column()
-    proof?: Proof | Proof[];
+    proof?: IProof | IProof[];
 }

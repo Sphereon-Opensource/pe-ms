@@ -1,4 +1,4 @@
-import { Descriptor } from '@sphereon/pe-models';
+import { Descriptor } from '@sphereon/pex-models';
 import { Column } from 'typeorm';
 
 export class DescriptorEntity implements Descriptor {
