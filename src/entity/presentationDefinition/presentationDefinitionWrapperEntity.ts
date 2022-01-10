@@ -1,7 +1,6 @@
+import { IPresentationDefinition } from "@sphereon/pex";
 import { IsDefined, IsNotEmpty } from "class-validator";
 import { Column, Entity, Index, ObjectID, ObjectIdColumn } from 'typeorm';
-import { IPresentationDefinition } from "@sphereon/pex";
-import { Column, Entity, ObjectID, ObjectIdColumn } from 'typeorm';
 
 import { CallbackEntity } from "../callbackEntity";
 import { ChallengeEntity } from "../challengeEntity";
@@ -39,7 +38,6 @@ export class PresentationDefinitionWrapperEntity {
   purpose?: string;
 
   @Column()
-  //@IsDefined({ message: 'PresentationDefinitionWrapper.challenge must be provided' })
   // @ts-ignore
   challenge: ChallengeEntity;
 
