@@ -25,10 +25,10 @@ export const HANDLE_404 = (req: Request, res: Response) => {
   res.status(404).json(status);
 };
 
-export const HANDLE_500 = (req: Request, res: Response) => {
+export const HANDLE_500 = (error: Error, req: Request, res: Response, next: NextFunction) => {
   const status: StatusResponse = {
     status: Status.Error,
-    issues: [{ code: '500', tag: 'INTERNAL SERVER ERROR', status: Status.Error, message: 'Something went wrong' }],
+    issues: [{ code: '500', tag: 'INTERNAL SERVER ERROR', status: Status.Error, message: error.message }],
   };
   res.status(500).json(status);
 };
