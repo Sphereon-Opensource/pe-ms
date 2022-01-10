@@ -95,10 +95,10 @@
   resolved "https://registry.yarnpkg.com/@sphereon/pex-models/-/pex-models-1.1.0.tgz#716898344fd07400bbffaa0c34a1f7ecdda14166"
   integrity sha512-kMslWspdqwuXGBFxOPXTAK8HlIHycBR/locYHMlYmyvdnau6bp40JXk2zviBRVOPfe8N3Dv2p5IPAjMk3pT77A==
 
-"@sphereon/pex@^0.6.2":
-  version "0.6.2"
-  resolved "https://registry.yarnpkg.com/@sphereon/pex/-/pex-0.6.2.tgz#fd84da8ae826dda0b7846de6fba2a7d147e7ad5a"
-  integrity sha512-2D89H54L+g9kS5t2y2WGEB1s7aOQZCMXQ6ZAof9dPZU98WAWXbZ2mbVXVIX86CinI3cSoXya9poWoPdk39BYaA==
+"@sphereon/pex@^0.6.3-unstable.1":
+  version "0.6.3-unstable.1"
+  resolved "https://registry.yarnpkg.com/@sphereon/pex/-/pex-0.6.3-unstable.1.tgz#bb5bdf978efb90a33406cdd5ddfde08e2f259e3f"
+  integrity sha512-WoBxY0Mwl7jKCay2DUbMIsdq1s/UkJNQhQ/CVf7fHwmWR+rDPCANMtAFNikLdnynkKHeNNJMcxd5X1JEVDey3w==
   dependencies:
     "@sphereon/pex-models" "^1.1.0"
     ajv "^8.8.2"
