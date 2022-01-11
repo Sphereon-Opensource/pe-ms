@@ -5,21 +5,22 @@ import { PresentationWrapperEntity } from '../entity/presentation/presentationWr
 import {
   PresentationDefinitionWrapperEntity
 } from "../entity/presentationDefinition/presentationDefinitionWrapperEntity";
-import { StatusWrapperEntity } from "../entity/status/statusWrapperEntity";
+import { StatusWrapperEntity } from '../entity/status/statusWrapperEntity';
 import { PresentationService } from "../service/presentationService";
 import { setCallbackUrl, validateProperties } from "../utils/apiUtils";
 
 import { ApiError } from "./error_handler/errorHandler";
 
 
-const requestBodyProperties = ['pdId', 'presentation', 'challenge']
+const requestedPresentationProperties = ['pdId', 'presentation', 'challenge'];
+const requestedStatusProperties = ['thread', 'presentation_id', 'status', 'message', 'challenge'];
 export const PRESENTATION_CONTROLLER = Router();
 
 const createPresentation = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const service = new PresentationService()
     const pWrapper: PresentationWrapperEntity = req.body
-    validateProperties(requestBodyProperties, req)
+    validateProperties(requestedPresentationProperties, req)
     service.validateProof(pWrapper)
     const pdWrapper = await getMongoRepository(PresentationDefinitionWrapperEntity).findOne(req.body.pdId);
     if (pdWrapper) {
@@ -61,9 +62,19 @@ const retrievePresentationStatus = (req: Request, res: Response, next: NextFunct
       })
 };
 
-const updatePresentationStatus = (req: Request, res: Response) => {
-  //status response
-  res.status(201).json({ message: 'method not implemented yet' }); // presentation status
+const updatePresentationStatus = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    validateProperties(requestedStatusProperties, req);
+    if (req.params['id'] !== req.body.presentation_id) {
+      throw new ApiError('presentation_id must be the same in request path parameter and body');
+    }
+    return getMongoRepository(StatusWrapperEntity).updateOne({ presentation_id: req.params['id'] }, { $set: req.body }, { upsert: true })
+        .then(data => {
+            res.redirect(`${req.protocol}://${req.headers.host}${req.baseUrl}${req.path}`)
+        })
+  } catch(error) {
+    next(error)
+  }
 };
 
 PRESENTATION_CONTROLLER.post('/presentations', createPresentation);
