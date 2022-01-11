@@ -79,5 +79,5 @@ const updatePresentationStatus = async (req: Request, res: Response, next: NextF
 
 PRESENTATION_CONTROLLER.post('/presentations', createPresentation);
 PRESENTATION_CONTROLLER.get('/presentations/:id', retrievePresentation);
-PRESENTATION_CONTROLLER.put('/presentations/:id/statuses', updatePresentationStatus);
+PRESENTATION_CONTROLLER.post('/presentations/:id/statuses', updatePresentationStatus);
 PRESENTATION_CONTROLLER.get('/presentations/:id/statuses', retrievePresentationStatus);
