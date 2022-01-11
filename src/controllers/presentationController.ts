@@ -7,7 +7,7 @@ import { PresentationWrapperEntity } from '../entity/presentation/presentationWr
 import {
   PresentationDefinitionWrapperEntity
 } from "../entity/presentationDefinition/presentationDefinitionWrapperEntity";
-import { StatusWrapperEntity } from "../entity/status/statusWrapperEntity";
+import { StatusWrapperEntity } from '../entity/status/statusWrapperEntity';
 import { PresentationService } from "../service/presentationService";
 
 import { ApiError } from "./error_handler/errorHandler";
