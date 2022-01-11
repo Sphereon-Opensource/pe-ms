@@ -1,4 +1,4 @@
-import { Callback } from '@sphereon/pe-models';
+import { Callback } from '@sphereon/pex-models';
 import { Column } from 'typeorm';
 
 export class CallbackEntity implements Callback {

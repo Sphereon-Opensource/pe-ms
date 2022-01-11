@@ -1,7 +1,7 @@
 import {
-    Issuer, Proof
-} from "@sphereon/pe-js/dist/main/lib/types/SSI.types";
-import { CredentialSubject } from "@sphereon/pe-js/dist/module";
+    IIssuer, IProof
+} from "@sphereon/pex";
+import { ICredentialSubject } from "@sphereon/pex";
 import { Column } from "typeorm";
 
 import { CredentialStatusEntity } from "./credentialStatusEntity";
@@ -17,10 +17,10 @@ export class VerifiableCredentialEntity {
     type: string[];
     @Column({ type: 'simple-json' })
     //@ts-ignore
-    credentialSubject: CredentialSubject
+    credentialSubject: ICredentialSubject
     @Column({ type: 'simple-json' })
     //@ts-ignore
-    issuer: string | Issuer;
+    issuer: string | IIssuer;
     @Column()
     //@ts-ignore
     issuanceDate: string;
@@ -32,5 +32,5 @@ export class VerifiableCredentialEntity {
     vc?: VerifiableCredentialEntity
     @Column()
     //@ts-ignore
-    proof?: Proof | Proof[];
+    proof?: IProof | IProof[];
 }

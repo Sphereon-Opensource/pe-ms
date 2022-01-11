@@ -90,21 +90,21 @@
   resolved "https://registry.npmjs.org/@sindresorhus/is/-/is-0.14.0.tgz"
   integrity sha512-9NET910DNaIPngYnLLPeg+Ogzqsi9uM4mSboU5y6p8S5DzMTVEsJZrawi+BoDNUVBa2DhJqQYUFvMDfgU062LQ==
 
-"@sphereon/pe-js@^0.5.1":
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/@sphereon/pe-js/-/pe-js-0.5.1.tgz#37feef3cd29d3595319f1f9fe91d7b6e643a15d3"
-  integrity sha512-dFr5LJ5VjnHJBYuEmHNoCMs1dyzqisbwdUl9HW5avQO+G1KvzfPGwOPl5b30+eq/40USXimJZvVrRit34tSVXA==
+"@sphereon/pex-models@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@sphereon/pex-models/-/pex-models-1.1.0.tgz#716898344fd07400bbffaa0c34a1f7ecdda14166"
+  integrity sha512-kMslWspdqwuXGBFxOPXTAK8HlIHycBR/locYHMlYmyvdnau6bp40JXk2zviBRVOPfe8N3Dv2p5IPAjMk3pT77A==
+
+"@sphereon/pex@^0.6.3-unstable.1":
+  version "0.6.3-unstable.1"
+  resolved "https://registry.yarnpkg.com/@sphereon/pex/-/pex-0.6.3-unstable.1.tgz#bb5bdf978efb90a33406cdd5ddfde08e2f259e3f"
+  integrity sha512-WoBxY0Mwl7jKCay2DUbMIsdq1s/UkJNQhQ/CVf7fHwmWR+rDPCANMtAFNikLdnynkKHeNNJMcxd5X1JEVDey3w==
   dependencies:
-    "@sphereon/pe-models" "0.0.5"
-    ajv "^8.6.3"
+    "@sphereon/pex-models" "^1.1.0"
+    ajv "^8.8.2"
     ajv-formats "^2.1.1"
     jsonpath "^1.1.1"
-    nanoid "^3.1.25"
-
-"@sphereon/pe-models@0.0.5":
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/@sphereon/pe-models/-/pe-models-0.0.5.tgz#a096bc2ecde7190253d0e4d27538f017f75e7190"
-  integrity sha512-r7JFgAK9fhc1MN+qnON3NLqj0n5Lekz+K0CCvsSh/87YLe6iARiun1hvM3ZMd6Mbe1ukGDMTnwRauUgl8xUOFg==
+    nanoid "^3.1.30"
 
 "@sqltools/formatter@^1.2.2":
   version "1.2.3"
@@ -341,7 +341,7 @@ ajv@^6.10.0, ajv@^6.12.4:
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
 
-ajv@^8.0.0, ajv@^8.6.3:
+ajv@^8.0.0, ajv@^8.8.2:
   version "8.8.2"
   resolved "https://registry.yarnpkg.com/ajv/-/ajv-8.8.2.tgz#01b4fef2007a28bf75f0b7fc009f62679de4abbb"
   integrity sha512-x9VuX+R/jcFj1DHo/fCp99esgGDWiHENrKxaCENuCxpoMCmAt/COCGVDwA7kleEpEzJjDnvh3yGoOuLu0Dtllw==
@@ -2034,7 +2034,7 @@ mz@^2.4.0:
     object-assign "^4.0.1"
     thenify-all "^1.0.0"
 
-nanoid@^3.1.25:
+nanoid@^3.1.30:
   version "3.1.30"
   resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.1.30.tgz#63f93cc548d2a113dc5dfbc63bfa09e2b9b64362"
   integrity sha512-zJpuPDwOv8D2zq2WRoMe1HsfZthVewpel9CAvTfc/2mBD1uUT/agc5f7GHGWXlYkFvi1mVxe4IjvP2HNrop7nQ==

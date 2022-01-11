@@ -1,7 +1,7 @@
-import { CredentialStatus } from "@sphereon/pe-js/dist/main/lib/types/SSI.types";
+import { ICredentialStatus } from "@sphereon/pex";
 import { Column } from "typeorm";
 
-export class CredentialStatusEntity implements CredentialStatus {
+export class CredentialStatusEntity implements ICredentialStatus {
     @Column()
     //@ts-ignore
     id: string;

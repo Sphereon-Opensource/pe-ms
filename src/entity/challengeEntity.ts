@@ -1,4 +1,4 @@
-import { Challenge } from '@sphereon/pe-models';
+import { Challenge } from '@sphereon/pex-models';
 import { Column } from 'typeorm';
 
 export class ChallengeEntity implements Challenge {
