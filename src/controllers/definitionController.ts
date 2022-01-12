@@ -8,7 +8,7 @@ import { StatusWrapperEntity } from '../entity/status/statusWrapperEntity';
 import { PresentationDefinitionService } from '../service/presentationDefinitionService';
 import { createChallengeToken, generateDefinitionUrl } from '../utils/apiUtils';
 
-import { ApiError } from './error_handler/errorHandler';
+import { handleErrors } from './error_handler/errorHandler';
 
 export const DEFINITIONS_CONTROLLER = Router();
 
@@ -25,22 +25,11 @@ const createDefinition = async (req: Request, res: Response, next: NextFunction)
     await getMongoRepository(StatusWrapperEntity).save({
       thread: presentationDefinitionWrapper.thread,
       status: ExchangeStatus.Created,
+      challenge: presentationDefinitionWrapper.challenge,
     });
     res.status(201).json(generateDefinitionUrl(req));
   } catch (error) {
-    if (Array.isArray(error)) {
-      next(
-        new ApiError(
-          JSON.stringify(
-            error.map((e: any) => {
-              return { property: e.property, constraints: e.constraints };
-            })
-          )
-        )
-      );
-    } else {
-      next(error);
-    }
+    handleErrors(error, next);
   }
 };
 

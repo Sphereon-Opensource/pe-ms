@@ -7,7 +7,6 @@ import { PresentationWrapperEntity } from '../entity/presentation/presentationWr
 import { PresentationDefinitionWrapperEntity } from '../entity/presentationDefinition/presentationDefinitionWrapperEntity';
 
 export class PresentationService {
-
   public validateProof = (pWrapper: PresentationWrapperEntity) => {
     let proofValid;
     if (Array.isArray(pWrapper.presentation.proof)) {
@@ -27,15 +26,6 @@ export class PresentationService {
     );
     if (expiredVcs.length) {
       throw new ApiError(`Vcs are expired: ${expiredVcs.map((vc) => vc.id).join(', ')}`);
-    }
-  };
-
-  public validateChallengeToken = (
-    pdWrapper: PresentationDefinitionWrapperEntity,
-    pWrapper: PresentationWrapperEntity
-  ) => {
-    if (pdWrapper.challenge.token !== pWrapper.challenge.token) {
-      throw new ApiError('Invalid challenge token');
     }
   };
 
