@@ -1,10 +1,10 @@
-import { IPresentationDefinition } from "@sphereon/pex";
-import { IsDefined, IsNotEmpty } from "class-validator";
-import { Column, Entity, Index, ObjectID, ObjectIdColumn } from 'typeorm';
+import { IPresentationDefinition } from '@sphereon/pex';
+import { IsDefined, IsNotEmpty } from 'class-validator';
+import { Column, Entity, ObjectID, ObjectIdColumn } from 'typeorm';
 
-import { CallbackEntity } from "../callbackEntity";
-import { ChallengeEntity } from "../challengeEntity";
-import { ThreadEntity } from "../threadEntity";
+import { CallbackEntity } from '../callbackEntity';
+import { ChallengeEntity } from '../challengeEntity';
+import { ThreadEntity } from '../threadEntity';
 
 /**
  * A wrapper object for our presentation_definition. For
@@ -18,10 +18,9 @@ export class PresentationDefinitionWrapperEntity {
   @Column()
   @IsDefined({ message: 'PresentationDefinitionWrapper.presentation_definition must be provided' })
   // @ts-ignore
-  presentation_definition: IPresentationDefinition
+  presentation_definition: IPresentationDefinition;
 
   @Column()
-  @Index({ unique: true })
   @IsNotEmpty({ message: 'PresentationDefinitionWrapper.id is invalid' })
   // @ts-ignore
   id: string;

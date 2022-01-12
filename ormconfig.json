@@ -6,7 +6,6 @@
   "database": "PE_MS",
   "url": "mongodb://root:example@mongo:27017/",
   "useUnifiedTopology": true,
-  "synchronize": true,
   "logging": ["error", "info", "warn"],
   "entities": ["src/entity/**/*.ts"]
 }

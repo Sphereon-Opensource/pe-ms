@@ -7,7 +7,7 @@ import { HANDLE_400, HANDLE_404, HANDLE_500 } from './controllers/error_handler/
 import { PRESENTATION_CONTROLLER } from './controllers/presentationController';
 import { THREAD_CONTROLLER } from './controllers/threadController';
 
-createConnection().then((connection) => {
+createConnection().then(() => {
   const baseUrl = '/pe/v1';
   const APP: express.Application = express();
 

@@ -1,10 +1,9 @@
-import { IsDefined, IsNotEmpty } from "class-validator";
-import {Column, Entity, Index, ObjectID, ObjectIdColumn} from 'typeorm';
+import { IsDefined, IsNotEmpty } from 'class-validator';
+import { Column, Entity, ObjectID, ObjectIdColumn } from 'typeorm';
 
 import { CallbackEntity } from '../callbackEntity';
 import { ChallengeEntity } from '../challengeEntity';
-import {ThreadEntity} from "../threadEntity";
-
+import { ThreadEntity } from '../threadEntity';
 
 @Entity('presentation_wrapper')
 export class PresentationWrapperEntity {
@@ -30,17 +29,16 @@ export class PresentationWrapperEntity {
   @Column()
   @IsDefined({ message: 'PresentationWrapper.thread must be provided' })
   // @ts-ignore
-  thread: ThreadEntity
+  thread: ThreadEntity;
 
   @Column()
-  @Index({ unique: true })
   @IsNotEmpty({ message: 'PresentationDefinitionWrapper.id is invalid' })
   // @ts-ignore
   id: string;
 
   @Column()
   @IsNotEmpty({ message: 'PresentationDefinitionWrapper.comment is invalid' })
-      // @ts-ignore
+  // @ts-ignore
   comment: string;
 
   @Column()
