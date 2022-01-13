@@ -1,11 +1,14 @@
-import { ICredentialStatus } from "@sphereon/pex";
-import { Column } from "typeorm";
+import { ICredentialStatus } from '@sphereon/pex';
+import { IsNotEmpty } from 'class-validator';
+import { Column } from 'typeorm';
 
 export class CredentialStatusEntity implements ICredentialStatus {
-    @Column()
-    //@ts-ignore
-    id: string;
-    @Column()
-    //@ts-ignore
-    type: string;
+  @Column()
+  @IsNotEmpty({ message: 'CredentialStatus.id must be provided' })
+  //@ts-ignore
+  id: string;
+  @Column()
+  @IsNotEmpty({ message: 'CredentialStatus.type must be provided' })
+  //@ts-ignore
+  type: string;
 }

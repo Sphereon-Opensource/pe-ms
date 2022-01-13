@@ -14,11 +14,14 @@
   "author": "Sphereon",
   "license": "Apache-2.0",
   "dependencies": {
-    "@sphereon/pex": "^0.6.3-unstable.1",
+    "@sphereon/pex": "^0.7.0",
     "@sphereon/pex-models": "^1.1.0",
+    "class-transformer": "^0.5.1",
+    "class-transformer-validator": "^0.9.1",
+    "class-validator": "^0.13.2",
     "compression": "^1.7.4",
     "express": "^4.17.1",
-    "mongodb": "3.7.1",
+    "mongodb": "3.6.12",
     "reflect-metadata": "^0.1.13",
     "typeorm": "^0.2.40"
   },
