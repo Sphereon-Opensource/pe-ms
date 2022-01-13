@@ -26,7 +26,11 @@ export const handleErrors = (error: Error, next: NextFunction) => {
 
 export const HANDLE_400 = (error: Error, req: Request, res: Response, next: NextFunction) => {
   if (error instanceof ApiError) {
-    res.status(400).json({ message: error.message });
+    const status: StatusResponse = {
+      status: Status.Error,
+      issues: [{ code: '400', tag: 'BAD REQUEST', status: Status.Error, message: error.message }],
+    }
+    res.status(400).json(status);
   } else {
     next(error);
   }
