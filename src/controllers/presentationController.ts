@@ -5,11 +5,10 @@ import { getMongoRepository } from 'typeorm';
 
 import { PresentationWrapperEntity } from '../entity/presentation/presentationWrapperEntity';
 import { PresentationDefinitionWrapperEntity } from '../entity/presentationDefinition/presentationDefinitionWrapperEntity';
-import { StatusWrapperEntity } from '../entity/status/statusWrapperEntity';
+import { PresentationStatusEntity } from '../entity/status/presentationStatusEntity';
 import { PresentationService } from '../service/presentationService';
-import { createChallengeToken } from '../utils/apiUtils';
 
-import { ApiError } from './error_handler/errorHandler';
+import { ApiError, handleErrors } from './error_handler/errorHandler';
 
 export const PRESENTATION_CONTROLLER = Router();
 
@@ -21,19 +20,14 @@ const createPresentation = async (req: Request, res: Response, next: NextFunctio
     service.validateProof(pWrapper);
     const pdWrapper = await getMongoRepository(PresentationDefinitionWrapperEntity).findOne({ id: pWrapper.pdId });
     if (pdWrapper) {
-      service.validateChallengeToken(pdWrapper, pWrapper);
-      pWrapper.challenge = createChallengeToken(pWrapper.challenge);
       const result = service.evaluatePresentation(pdWrapper, pWrapper);
       const presentation = await getMongoRepository(PresentationWrapperEntity).save(pWrapper);
-      await getMongoRepository(StatusWrapperEntity).updateOne(
-        { 'thread.id': presentation.thread.id },
-        {
-          $set: {
-            presentation_id: presentation.id,
-            status: ExchangeStatus.Submitted,
-          },
-        }
-      );
+      await getMongoRepository(PresentationStatusEntity).save({
+        thread: presentation.thread,
+        presentation_id: presentation.id,
+        status: ExchangeStatus.Submitted,
+        challenge: presentation.challenge,
+      });
       res
         .status(201)
         .json({ thread: presentation.thread, presentation_id: presentation.id, warnings: result.warnings });
@@ -41,19 +35,7 @@ const createPresentation = async (req: Request, res: Response, next: NextFunctio
       throw new ApiError('presentation_definition_wrapper not found');
     }
   } catch (error) {
-    if (Array.isArray(error)) {
-      next(
-        new ApiError(
-          JSON.stringify(
-            error.map((e: any) => {
-              return { property: e.property, constraints: e.constraints };
-            })
-          )
-        )
-      );
-    } else {
-      next(error);
-    }
+    handleErrors(error, next);
   }
 };
 
@@ -70,8 +52,8 @@ const retrievePresentation = (req: Request, res: Response, next: NextFunction) =
 };
 
 const retrievePresentationStatus = (req: Request, res: Response, next: NextFunction) => {
-  return getMongoRepository(StatusWrapperEntity)
-    .findOne({ where: { 'thread.id': req.params['thread_id'] } })
+  return getMongoRepository(PresentationStatusEntity)
+    .findOne({ presentation_id: req.params['id'] })
     .then((data) => {
       if (data) {
         res.status(200).json(data);
@@ -83,33 +65,23 @@ const retrievePresentationStatus = (req: Request, res: Response, next: NextFunct
 
 const updatePresentationStatus = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const statusWrapper = (await transformAndValidate(StatusWrapperEntity, req.body)) as StatusWrapperEntity;
-    await getMongoRepository(StatusWrapperEntity).updateOne(
-      { 'thread.id': statusWrapper.thread.id },
+    const statusWrapper = (await transformAndValidate(PresentationStatusEntity, req.body)) as PresentationStatusEntity;
+    await getMongoRepository(PresentationStatusEntity).updateOne(
+      { presentation_id: statusWrapper.presentation_id },
       { $set: statusWrapper },
       { upsert: false }
     );
     res
       .status(200)
-      .json(await getMongoRepository(StatusWrapperEntity).findOne({ thread: { id: statusWrapper.thread.id } }));
-  } catch (error) {
-    if (Array.isArray(error)) {
-      next(
-        new ApiError(
-          JSON.stringify(
-            error.map((e: any) => {
-              return { property: e.property, constraints: e.constraints };
-            })
-          )
-        )
+      .json(
+        await getMongoRepository(PresentationStatusEntity).findOne({ presentation_id: statusWrapper.presentation_id })
       );
-    } else {
-      next(error);
-    }
+  } catch (error) {
+    handleErrors(error, next);
   }
 };
 
 PRESENTATION_CONTROLLER.post('/presentations', createPresentation);
 PRESENTATION_CONTROLLER.get('/presentations/:id', retrievePresentation);
-PRESENTATION_CONTROLLER.post('/presentations/:thread_id/statuses', updatePresentationStatus);
-PRESENTATION_CONTROLLER.get('/presentations/:thread_id/statuses', retrievePresentationStatus);
+PRESENTATION_CONTROLLER.post('/presentations/:id/statuses', updatePresentationStatus);
+PRESENTATION_CONTROLLER.get('/presentations/:id/statuses', retrievePresentationStatus);

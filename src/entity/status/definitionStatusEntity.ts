@@ -1,12 +1,13 @@
-import { ExchangeStatus, PresentationStatus } from '@sphereon/pex-models';
+import { ExchangeStatus } from '@sphereon/pex-models';
 import { IsDefined, IsEnum, IsNotEmpty } from 'class-validator';
 import { Column, Entity, ObjectID, ObjectIdColumn } from 'typeorm';
 
+import { PresentationDefinitionStatus } from '../../types/presentationDefinitionStatus';
 import { ChallengeEntity } from '../challengeEntity';
 import { ThreadEntity } from '../threadEntity';
 
-@Entity('status_wrapper')
-export class StatusWrapperEntity implements PresentationStatus {
+@Entity('definition_status')
+export class DefinitionStatusEntity {
   @ObjectIdColumn()
   // @ts-ignore
   _id: ObjectID;
@@ -17,12 +18,12 @@ export class StatusWrapperEntity implements PresentationStatus {
   thread: ThreadEntity;
 
   @Column()
-  @IsNotEmpty({ message: 'Presentation_id is invalid' })
+  @IsNotEmpty({ message: 'Definition_id is invalid' })
   // @ts-ignore
-  presentation_id: string;
+  definition_id: string;
 
-  @Column({ type: 'enum', enum: ExchangeStatus })
-  @IsEnum(ExchangeStatus, { message: 'Exchange status is invalid' })
+  @Column({ type: 'enum', enum: PresentationDefinitionStatus })
+  @IsEnum(PresentationDefinitionStatus, { message: 'Presentation definition status is invalid' })
   // @ts-ignore
   status: ExchangeStatus;
 

@@ -1,4 +1,3 @@
-import { IsMongoId } from 'class-validator';
 import { Entity, ObjectID, ObjectIdColumn } from 'typeorm';
 
 @Entity('thread')
