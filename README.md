@@ -534,7 +534,8 @@ This project has been created using:
 
 ### Running
 1. Without docker:
-   For running without docker, you can use the following steps:
+</br></br>_IMPORTANT: You need to have an instance of MongoDB installed and running_
+</br></br>For running without docker, you can use the following steps:
 #### Install
 ```shell
 yarn install
