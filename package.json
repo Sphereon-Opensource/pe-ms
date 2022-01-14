@@ -1,20 +1,20 @@
 {
-  "name": "@sphereon/pe-ms",
+  "name": "@sphereon/pex-ms",
   "version": "0.0.1",
-  "description": "State Machine REST API",
+  "description": "DIF Presentation Exchange REST API",
   "main": "dist/index.js",
   "scripts": {
     "start": "nodemon src/index.ts",
     "docker:start": "docker-compose up --build",
     "build": "tsc --project ./",
     "fix": "run-s fix:*",
-    "fix:prettier": "prettier \"{src, test}/**/*.ts\" --write",
+    "fix:prettier": "prettier \"{src,test}/**/*.ts\" --write",
     "fix:lint": "eslint . --ext .ts --fix"
   },
   "author": "Sphereon",
   "license": "Apache-2.0",
   "dependencies": {
-    "@sphereon/pex": "^0.7.0",
+    "@sphereon/pex": "^1.0.1",
     "@sphereon/pex-models": "^1.1.0",
     "class-transformer": "^0.5.1",
     "class-transformer-validator": "^0.9.1",
