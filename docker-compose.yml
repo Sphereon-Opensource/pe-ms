@@ -14,6 +14,6 @@ services:
       - mongo
     restart: always
     environment:
-      PEX_MS_URL: mongodb://root:example@mongo:27017
+      PEX_MS_URL: mongodb://root:example@localhost:27017
     ports:
       - "3000:3000"

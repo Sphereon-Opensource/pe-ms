@@ -556,4 +556,4 @@ Test are ran manually using Postman:
 
 ### Run with Docker-Compose
 
-You can simply start the service with running `yarn docker:start` at the root of project
+You can simply start the service with running `yarn docker:start` at the root of project, or of you like to use the docker tools directly `docker-compose up --build -d`. It will pull in a mongo image for the persistence.
