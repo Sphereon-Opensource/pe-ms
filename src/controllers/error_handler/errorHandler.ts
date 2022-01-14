@@ -29,7 +29,7 @@ export const HANDLE_400 = (error: Error, req: Request, res: Response, next: Next
     const status: StatusResponse = {
       status: Status.Error,
       issues: [{ code: '400', tag: 'BAD REQUEST', status: Status.Error, message: error.message }],
-    }
+    };
     res.status(400).json(status);
   } else {
     next(error);
