@@ -1,5 +1,7 @@
 FROM node:14
 
+ENV PEX_MS_URL="mongodb://root:example@mongo:27017/"
+
 WORKDIR /usr/src/app
 
 COPY . .
