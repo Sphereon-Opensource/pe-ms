@@ -8,10 +8,12 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
-  pe-state-machine:
+  pex-ms:
+    image: sphereon/pex-ms:latest
     depends_on:
       - mongo
     restart: always
-    build: .
+    environment:
+      PEX_MS_URL: mongodb://root:example@mongo:27017
     ports:
       - "3000:3000"
