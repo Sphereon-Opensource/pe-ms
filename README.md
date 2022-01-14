@@ -1,7 +1,8 @@
 <h1 align="center">
   <br>
   <a href="https://www.sphereon.com"><img src="https://sphereon.com/content/themes/sphereon/assets/img/logo.svg" alt="Sphereon" width="400"></a>
-  <br>PE-MS   DIF Presentation Exchange Micro Service 
+    <br>PEX MS  
+    <br>DIF Presentation Exchange REST API 
   <br>
 </h1>
 
@@ -22,45 +23,12 @@ _IMPORTANT: This software still is in early development stage. As such you shoul
 
 This is a stateful REST API implemented using MongoDB, TypeORM, TypeScript and NodeJS. The motivation is to build scalable
 interoperability solutions between wallet- and verifier- technology providers. That is, to make any wallet adhering to the protocol be able to successfully exchange credentials with
-any verifier adhering to the protocol. It uses @Sphereon/pex which is an implementation of [presentation exchange](https://identity.foundation/presentation-exchange/)
+any verifier adhering to the protocol. It uses @Sphereon/pex which is an implementation of the [DIF Presentation Exchange](https://identity.foundation/presentation-exchange/)
 specification and @Sphereon/pex-models which provides the classes and interfaces to handle the presentation exchange entities.
 
 ## Sequence diagram:
 
 ![Sequence diagram](https://raw.githubusercontent.com/Sphereon-Opensource/essifi-deliverables/master/interface_specifications/figures/PE_REST_API_sequence.svg?sanitize=true)
-
-
-## For PEX-MS developers
-
-This project has been created using:
-* `yarn` version 1.22.11
-* `node` version 14.17.5
-* `docker-compose` version 1.26.2
-
-### Running
-1. Without docker:
-For running without docker, you can use the following steps:
-#### Install
-```shell
-yarn install
-```
-#### Build
-```shell
-yarn build
-```
-#### Run
-```shell
-yarn start
-```
-
-#### Test
-Test are ran manually using Postman:
-
-1. Import the collection from <root_folder>/test/postman_collections
-
-### Run with Docker-Compose
-
-You can simply start the service with running `yarn docker:start` at the root of project
 
 ### API reference
 
@@ -556,3 +524,35 @@ HTTP status response: 500
   ]
 }
 ```
+
+## For PEX-MS developers
+
+This project has been created using:
+* `yarn` version 1.22.11
+* `node` version 14.17.5
+* `docker-compose` version 1.26.2
+
+### Running
+1. Without docker:
+   For running without docker, you can use the following steps:
+#### Install
+```shell
+yarn install
+```
+#### Build
+```shell
+yarn build
+```
+#### Run
+```shell
+yarn start
+```
+
+#### Test
+Test are ran manually using Postman:
+
+1. Import the collection from <root_folder>/test/postman_collections
+
+### Run with Docker-Compose
+
+You can simply start the service with running `yarn docker:start` at the root of project
