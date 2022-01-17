@@ -35,8 +35,8 @@ export class PresentationService {
   ): EvaluationResults => {
     const peJs = new PEX();
     const validationResult = peJs.evaluatePresentation(pdWrapper.presentation_definition, pWrapper.presentation);
-    if (Array.isArray(validationResult) && validationResult[0].message != 'ok') {
-      throw new ApiError(JSON.stringify(validationResult));
+    if (validationResult.errors?.length) {
+      throw new ApiError(JSON.stringify({ warnings: validationResult.warnings, errors: validationResult.errors }));
     }
     return validationResult;
   };

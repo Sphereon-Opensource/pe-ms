@@ -3,7 +3,7 @@ import express, { NextFunction, Request, Response } from 'express';
 import { createConnection } from 'typeorm';
 
 import { DEFINITIONS_CONTROLLER } from './controllers/definitionController';
-import { HANDLE_400, HANDLE_404, HANDLE_500 } from './controllers/error_handler/errorHandler';
+import { HANDLE_400, HANDLE_500 } from './controllers/error_handler/errorHandler';
 import { PRESENTATION_CONTROLLER } from './controllers/presentationController';
 import { THREAD_CONTROLLER } from './controllers/threadController';
 
@@ -27,7 +27,6 @@ createConnection().then(() => {
   APP.use(baseUrl, PRESENTATION_CONTROLLER);
   APP.use(baseUrl, DEFINITIONS_CONTROLLER);
   APP.use(HANDLE_400);
-  APP.use(HANDLE_404);
   APP.use(HANDLE_500);
 
   APP.listen(PORT, async () => {

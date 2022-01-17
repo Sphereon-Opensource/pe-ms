@@ -9,7 +9,7 @@ export class PresentationDefinitionService {
     const pejs = new PEX();
     const validationResult: Validated = pejs.validateDefinition(pdWrapper.presentation_definition);
     if (Array.isArray(validationResult) && validationResult[0].message != 'ok') {
-      throw new ApiError(JSON.stringify(validationResult));
+      throw new ApiError(JSON.stringify({ errors: validationResult }));
     }
   };
 }

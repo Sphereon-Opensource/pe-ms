@@ -1,0 +1,414 @@
+{
+	"info": {
+		"_postman_id": "174de53e-42ab-425a-8df7-f4091142c87b",
+		"name": "DIF PE API",
+		"description": "Decentralized Identity Foundation Presentation Exchange API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create thread",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Id of the thread is defined', () => {",
+							"    pm.expect(!!pm.response.json().id).to.equal(true)",
+							"});",
+							"postman.setEnvironmentVariable('thread.id', pm.response.json().id);",
+							"const uuid = require(\"uuid\");",
+							"postman.setEnvironmentVariable(\"definition.id\", uuid.v4());",
+							"postman.setEnvironmentVariable(\"presentation.id\", uuid.v4());",
+							"postman.setEnvironmentVariable(\"presentation_submission.id\", uuid.v4());",
+							"postman.setEnvironmentVariable(\"challenge.token\", uuid.v4());"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/pe/v1/threads",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"pe",
+						"v1",
+						"threads"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create definition",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Create definition response', () => {",
+							"    pm.expect(pm.response.json()).to.deep.include({ definition_url: `http://localhost:3000/pe/v1/definitions/${pm.environment.get('definition.id')}` })",
+							"});",
+							"",
+							"// pm.sendRequest(pm.response.json().definition_url, (err, res) => {",
+							"//     postman.setEnvironmentVariable('challenge.token', res.json().challenge.token);",
+							"// });"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const data1 = JSON.stringify(pm.iterationData.get('pd'))",
+							"pm.variables.replaceIn(data1)",
+							"pm.environment.set('body', data1)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{{body}}"
+				},
+				"url": {
+					"raw": "{{host}}/pe/v1/definitions",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"pe",
+						"v1",
+						"definitions"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve definition",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/pe/v1/definitions/{{definition.id}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"pe",
+						"v1",
+						"definitions",
+						"{{definition.id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create presentation",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Verify the response body', () => {",
+							"    const expected = {",
+							"    \"thread\": {",
+							"        \"id\": pm.environment.get(\"thread.id\")",
+							"    },",
+							"    \"presentation_id\": pm.environment.get(\"presentation.id\"),",
+							"    \"warnings\": []",
+							"    }",
+							"    pm.expect(pm.response.json()).to.deep.include(expected);",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const data2 = JSON.stringify(pm.iterationData.get('vp'));",
+							"pm.variables.replaceIn(data2);",
+							"pm.environment.set('body', data2);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{{body}}"
+				},
+				"url": {
+					"raw": "{{host}}/pe/v1/presentations",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"pe",
+						"v1",
+						"presentations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve presentation",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/pe/v1/presentations/{{presentation.id}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"pe",
+						"v1",
+						"presentations",
+						"{{presentation.id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update presentation status",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const data3 = JSON.stringify(pm.iterationData.get('vp_status'));",
+							"pm.variables.replaceIn(data3);",
+							"pm.environment.set('body', data3);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{{body}}"
+				},
+				"url": {
+					"raw": "{{host}}/pe/v1/presentations/{{presentation.id}}/statuses",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"pe",
+						"v1",
+						"presentations",
+						"{{presentation.id}}",
+						"statuses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update definition status",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const data4 = JSON.stringify(pm.iterationData.get('pd_status'));",
+							"pm.variables.replaceIn(data4);",
+							"pm.environment.set('body', data4);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{{body}}"
+				},
+				"url": {
+					"raw": "{{host}}/pe/v1/definitions/{{definition.id}}/statuses",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"pe",
+						"v1",
+						"definitions",
+						"{{definition.id}}",
+						"statuses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve presentation status",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/pe/v1/presentations/{{presentation.id}}/statuses",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"pe",
+						"v1",
+						"presentations",
+						"{{presentation.id}}",
+						"statuses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve definition status",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/pe/v1/definitions/{{definition.id}}/statuses",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"pe",
+						"v1",
+						"definitions",
+						"{{definition.id}}",
+						"statuses"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "protocol",
+			"value": "https"
+		},
+		{
+			"key": "environment",
+			"value": "api.dev"
+		},
+		{
+			"key": "projectName",
+			"value": "pe"
+		},
+		{
+			"key": "port",
+			"value": "443"
+		},
+		{
+			"key": "baseUrl",
+			"value": "{{protocol}}://{{environment}}.{{projectName}}.sphereon.io:{{port}}/pe"
+		}
+	]
+}
