@@ -3,7 +3,6 @@ import { IsDefined, IsEnum, IsNotEmpty } from 'class-validator';
 import { Column, Entity, ObjectID, ObjectIdColumn } from 'typeorm';
 
 import { ChallengeEntity } from '../challengeEntity';
-import { ThreadEntity } from '../threadEntity';
 
 @Entity('presentation_status')
 export class PresentationStatusEntity implements PresentationStatus {
@@ -14,7 +13,7 @@ export class PresentationStatusEntity implements PresentationStatus {
   @Column()
   @IsDefined({ message: 'Thread must be provided' })
   // @ts-ignore
-  thread: ThreadEntity;
+  thread: { id: ObjectID };
 
   @Column()
   @IsNotEmpty({ message: 'Presentation_id is invalid' })

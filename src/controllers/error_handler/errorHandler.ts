@@ -1,9 +1,15 @@
 import { NextFunction, Request, Response } from 'express';
 
 export class ApiError extends Error {
-  constructor(message: string) {
+  private readonly _json;
+  constructor(message: string, json?: unknown) {
     super(message);
     this.name = 'ApiError';
+    this._json = json;
+  }
+
+  get json() {
+    return this._json;
   }
 }
 
@@ -11,10 +17,9 @@ export const handleErrors = (error: Error, next: NextFunction) => {
   if (Array.isArray(error)) {
     next(
       new ApiError(
-        JSON.stringify({ errors:
-          error.map((e) => {
-            return { property: e.property, constraints: e.constraints };
-          })
+        'Validation error',
+        error.map((e) => {
+          return { property: e.property, constraints: e.constraints };
         })
       )
     );
@@ -25,7 +30,7 @@ export const handleErrors = (error: Error, next: NextFunction) => {
 
 export const HANDLE_400 = (error: Error, req: Request, res: Response, next: NextFunction) => {
   if (error instanceof ApiError) {
-    res.status(400).json(error.message);
+    res.status(400).json({ ...(error.json as { [x: string]: unknown }), message: error.message });
   } else {
     next(error);
   }

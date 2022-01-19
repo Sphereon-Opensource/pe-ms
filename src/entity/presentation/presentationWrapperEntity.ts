@@ -3,7 +3,6 @@ import { Column, Entity, ObjectID, ObjectIdColumn } from 'typeorm';
 
 import { CallbackEntity } from '../callbackEntity';
 import { ChallengeEntity } from '../challengeEntity';
-import { ThreadEntity } from '../threadEntity';
 
 @Entity('presentation_wrapper')
 export class PresentationWrapperEntity {
@@ -11,25 +10,19 @@ export class PresentationWrapperEntity {
   // @ts-ignore
   _id: ObjectID;
 
+  @IsDefined({ message: 'PresentationWrapper.thread must be provided' })
+  // @ts-ignore
+  thread: { id: ObjectID };
+
   @Column()
   @IsNotEmpty({ message: 'PresentationWrapper.pdId is invalid' })
   // @ts-ignore
   pdId: string;
 
   @Column()
-  @IsDefined({ message: 'PresentationWrapper.challenge must be provided' })
-  // @ts-ignore
-  challenge: ChallengeEntity;
-
-  @Column()
   @IsDefined({ message: 'PresentationWrapper.presentation must be provided' })
   // @ts-ignore
   presentation: PresentationEntity;
-
-  @Column()
-  @IsDefined({ message: 'PresentationWrapper.thread must be provided' })
-  // @ts-ignore
-  thread: ThreadEntity;
 
   @Column()
   @IsNotEmpty({ message: 'PresentationDefinitionWrapper.id is invalid' })
@@ -46,6 +39,10 @@ export class PresentationWrapperEntity {
 
   @Column()
   purpose?: string;
+
+  @IsDefined({ message: 'PresentationWrapper.challenge must be provided' })
+  // @ts-ignore
+  challenge: ChallengeEntity;
 
   @Column()
   @IsDefined({ message: 'PresentationWrapper.callback must be provided' })

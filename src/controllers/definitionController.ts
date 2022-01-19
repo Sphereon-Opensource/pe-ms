@@ -1,3 +1,5 @@
+import url from 'url';
+
 import { ExchangeStatus } from '@sphereon/pex-models';
 import { transformAndValidate } from 'class-transformer-validator';
 import { NextFunction, Request, Response, Router } from 'express';
@@ -5,8 +7,9 @@ import { getMongoRepository } from 'typeorm';
 
 import { PresentationDefinitionWrapperEntity } from '../entity/presentationDefinition/presentationDefinitionWrapperEntity';
 import { DefinitionStatusEntity } from '../entity/status/definitionStatusEntity';
+import { ThreadEntity } from '../entity/threadEntity';
 import { PresentationDefinitionService } from '../service/presentationDefinitionService';
-import { generateDefinitionUrl } from '../utils/apiUtils';
+import { generateDefinitionsResponseBody, updateChallengeToken } from '../utils/apiUtils';
 
 import { handleErrors } from './error_handler/errorHandler';
 
@@ -19,55 +22,85 @@ const createDefinition = async (req: Request, res: Response, next: NextFunction)
       PresentationDefinitionWrapperEntity,
       req.body
     )) as PresentationDefinitionWrapperEntity;
-    service.evaluateDefinition(presentationDefinitionWrapper);
-    await getMongoRepository(PresentationDefinitionWrapperEntity).save(presentationDefinitionWrapper);
-    await getMongoRepository(DefinitionStatusEntity).save({
-      thread: presentationDefinitionWrapper.thread,
-      definition_id: presentationDefinitionWrapper.id,
-      status: ExchangeStatus.Created,
+    const thread: ThreadEntity = await updateChallengeToken({
+      id: presentationDefinitionWrapper.thread.id,
       challenge: presentationDefinitionWrapper.challenge,
     });
-    res.status(201).json(generateDefinitionUrl(req));
+    presentationDefinitionWrapper.challenge = thread.challenge;
+    service.evaluateDefinition(presentationDefinitionWrapper.presentation_definition, thread);
+    await getMongoRepository(PresentationDefinitionWrapperEntity).save(presentationDefinitionWrapper);
+    await getMongoRepository(DefinitionStatusEntity).save({
+      definition_id: presentationDefinitionWrapper.id,
+      status: ExchangeStatus.Created,
+    });
+    res.status(201).json(generateDefinitionsResponseBody(req, thread));
   } catch (error) {
     handleErrors(error, next);
   }
 };
 
-const retrieveDefinitionById = (req: Request, res: Response, next: NextFunction) => {
-  getMongoRepository(PresentationDefinitionWrapperEntity)
-    .findOne({ id: req.params['id'] })
-    .then((data) => {
-      if (data) {
-        res.status(200).json(data);
-      } else {
-        next();
-      }
+const retrieveDefinitionById = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const query = url.parse(req.url, true).query;
+    const threadEntity = await transformAndValidate(ThreadEntity, {
+      id: query.thread_id,
+      challenge: { token: query.token },
     });
+    const thread: ThreadEntity = await updateChallengeToken(threadEntity);
+    const result = await getMongoRepository(PresentationDefinitionWrapperEntity)
+      .aggregate([{ $match: { id: req.params['id'] } }, { $project: { _id: 0 } }])
+      .next();
+    if (result) {
+      res.status(200).json({ ...result, thread: { id: thread.id }, challenge: thread.challenge });
+    } else {
+      res.status(404).json({ thread: { id: thread.id }, challenge: thread.challenge });
+    }
+  } catch (error) {
+    handleErrors(error, next);
+  }
 };
 
-const retrieveDefinitionStatus = (req: Request, res: Response, next: NextFunction) => {
-  return getMongoRepository(DefinitionStatusEntity)
-    .findOne({ definition_id: req.params['id'] })
-    .then((data) => {
-      if (data) {
-        res.status(200).json(data);
-      } else {
-        next();
-      }
+const retrieveDefinitionStatus = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const query = url.parse(req.url, true).query;
+    const threadEntity = await transformAndValidate(ThreadEntity, {
+      id: query.thread_id,
+      challenge: { token: query.token },
     });
+    const thread: ThreadEntity = await updateChallengeToken(threadEntity);
+    const result = await getMongoRepository(DefinitionStatusEntity)
+      .aggregate([{ $match: { definition_id: req.params['id'] } }, { $project: { _id: 0 } }])
+      .next();
+    if (result) {
+      res.status(200).json({ ...result, thread: { id: thread.id }, challenge: thread.challenge });
+    } else {
+      res.status(404).json({ thread: { id: thread.id }, challenge: thread.challenge });
+    }
+  } catch (error) {
+    handleErrors(error, next);
+  }
 };
 
 const updateDefinitionStatus = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const statusWrapper = (await transformAndValidate(DefinitionStatusEntity, req.body)) as DefinitionStatusEntity;
-    await getMongoRepository(DefinitionStatusEntity).updateOne(
+    const thread = await updateChallengeToken({ id: statusWrapper.thread.id, challenge: statusWrapper.challenge });
+    const result = await getMongoRepository(DefinitionStatusEntity).updateOne(
       { definition_id: statusWrapper.definition_id },
       { $set: statusWrapper },
       { upsert: false }
     );
-    res
-      .status(200)
-      .json(await getMongoRepository(DefinitionStatusEntity).findOne({ definition_id: statusWrapper.definition_id }));
+    if (result.modifiedCount) {
+      res.status(200).json({
+        ...(await getMongoRepository(DefinitionStatusEntity)
+          .aggregate([{ $match: { definition_id: statusWrapper.definition_id } }, { $project: { _id: 0 } }])
+          .next()),
+        thread: { id: thread.id },
+        challenge: thread.challenge,
+      });
+    } else {
+      res.status(404).json({ thread: { id: thread.id }, challenge: thread.challenge });
+    }
   } catch (error) {
     handleErrors(error, next);
   }

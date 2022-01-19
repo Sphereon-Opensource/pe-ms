@@ -4,7 +4,6 @@ import { Column, Entity, ObjectID, ObjectIdColumn } from 'typeorm';
 
 import { CallbackEntity } from '../callbackEntity';
 import { ChallengeEntity } from '../challengeEntity';
-import { ThreadEntity } from '../threadEntity';
 
 /**
  * A wrapper object for our presentation_definition. For
@@ -36,14 +35,13 @@ export class PresentationDefinitionWrapperEntity {
   @Column()
   purpose?: string;
 
-  @Column()
+  @IsDefined({ message: 'PresentationDefinitionWrapper.challenge must be provided' })
   // @ts-ignore
   challenge: ChallengeEntity;
 
-  @Column()
   @IsDefined({ message: 'PresentationDefinitionWrapper.thread must be provided' })
   // @ts-ignore
-  thread: ThreadEntity;
+  thread: { id: ObjectID };
 
   @Column()
   @IsDefined({ message: 'PresentationDefinitionWrapper.callback must be provided' })

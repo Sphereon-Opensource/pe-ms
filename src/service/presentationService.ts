@@ -1,5 +1,6 @@
 import { EvaluationResults, IProof, IVerifiableCredential, ProofType } from '@sphereon/pex';
 import { PEX } from '@sphereon/pex';
+import { InputDescriptorV1, InputDescriptorV2 } from '@sphereon/pex-models';
 import { SSITypesBuilder } from '@sphereon/pex/dist/main/lib/types/SSITypesBuilder';
 
 import { ApiError } from '../controllers/error_handler/errorHandler';
@@ -34,10 +35,21 @@ export class PresentationService {
     pWrapper: PresentationWrapperEntity
   ): EvaluationResults => {
     const peJs = new PEX();
-    const validationResult = peJs.evaluatePresentation(pdWrapper.presentation_definition, pWrapper.presentation);
-    if (validationResult.errors?.length) {
-      throw new ApiError(JSON.stringify({ warnings: validationResult.warnings, errors: validationResult.errors }));
+    const evaluationResults = peJs.evaluatePresentation(pdWrapper.presentation_definition, pWrapper.presentation);
+    if (Object.keys(pdWrapper.presentation_definition).includes('input_descriptors')) {
+      const inputDescriptors = (
+        pdWrapper.presentation_definition.input_descriptors as (InputDescriptorV1 | InputDescriptorV2)[]
+      ).map((inDesc) => inDesc.id);
+      if (
+        !evaluationResults.value?.descriptor_map.map((dm) => dm.id).every((inDesc) => inputDescriptors.includes(inDesc))
+      ) {
+        throw new ApiError('Not all input descriptors are satisfied', {
+          ...evaluationResults,
+          thread: pWrapper.thread,
+          challenge: pWrapper.challenge,
+        });
+      }
     }
-    return validationResult;
+    return evaluationResults;
   };
 }
