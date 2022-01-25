@@ -20,10 +20,11 @@ const createPresentation = async (req: Request, res: Response, next: NextFunctio
   try {
     const service = new PresentationService();
     const pWrapper = (await transformAndValidate(PresentationWrapperEntity, req.body)) as PresentationWrapperEntity;
-    const thread: ThreadEntity = await updateChallengeToken({
+    const threadEntity = await transformAndValidate(ThreadEntity, {
       id: pWrapper.thread.id,
       challenge: pWrapper.challenge,
     });
+    const thread: ThreadEntity = await updateChallengeToken(threadEntity);
     pWrapper.challenge = thread.challenge;
     service.checkExpiredVcs(pWrapper.presentation.verifiableCredential);
     service.validateProof(pWrapper);
@@ -91,10 +92,11 @@ const retrievePresentationStatus = async (req: Request, res: Response, next: Nex
 const updatePresentationStatus = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const statusWrapper = (await transformAndValidate(PresentationStatusEntity, req.body)) as PresentationStatusEntity;
-    const thread: ThreadEntity = await updateChallengeToken({
+    const threadEntity = await transformAndValidate(ThreadEntity, {
       id: statusWrapper.thread.id,
       challenge: statusWrapper.challenge,
     });
+    const thread: ThreadEntity = await updateChallengeToken(threadEntity);
     const result = await getMongoRepository(PresentationStatusEntity).updateOne(
       { presentation_id: statusWrapper.presentation_id },
       { $set: statusWrapper },

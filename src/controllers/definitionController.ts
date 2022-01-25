@@ -22,10 +22,11 @@ const createDefinition = async (req: Request, res: Response, next: NextFunction)
       PresentationDefinitionWrapperEntity,
       req.body
     )) as PresentationDefinitionWrapperEntity;
-    const thread: ThreadEntity = await updateChallengeToken({
+    const threadEntity = await transformAndValidate(ThreadEntity, {
       id: presentationDefinitionWrapper.thread.id,
       challenge: presentationDefinitionWrapper.challenge,
     });
+    const thread: ThreadEntity = await updateChallengeToken(threadEntity);
     presentationDefinitionWrapper.challenge = thread.challenge;
     service.evaluateDefinition(presentationDefinitionWrapper.presentation_definition, thread);
     await getMongoRepository(PresentationDefinitionWrapperEntity).save(presentationDefinitionWrapper);
@@ -84,7 +85,11 @@ const retrieveDefinitionStatus = async (req: Request, res: Response, next: NextF
 const updateDefinitionStatus = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const statusWrapper = (await transformAndValidate(DefinitionStatusEntity, req.body)) as DefinitionStatusEntity;
-    const thread = await updateChallengeToken({ id: statusWrapper.thread.id, challenge: statusWrapper.challenge });
+    const threadEntity = await transformAndValidate(ThreadEntity, {
+      id: statusWrapper.thread.id,
+      challenge: statusWrapper.challenge,
+    });
+    const thread = await updateChallengeToken(threadEntity);
     const result = await getMongoRepository(DefinitionStatusEntity).updateOne(
       { definition_id: statusWrapper.definition_id },
       { $set: statusWrapper },
