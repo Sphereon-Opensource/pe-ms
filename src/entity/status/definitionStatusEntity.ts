@@ -1,5 +1,5 @@
 import { ExchangeStatus } from '@sphereon/pex-models';
-import { IsDefined, IsEnum, IsNotEmpty } from 'class-validator';
+import { IsEnum, IsNotEmpty } from 'class-validator';
 import { Column, Entity, ObjectID, ObjectIdColumn } from 'typeorm';
 
 import { PresentationDefinitionStatus } from '../../types/presentationDefinitionStatus';
@@ -11,7 +11,6 @@ export class DefinitionStatusEntity {
   // @ts-ignore
   _id: ObjectID;
 
-  @IsDefined({ message: 'Thread must be provided' })
   // @ts-ignore
   thread: { id: ObjectID };
 
@@ -28,7 +27,6 @@ export class DefinitionStatusEntity {
   @Column({ default: undefined })
   message?: string;
 
-  @IsDefined({ message: 'Challenge must be provided' })
   // @ts-ignore
   challenge: ChallengeEntity;
 }

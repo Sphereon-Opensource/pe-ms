@@ -35,11 +35,9 @@ export class PresentationDefinitionWrapperEntity {
   @Column()
   purpose?: string;
 
-  @IsDefined({ message: 'PresentationDefinitionWrapper.challenge must be provided' })
   // @ts-ignore
   challenge: ChallengeEntity;
 
-  @IsDefined({ message: 'PresentationDefinitionWrapper.thread must be provided' })
   // @ts-ignore
   thread: { id: ObjectID };
 

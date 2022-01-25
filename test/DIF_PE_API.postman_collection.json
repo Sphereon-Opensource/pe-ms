@@ -73,7 +73,7 @@
 							"",
 							"pm.test('Definition url', () => {",
 							"    const definition_id = pm.environment.get('definition.id');",
-							"    const url = `http://localhost:3000/pe/v1/definitions/${definition_id}/`;",
+							"    const url = `${pm.environment.get('host')}/pe/v1/definitions/${definition_id}/`;",
 							"    pm.expect(pm.response.json().definition_url).to.equal(url)",
 							"});",
 							"",

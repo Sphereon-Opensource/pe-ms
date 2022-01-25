@@ -17,10 +17,10 @@ export const handleErrors = (error: Error, next: NextFunction) => {
   if (Array.isArray(error)) {
     next(
       new ApiError(
-        'Validation error',
-        error.map((e) => {
+        'Validation error',{
+        errors: error.map((e) => {
           return { property: e.property, constraints: e.constraints };
-        })
+        })}
       )
     );
   } else {
