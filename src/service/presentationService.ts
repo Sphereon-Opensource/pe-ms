@@ -50,6 +50,6 @@ export class PresentationService {
         });
       }
     }
-    return evaluationResults;
+    return { ...evaluationResults, errors: [] };
   };
 }
