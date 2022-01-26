@@ -145,7 +145,8 @@
                             "path": "$.verifiableCredential[0]"
                         }
                     ]
-                }
+                },
+                "areRequiredCredentialsPresent": "info"
             }
         },
         "pd_status": {
@@ -345,7 +346,8 @@
                             "path": "$.verifiableCredential[0]"
                         }
                     ]
-                }
+                },
+                "areRequiredCredentialsPresent": "info"
             }
         },
         "pd_status": {
@@ -558,7 +560,8 @@
                             "path": "$.verifiableCredential[0]"
                         }
                     ]
-                }
+                },
+                "areRequiredCredentialsPresent": "info"
             }
         },
         "pd_status": {
@@ -786,7 +789,8 @@
                             "path": "$.verifiableCredential[0]"
                         }
                     ]
-                }
+                },
+                "areRequiredCredentialsPresent": "info"
             }
         },
         "pd_status": {
@@ -989,28 +993,7 @@
                     }
                 ],
                 "warnings": [],
-                "errors": [
-                    {
-                        "tag": "UriEvaluation",
-                        "status": "error",
-                        "message": "@context URI for the of the candidate input MUST be equal to one of the input_descriptors object uri values exactly.: $.input_descriptors[0]: $[1]"
-                    },
-                    {
-                        "tag": "UriEvaluation",
-                        "status": "error",
-                        "message": "@context URI for the of the candidate input MUST be equal to one of the input_descriptors object uri values exactly.: $.input_descriptors[1]: $[0]"
-                    },
-                    {
-                        "tag": "MarkForSubmissionEvaluation",
-                        "status": "error",
-                        "message": "The input candidate is not eligible for submission: $.input_descriptors[0]: $[1]"
-                    },
-                    {
-                        "tag": "MarkForSubmissionEvaluation",
-                        "status": "error",
-                        "message": "The input candidate is not eligible for submission: $.input_descriptors[1]: $[0]"
-                    }
-                ],
+                "errors": [],
                 "value": {
                     "id": "{{ps}}",
                     "definition_id": "{{definition.id}}",
@@ -1026,7 +1009,8 @@
                             "path": "$.verifiableCredential[1]"
                         }
                     ]
-                }
+                },
+                "areRequiredCredentialsPresent": "info"
             }
         },
         "pd_status": {
@@ -1241,7 +1225,8 @@
                             "path": "$.verifiableCredential[0]"
                         }
                     ]
-                }
+                },
+                "areRequiredCredentialsPresent": "info"
             }
         },
         "pd_status": {
@@ -1467,7 +1452,8 @@
                             "path": "$.verifiableCredential[0]"
                         }
                     ]
-                }
+                },
+                "areRequiredCredentialsPresent": "info"
             }
         },
         "pd_status": {
@@ -1702,7 +1688,8 @@
                             "path": "$.verifiableCredential[0]"
                         }
                     ]
-                }
+                },
+                "areRequiredCredentialsPresent": "info"
             }
         },
         "pd_status": {
@@ -2297,7 +2284,8 @@
                     "status": "error",
                     "message": "The input candidate is not eligible for submission: $.input_descriptors[1]: $[2]"
                 }
-            ]
+            ],
+            "areRequiredCredentialsPresent": "error"
         },
         "pd_status": {
             "thread": {

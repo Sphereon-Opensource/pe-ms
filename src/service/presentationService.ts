@@ -1,6 +1,7 @@
 import { EvaluationResults, IProof, IVerifiableCredential, ProofType } from '@sphereon/pex';
 import { PEX } from '@sphereon/pex';
 import { InputDescriptorV1, InputDescriptorV2 } from '@sphereon/pex-models';
+import { Status } from '@sphereon/pex/dist/main/lib/ConstraintUtils';
 import { SSITypesBuilder } from '@sphereon/pex/dist/main/lib/types/SSITypesBuilder';
 
 import { ApiError } from '../controllers/error_handler/errorHandler';
@@ -33,7 +34,7 @@ export class PresentationService {
   public evaluatePresentation = (
     pdWrapper: PresentationDefinitionWrapperEntity,
     pWrapper: PresentationWrapperEntity
-  ): EvaluationResults => {
+  ): EvaluationResults & { areRequiredCredentialsPresent: Status } => {
     const peJs = new PEX();
     const evaluationResults = peJs.evaluatePresentation(pdWrapper.presentation_definition, pWrapper.presentation);
     if (Object.keys(pdWrapper.presentation_definition).includes('input_descriptors')) {
@@ -45,11 +46,12 @@ export class PresentationService {
       ) {
         throw new ApiError('Not all input descriptors are satisfied', {
           ...evaluationResults,
+          areRequiredCredentialsPresent: Status.ERROR,
           thread: pWrapper.thread,
           challenge: pWrapper.challenge,
         });
       }
     }
-    return { ...evaluationResults, errors: [] };
+    return { ...evaluationResults, errors: [], areRequiredCredentialsPresent: Status.INFO };
   };
 }
