@@ -1,0 +1,658 @@
+{
+	"info": {
+		"_postman_id": "174de53e-42ab-425a-8df7-f4091142c87b",
+		"name": "DIF PE API",
+		"description": "Decentralized Identity Foundation Presentation Exchange API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create thread",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Id of the thread is defined', () => {",
+							"    pm.expect(!!pm.response.json().id).to.equal(true);",
+							"});",
+							"",
+							"pm.test('Challenge token is defined', () => {",
+							"    pm.expect(!!pm.response.json().challenge.token).to.equal(true);",
+							"})",
+							"",
+							"postman.setEnvironmentVariable('thread.id', pm.response.json().id);",
+							"postman.setEnvironmentVariable(\"challenge.token\", pm.response.json().challenge.token);",
+							"const uuid = require(\"uuid\");",
+							"postman.setEnvironmentVariable(\"definition.id\", uuid.v4());",
+							"postman.setEnvironmentVariable(\"presentation.id\", uuid.v4());",
+							"postman.setEnvironmentVariable(\"presentation_submission.id\", uuid.v4());"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/pe/v1/threads",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"pe",
+						"v1",
+						"threads"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create definition",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Thread id did not change', () => {",
+							"    pm.expect(pm.response.json().thread.id).to.equal(pm.environment.get('thread.id'));",
+							"})",
+							"",
+							"pm.test('Challenge token must have changed', () => {",
+							"    pm.expect(!!pm.response.json().challenge.token).to.equal(true);",
+							"    pm.expect(pm.response.json().challenge.token).to.not.equal(pm.environment.get('challenge.token'));",
+							"})",
+							"",
+							"pm.test('Definition url', () => {",
+							"    const definition_id = pm.environment.get('definition.id');",
+							"    const url = `${pm.environment.get('host')}/pe/v1/definitions/${definition_id}/`;",
+							"    pm.expect(pm.response.json().definition_url).to.equal(url)",
+							"});",
+							"",
+							"postman.setEnvironmentVariable(\"challenge.token\", pm.response.json().challenge.token);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const data1 = JSON.stringify(pm.iterationData.get('pd'))",
+							"pm.environment.set('body', data1)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{{body}}"
+				},
+				"url": {
+					"raw": "{{host}}/pe/v1/definitions",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"pe",
+						"v1",
+						"definitions"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve definition",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Thread id should not change', () => {",
+							"    pm.expect(pm.response.json().thread.id).to.equal(pm.environment.get('thread.id'));",
+							"})",
+							"",
+							"pm.test('Challenge token must have changed', () => {",
+							"    pm.expect(!!pm.response.json().challenge.token).to.equal(true);",
+							"    pm.expect(pm.response.json().challenge.token).to.not.equal(pm.environment.get('challenge.token'));",
+							"})",
+							"",
+							"pm.test('Presentation definition is defined', () => {",
+							"    pm.expect(!!pm.response.json().presentation_definition).to.equal(true);",
+							"})",
+							"",
+							"pm.test('Callback url', () => {",
+							"    pm.expect(pm.response.json().callback.url).to.equal(`http://localhost:3000/pe/v1/definitions/${pm.environment.get('definition.id')}/status`)",
+							"})",
+							"",
+							"postman.setEnvironmentVariable(\"challenge.token\", pm.response.json().challenge.token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/pe/v1/definitions/{{definition.id}}?thread_id={{thread.id}}&token={{challenge.token}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"pe",
+						"v1",
+						"definitions",
+						"{{definition.id}}"
+					],
+					"query": [
+						{
+							"key": "thread_id",
+							"value": "{{thread.id}}"
+						},
+						{
+							"key": "token",
+							"value": "{{challenge.token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create presentation",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Thread id did not change', () => {",
+							"    pm.expect(pm.response.json().thread.id).to.equal(pm.environment.get('thread.id'));",
+							"})",
+							"",
+							"pm.test('Challenge token must have changed', () => {",
+							"    pm.expect(!!pm.response.json().challenge.token).to.equal(true);",
+							"    pm.expect(pm.response.json().challenge.token).to.not.equal(pm.environment.get('challenge.token'));",
+							"})",
+							"if (pm.response.json().result) {",
+							"    pm.variables.set('ps', pm.response.json().result.value.id)",
+							"}",
+							"postman.setEnvironmentVariable(\"challenge.token\", pm.response.json().challenge.token);",
+							"",
+							"pm.test('The response body', () => {",
+							"    const result = pm.variables.replaceIn(JSON.stringify(pm.iterationData.get('evaluation_result')));",
+							"    pm.expect(pm.response.json()).to.deep.include(JSON.parse(result));",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const data1 = JSON.stringify(pm.iterationData.get('vp'));",
+							"pm.environment.set('body', data1);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{{body}}"
+				},
+				"url": {
+					"raw": "{{host}}/pe/v1/presentations",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"pe",
+						"v1",
+						"presentations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve presentation",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Thread id did not change', () => {",
+							"    pm.expect(pm.response.json().thread.id).to.equal(pm.environment.get('thread.id'));",
+							"})",
+							"",
+							"pm.test('Challenge token must have changed', () => {",
+							"    pm.expect(!!pm.response.json().challenge.token).to.equal(true);",
+							"    pm.expect(pm.response.json().challenge.token).to.not.equal(pm.environment.get('challenge.token'));",
+							"})",
+							"",
+							"postman.setEnvironmentVariable(\"challenge.token\", pm.response.json().challenge.token)",
+							"",
+							"const code = pm.response.code",
+							"if (code === 200 || code === 201) {",
+							"pm.test('The response body', () => {",
+							"    const result = pm.variables.replaceIn(JSON.stringify(pm.iterationData.get('vp')));",
+							"    const vp = JSON.parse(result);",
+							"    pm.expect(pm.response.json().id).to.equal(vp.id)",
+							"    pm.expect(pm.response.json().comment).to.equal(vp.comment)",
+							"    pm.expect(pm.response.json().pdId).to.equal(vp.pdId)",
+							"    pm.expect(pm.response.json().presentation).to.deep.include(vp.presentation)",
+							"    pm.expect(pm.response.json().callback).to.deep.include(vp.callback)",
+							"})",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/pe/v1/presentations/{{presentation.id}}?thread_id={{thread.id}}&token={{challenge.token}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"pe",
+						"v1",
+						"presentations",
+						"{{presentation.id}}"
+					],
+					"query": [
+						{
+							"key": "thread_id",
+							"value": "{{thread.id}}"
+						},
+						{
+							"key": "token",
+							"value": "{{challenge.token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update presentation status",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const data3 = JSON.stringify(pm.iterationData.get('vp_status'));",
+							"pm.environment.set('body', data3);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Thread id did not change', () => {",
+							"    pm.expect(pm.response.json().thread.id).to.equal(pm.environment.get('thread.id'));",
+							"})",
+							"",
+							"pm.test('Challenge token must have changed', () => {",
+							"    pm.expect(!!pm.response.json().challenge.token).to.equal(true);",
+							"    pm.expect(pm.response.json().challenge.token).to.not.equal(pm.environment.get('challenge.token'));",
+							"})",
+							"",
+							"postman.setEnvironmentVariable(\"challenge.token\", pm.response.json().challenge.token);",
+							"",
+							"const code = pm.response.code;",
+							"",
+							"if (code === 200 || code === 201) {",
+							"    pm.test('Response body', () => {",
+							"        const result = pm.variables.replaceIn(JSON.stringify(pm.iterationData.get('vp_status')));",
+							"        const pStatus = JSON.parse(result)",
+							"        pm.expect(pm.response.json().presentation_id).to.equal(pStatus.presentation_id)",
+							"        pm.expect(pm.response.json().status).to.equal(pStatus.status)",
+							"        pm.expect(pm.response.json().message).to.equal(pStatus.message)",
+							"    })",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{{body}}"
+				},
+				"url": {
+					"raw": "{{host}}/pe/v1/presentations/{{presentation.id}}/statuses",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"pe",
+						"v1",
+						"presentations",
+						"{{presentation.id}}",
+						"statuses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update definition status",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const data4 = JSON.stringify(pm.iterationData.get('pd_status'));",
+							"pm.variables.replaceIn(data4);",
+							"pm.environment.set('body', data4);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Thread id did not change', () => {",
+							"    pm.expect(pm.response.json().thread.id).to.equal(pm.environment.get('thread.id'));",
+							"})",
+							"",
+							"pm.test('Challenge token must have changed', () => {",
+							"    pm.expect(!!pm.response.json().challenge.token).to.equal(true);",
+							"    pm.expect(pm.response.json().challenge.token).to.not.equal(pm.environment.get('challenge.token'));",
+							"})",
+							"",
+							"pm.test('Presentation definition id', () => {",
+							"    pm.expect(pm.response.json().definition_id).to.equal(pm.environment.get('definition.id'));",
+							"})",
+							"",
+							"pm.test('Status', () => {",
+							"    pm.expect(pm.response.json().status).to.equal('DELETED')",
+							"})",
+							"",
+							"pm.test('Message', () => {",
+							"    pm.expect(pm.response.json().message).to.equal('The presentation definition has been deleted')",
+							"})",
+							"",
+							"postman.setEnvironmentVariable(\"challenge.token\", pm.response.json().challenge.token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{{body}}"
+				},
+				"url": {
+					"raw": "{{host}}/pe/v1/definitions/{{definition.id}}/statuses",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"pe",
+						"v1",
+						"definitions",
+						"{{definition.id}}",
+						"statuses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve presentation status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Thread id did not change', () => {",
+							"    pm.expect(pm.response.json().thread.id).to.equal(pm.environment.get('thread.id'));",
+							"})",
+							"",
+							"pm.test('Challenge token must have changed', () => {",
+							"    pm.expect(!!pm.response.json().challenge.token).to.equal(true);",
+							"    pm.expect(pm.response.json().challenge.token).to.not.equal(pm.environment.get('challenge.token'));",
+							"})",
+							"",
+							"postman.setEnvironmentVariable(\"challenge.token\", pm.response.json().challenge.token);",
+							"",
+							"const code = pm.response.code;",
+							"",
+							"if (code === 200 || code === 201) {",
+							"    pm.test('Response body', () => {",
+							"        const result = pm.variables.replaceIn(JSON.stringify(pm.iterationData.get('vp_status')));",
+							"        const pStatus = JSON.parse(result)",
+							"        pm.expect(pm.response.json().presentation_id).to.equal(pStatus.presentation_id)",
+							"        pm.expect(pm.response.json().status).to.equal(pStatus.status)",
+							"        pm.expect(pm.response.json().message).to.equal(pStatus.message)",
+							"    })",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/pe/v1/presentations/{{presentation.id}}/statuses?thread_id={{thread.id}}&token={{challenge.token}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"pe",
+						"v1",
+						"presentations",
+						"{{presentation.id}}",
+						"statuses"
+					],
+					"query": [
+						{
+							"key": "thread_id",
+							"value": "{{thread.id}}"
+						},
+						{
+							"key": "token",
+							"value": "{{challenge.token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve definition status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Thread id did not change', () => {",
+							"    pm.expect(pm.response.json().thread.id).to.equal(pm.environment.get('thread.id'));",
+							"})",
+							"",
+							"pm.test('Challenge token must have changed', () => {",
+							"    pm.expect(!!pm.response.json().challenge.token).to.equal(true);",
+							"    pm.expect(pm.response.json().challenge.token).to.not.equal(pm.environment.get('challenge.token'));",
+							"})",
+							"",
+							"pm.test('Presentation definition id', () => {",
+							"    pm.expect(pm.response.json().definition_id).to.equal(pm.environment.get('definition.id'));",
+							"})",
+							"",
+							"pm.test('Status', () => {",
+							"    pm.expect(pm.response.json().status).to.equal('DELETED')",
+							"})",
+							"",
+							"pm.test('Message', () => {",
+							"    pm.expect(pm.response.json().message).to.equal('The presentation definition has been deleted')",
+							"})",
+							"",
+							"postman.setEnvironmentVariable(\"challenge.token\", pm.response.json().challenge.token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/pe/v1/definitions/{{definition.id}}/statuses?thread_id={{thread.id}}&token={{challenge.token}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"pe",
+						"v1",
+						"definitions",
+						"{{definition.id}}",
+						"statuses"
+					],
+					"query": [
+						{
+							"key": "thread_id",
+							"value": "{{thread.id}}"
+						},
+						{
+							"key": "token",
+							"value": "{{challenge.token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "protocol",
+			"value": "https"
+		},
+		{
+			"key": "environment",
+			"value": "api.dev"
+		},
+		{
+			"key": "projectName",
+			"value": "pe"
+		},
+		{
+			"key": "port",
+			"value": "443"
+		},
+		{
+			"key": "baseUrl",
+			"value": "{{protocol}}://{{environment}}.{{projectName}}.sphereon.io:{{port}}/pe"
+		}
+	]
+}

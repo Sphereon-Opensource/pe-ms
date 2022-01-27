@@ -1,36 +1,41 @@
 import { randomBytes } from 'crypto';
 
-import { Challenge } from '@sphereon/pex-models';
 import { Request } from 'express';
+import { MongoClient, ObjectID } from 'mongodb';
 
+import { DATABASE_NAME, MONGODB_URL } from '../../environment';
 import { ApiError } from '../controllers/error_handler/errorHandler';
-import { PresentationWrapperEntity } from '../entity/presentation/presentationWrapperEntity';
-import { PresentationDefinitionWrapperEntity } from '../entity/presentationDefinition/presentationDefinitionWrapperEntity';
+import { ThreadEntity } from '../entity/threadEntity';
 
-export const generateDefinitionUrl = (req: Request) => {
+export const generateDefinitionsResponseBody = (req: Request, thread: ThreadEntity) => {
   return {
-    definition_url: `${req.protocol}://${req.headers.host}${req.baseUrl}/definitions/${req.body.presentation_definition.id}`,
+    thread: { id: thread.id },
+    challenge: thread.challenge,
+    definition_url: `${req.protocol}://${req.headers.host}${req.baseUrl}/definitions/${req.body.presentation_definition.id}/`,
   };
 };
 
-export const createChallengeToken = (challenge: Challenge) => {
-  return {
-    ...challenge,
-    token: randomBytes(64).toString('hex'),
-  };
-};
-
-export const validateChallengeToken = (challengeTokenA?: string, challengeTokenB?: string) => {
-  if ((!challengeTokenA || !challengeTokenB) && challengeTokenA !== challengeTokenB) {
-    throw new ApiError('Invalid challenge token');
-  }
-};
-
-export const validateThreadId = (
-  pdWrapper: PresentationDefinitionWrapperEntity,
-  pWrapper: PresentationWrapperEntity
-) => {
-  if (pdWrapper.thread.id !== pWrapper.thread.id) {
-    throw new ApiError('Invalid thread id');
+export const updateChallengeToken = async (thread?: ThreadEntity): Promise<ThreadEntity> => {
+  const client = new MongoClient(MONGODB_URL);
+  try {
+    await client.connect();
+    const result = await client
+      .db(DATABASE_NAME)
+      .collection('thread')
+      .findOneAndUpdate(
+        {
+          $and: [{ _id: new ObjectID(thread?.id) }, { 'challenge.token': thread?.challenge.token }],
+        },
+        { $set: { 'challenge.token': randomBytes(16).toString('hex') } },
+        { returnOriginal: false }
+      );
+    if (!result.value) {
+      throw new ApiError('Invalid thread id or challenge token');
+    }
+    return Promise.resolve({ id: result.value._id, challenge: result.value.challenge });
+  } finally {
+    if (client.isConnected()) {
+      await client.close();
+    }
   }
 };

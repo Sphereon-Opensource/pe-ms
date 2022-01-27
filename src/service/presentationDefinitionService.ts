@@ -1,15 +1,19 @@
-import { PEX } from '@sphereon/pex';
+import { IPresentationDefinition, PEX } from '@sphereon/pex';
 import { Validated } from '@sphereon/pex';
 
 import { ApiError } from '../controllers/error_handler/errorHandler';
-import { PresentationDefinitionWrapperEntity } from '../entity/presentationDefinition/presentationDefinitionWrapperEntity';
+import { ThreadEntity } from '../entity/threadEntity';
 
 export class PresentationDefinitionService {
-  public evaluateDefinition = (pdWrapper: PresentationDefinitionWrapperEntity) => {
+  public evaluateDefinition = (presentationDefinition: IPresentationDefinition, thread?: ThreadEntity) => {
     const pejs = new PEX();
-    const validationResult: Validated = pejs.validateDefinition(pdWrapper.presentation_definition);
+    const validationResult: Validated = pejs.validateDefinition(presentationDefinition);
     if (Array.isArray(validationResult) && validationResult[0].message != 'ok') {
-      throw new ApiError(JSON.stringify(validationResult));
+      throw new ApiError('Invalid presentation definition', {
+        thread: { id: thread?.id },
+        challenge: thread?.challenge,
+        errors: validationResult,
+      });
     }
   };
 }

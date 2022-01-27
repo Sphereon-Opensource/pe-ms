@@ -4,7 +4,6 @@ import { Column, Entity, ObjectID, ObjectIdColumn } from 'typeorm';
 
 import { PresentationDefinitionStatus } from '../../types/presentationDefinitionStatus';
 import { ChallengeEntity } from '../challengeEntity';
-import { ThreadEntity } from '../threadEntity';
 
 @Entity('definition_status')
 export class DefinitionStatusEntity {
@@ -12,10 +11,9 @@ export class DefinitionStatusEntity {
   // @ts-ignore
   _id: ObjectID;
 
-  @Column()
   @IsDefined({ message: 'Thread must be provided' })
   // @ts-ignore
-  thread: ThreadEntity;
+  thread: { id: ObjectID };
 
   @Column()
   @IsNotEmpty({ message: 'Definition_id is invalid' })
@@ -30,7 +28,6 @@ export class DefinitionStatusEntity {
   @Column({ default: undefined })
   message?: string;
 
-  @Column()
   @IsDefined({ message: 'Challenge must be provided' })
   // @ts-ignore
   challenge: ChallengeEntity;

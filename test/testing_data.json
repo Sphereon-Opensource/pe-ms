@@ -1,0 +1,2313 @@
+[
+    {
+        "pd": {
+            "thread": {
+                "id": "{{thread.id}}"
+            },
+            "id": "{{definition.id}}",
+            "comment": "Create PD test",
+            "presentation_definition": {
+                "id": "{{definition.id}}",
+                "input_descriptors": [
+                    {
+                        "schema": [
+                            {
+                                "uri": "https://www.w3.org/2018/credentials/v1"
+                            }
+                        ],
+                        "name": "EU Driver's License",
+                        "id": "citizenship_input_1"
+                    }
+                ],
+                "format": {
+                    "ldp_vp": {
+                        "proof_type": [
+                            "Ed25519Signature2018"
+                        ]
+                    }
+                }
+            },
+            "callback": {
+                "url": "http://localhost:3000/pe/v1/definitions/{{definition.id}}/status"
+            },
+            "challenge": {
+                "token": "{{challenge.token}}"
+            }
+        },
+        "vp": {
+            "thread": {
+                "id": "{{thread.id}}"
+            },
+            "id": "{{presentation.id}}",
+            "comment": "Create PD test",
+            "presentation": {
+                "@context": [
+                    "https://www.w3.org/2018/credentials/v1",
+                    "https://identity.foundation/presentation-exchange/submission/v1"
+                ],
+                "presentation_submission": {
+                    "id": "{{presentation_submission.id}}",
+                    "definition_id": "{{definition.id}}",
+                    "descriptor_map": [
+                        {
+                            "id": "867bfe7a-5b91-46b2-9ba4-70028b8d9cc8",
+                            "format": "ldp_vp",
+                            "path": "$.verifiableCredential[0]"
+                        }
+                    ]
+                },
+                "type": [
+                    "VerifiablePresentation",
+                    "PresentationSubmission"
+                ],
+                "verifiableCredential": [
+                    {
+                        "@context": [
+                            "https://www.w3.org/2018/credentials/v1"
+                        ],
+                        "credentialSchema": [
+                            {
+                                "id": "https://www.w3.org/TR/vc-data-model/#types"
+                            }
+                        ],
+                        "credentialSubject": {
+                            "age": 19,
+                            "etc": "etc"
+                        },
+                        "id": "2dc74354-e965-4883-be5e-bfec48bf60c7",
+                        "issuer": "",
+                        "type": "VerifiableCredential",
+                        "proof": {
+                            "type": "BbsBlsSignatureProof2020",
+                            "created": "2020-04-25",
+                            "verificationMethod": "did:example:489398593#test",
+                            "proofPurpose": "assertionMethod",
+                            "proofValue": "kTTbA3pmDa6Qia/JkOnIXDLmoBz3vsi7L5t3DWySI/VLmBqleJ/Tbus5RoyiDERDBEh5rnACXlnOqJ/U8yFQFtcp/mBCc2FtKNPHae9jKIv1dm9K9QK1F3GI1AwyGoUfjLWrkGDObO1ouNAhpEd0+et+qiOf2j8p3MTTtRRx4Hgjcl0jXCq7C7R5/nLpgimHAAAAdAx4ouhMk7v9dXijCIMaG0deicn6fLoq3GcNHuH5X1j22LU/hDu7vvPnk/6JLkZ1xQAAAAIPd1tu598L/K3NSy0zOy6obaojEnaqc1R5Ih/6ZZgfEln2a6tuUp4wePExI1DGHqwj3j2lKg31a/6bSs7SMecHBQdgIYHnBmCYGNQnu/LZ9TFV56tBXY6YOWZgFzgLDrApnrFpixEACM9rwrJ5ORtxAAAAAgE4gUIIC9aHyJNa5TBklMOh6lvQkMVLXa/vEl+3NCLXblxjgpM7UEMqBkE9/QcoD3Tgmy+z0hN+4eky1RnJsEg=",
+                            "nonce": "6i3dTz5yFfWJ8zgsamuyZa4yAHPm75tUOOXddR6krCvCYk77sbCOuEVcdBCDd/l6tIY="
+                        }
+                    }
+                ]
+            },
+            "challenge": {
+                "token": "{{challenge.token}}"
+            },
+            "pdId": "{{definition.id}}",
+            "callback": {
+                "url": "http://localhost:3000/presentations/{{presentation.id}}/statuses"
+            }
+        },
+        "evaluation_result": {
+            "thread": {
+                "id": "{{thread.id}}"
+            },
+            "challenge": {
+                "token": "{{challenge.token}}",
+                "holder": null
+            },
+            "presentation_id": "{{presentation.id}}",
+            "result": {
+                "verifiableCredential": [
+                    {
+                        "@context": [
+                            "https://www.w3.org/2018/credentials/v1"
+                        ],
+                        "credentialSchema": [
+                            {
+                                "id": "https://www.w3.org/TR/vc-data-model/#types"
+                            }
+                        ],
+                        "credentialSubject": {
+                            "age": 19,
+                            "etc": "etc"
+                        },
+                        "id": "2dc74354-e965-4883-be5e-bfec48bf60c7",
+                        "issuer": "",
+                        "type": "VerifiableCredential",
+                        "proof": {
+                            "type": "BbsBlsSignatureProof2020",
+                            "created": "2020-04-25",
+                            "verificationMethod": "did:example:489398593#test",
+                            "proofPurpose": "assertionMethod",
+                            "proofValue": "kTTbA3pmDa6Qia/JkOnIXDLmoBz3vsi7L5t3DWySI/VLmBqleJ/Tbus5RoyiDERDBEh5rnACXlnOqJ/U8yFQFtcp/mBCc2FtKNPHae9jKIv1dm9K9QK1F3GI1AwyGoUfjLWrkGDObO1ouNAhpEd0+et+qiOf2j8p3MTTtRRx4Hgjcl0jXCq7C7R5/nLpgimHAAAAdAx4ouhMk7v9dXijCIMaG0deicn6fLoq3GcNHuH5X1j22LU/hDu7vvPnk/6JLkZ1xQAAAAIPd1tu598L/K3NSy0zOy6obaojEnaqc1R5Ih/6ZZgfEln2a6tuUp4wePExI1DGHqwj3j2lKg31a/6bSs7SMecHBQdgIYHnBmCYGNQnu/LZ9TFV56tBXY6YOWZgFzgLDrApnrFpixEACM9rwrJ5ORtxAAAAAgE4gUIIC9aHyJNa5TBklMOh6lvQkMVLXa/vEl+3NCLXblxjgpM7UEMqBkE9/QcoD3Tgmy+z0hN+4eky1RnJsEg=",
+                            "nonce": "6i3dTz5yFfWJ8zgsamuyZa4yAHPm75tUOOXddR6krCvCYk77sbCOuEVcdBCDd/l6tIY="
+                        }
+                    }
+                ],
+                "warnings": [],
+                "errors": [],
+                "value": {
+                    "id": "{{ps}}",
+                    "definition_id": "{{definition.id}}",
+                    "descriptor_map": [
+                        {
+                            "id": "citizenship_input_1",
+                            "format": "ldp_vc",
+                            "path": "$.verifiableCredential[0]"
+                        }
+                    ]
+                },
+                "areRequiredCredentialsPresent": "info"
+            }
+        },
+        "pd_status": {
+            "thread": {
+                "id": "{{thread.id}}"
+            },
+            "definition_id": "{{definition.id}}",
+            "status": "DELETED",
+            "message": "The presentation definition has been deleted",
+            "challenge": {
+                "token": "{{challenge.token}}"
+            }
+        },
+        "vp_status": {
+            "thread": {
+                "id": "{{thread.id}}"
+            },
+            "presentation_id": "{{presentation.id}}",
+            "status": "ACCEPTED",
+            "message": "The presentation has been accepted without reservation",
+            "challenge": {
+                "token": "{{challenge.token}}"
+            }
+        }
+    },
+    {
+        "pd": {
+            "thread": {
+                "id": "{{thread.id}}"
+            },
+            "id": "{{definition.id}}",
+            "comment": "Create PD test",
+            "presentation_definition": {
+                "id": "{{definition.id}}",
+                "input_descriptors": [
+                    {
+                        "constraints": {
+                            "fields": [
+                                {
+                                    "path": [
+                                        "$.credentialSubject.age"
+                                    ],
+                                    "purpose": "The claim must be from one of the specified issuers",
+                                    "id": "1f44d55f-f161-4938-a659-f8026467f126"
+                                },
+                                {
+                                    "path": [
+                                        "$.credentialSubject.age"
+                                    ],
+                                    "purpose": "The claim must be from one of the specified issuers"
+                                }
+                            ],
+                            "limit_disclosure": "required",
+                            "is_holder": [
+                                {
+                                    "directive": "required",
+                                    "field_id": [
+                                        "1f44d55f-f161-4938-a659-f8026467f126"
+                                    ]
+                                }
+                            ]
+                        },
+                        "schema": [
+                            {
+                                "uri": "https://www.w3.org/2018/credentials/v1"
+                            }
+                        ],
+                        "name": "EU Driver's License",
+                        "group": [
+                            "A"
+                        ],
+                        "id": "citizenship_input_1"
+                    }
+                ],
+                "format": {
+                    "ldp_vp": {
+                        "proof_type": [
+                            "Ed25519Signature2018"
+                        ]
+                    }
+                }
+            },
+            "callback": {
+                "url": "http://localhost:3000/pe/v1/definitions/{{definition.id}}/status"
+            },
+            "challenge": {
+                "token": "{{challenge.token}}"
+            }
+        },
+        "vp": {
+            "thread": {
+                "id": "{{thread.id}}"
+            },
+            "id": "{{presentation.id}}",
+            "comment": "Create PD test",
+            "presentation": {
+                "@context": [
+                    "https://www.w3.org/2018/credentials/v1",
+                    "https://identity.foundation/presentation-exchange/submission/v1"
+                ],
+                "presentation_submission": {
+                    "id": "{{presentation_submission.id}}",
+                    "definition_id": "{{definition.id}}",
+                    "descriptor_map": [
+                        {
+                            "id": "867bfe7a-5b91-46b2-9ba4-70028b8d9cc8",
+                            "format": "ldp_vp",
+                            "path": "$.verifiableCredential[0]"
+                        }
+                    ]
+                },
+                "type": [
+                    "VerifiablePresentation",
+                    "PresentationSubmission"
+                ],
+                "verifiableCredential": [
+                    {
+                        "@context": [
+                            "https://www.w3.org/2018/credentials/v1"
+                        ],
+                        "credentialSchema": [
+                            {
+                                "id": "https://www.w3.org/TR/vc-data-model/#types"
+                            }
+                        ],
+                        "credentialSubject": {
+                            "age": 19,
+                            "etc": "etc"
+                        },
+                        "id": "2dc74354-e965-4883-be5e-bfec48bf60c7",
+                        "issuer": "",
+                        "type": "VerifiableCredential",
+                        "proof": {
+                            "type": "BbsBlsSignatureProof2020",
+                            "created": "2020-04-25",
+                            "verificationMethod": "did:example:489398593#test",
+                            "proofPurpose": "assertionMethod",
+                            "proofValue": "kTTbA3pmDa6Qia/JkOnIXDLmoBz3vsi7L5t3DWySI/VLmBqleJ/Tbus5RoyiDERDBEh5rnACXlnOqJ/U8yFQFtcp/mBCc2FtKNPHae9jKIv1dm9K9QK1F3GI1AwyGoUfjLWrkGDObO1ouNAhpEd0+et+qiOf2j8p3MTTtRRx4Hgjcl0jXCq7C7R5/nLpgimHAAAAdAx4ouhMk7v9dXijCIMaG0deicn6fLoq3GcNHuH5X1j22LU/hDu7vvPnk/6JLkZ1xQAAAAIPd1tu598L/K3NSy0zOy6obaojEnaqc1R5Ih/6ZZgfEln2a6tuUp4wePExI1DGHqwj3j2lKg31a/6bSs7SMecHBQdgIYHnBmCYGNQnu/LZ9TFV56tBXY6YOWZgFzgLDrApnrFpixEACM9rwrJ5ORtxAAAAAgE4gUIIC9aHyJNa5TBklMOh6lvQkMVLXa/vEl+3NCLXblxjgpM7UEMqBkE9/QcoD3Tgmy+z0hN+4eky1RnJsEg=",
+                            "nonce": "6i3dTz5yFfWJ8zgsamuyZa4yAHPm75tUOOXddR6krCvCYk77sbCOuEVcdBCDd/l6tIY="
+                        }
+                    }
+                ]
+            },
+            "challenge": {
+                "token": "{{challenge.token}}"
+            },
+            "pdId": "{{definition.id}}",
+            "callback": {
+                "url": "http://localhost:3000/presentations/{{presentation.id}}/statuses"
+            }
+        },
+        "evaluation_result": {
+            "thread": {
+                "id": "{{thread.id}}"
+            },
+            "challenge": {
+                "token": "{{challenge.token}}",
+                "holder": null
+            },
+            "presentation_id": "{{presentation.id}}",
+            "result": {
+                "verifiableCredential": [
+                    {
+                        "@context": [
+                            "https://www.w3.org/2018/credentials/v1"
+                        ],
+                        "credentialSchema": [
+                            {
+                                "id": "https://www.w3.org/TR/vc-data-model/#types"
+                            }
+                        ],
+                        "credentialSubject": {
+                            "age": 19
+                        },
+                        "id": "2dc74354-e965-4883-be5e-bfec48bf60c7",
+                        "issuer": "",
+                        "type": "VerifiableCredential",
+                        "proof": {
+                            "type": "BbsBlsSignatureProof2020",
+                            "created": "2020-04-25",
+                            "verificationMethod": "did:example:489398593#test",
+                            "proofPurpose": "assertionMethod",
+                            "proofValue": "kTTbA3pmDa6Qia/JkOnIXDLmoBz3vsi7L5t3DWySI/VLmBqleJ/Tbus5RoyiDERDBEh5rnACXlnOqJ/U8yFQFtcp/mBCc2FtKNPHae9jKIv1dm9K9QK1F3GI1AwyGoUfjLWrkGDObO1ouNAhpEd0+et+qiOf2j8p3MTTtRRx4Hgjcl0jXCq7C7R5/nLpgimHAAAAdAx4ouhMk7v9dXijCIMaG0deicn6fLoq3GcNHuH5X1j22LU/hDu7vvPnk/6JLkZ1xQAAAAIPd1tu598L/K3NSy0zOy6obaojEnaqc1R5Ih/6ZZgfEln2a6tuUp4wePExI1DGHqwj3j2lKg31a/6bSs7SMecHBQdgIYHnBmCYGNQnu/LZ9TFV56tBXY6YOWZgFzgLDrApnrFpixEACM9rwrJ5ORtxAAAAAgE4gUIIC9aHyJNa5TBklMOh6lvQkMVLXa/vEl+3NCLXblxjgpM7UEMqBkE9/QcoD3Tgmy+z0hN+4eky1RnJsEg=",
+                            "nonce": "6i3dTz5yFfWJ8zgsamuyZa4yAHPm75tUOOXddR6krCvCYk77sbCOuEVcdBCDd/l6tIY="
+                        }
+                    }
+                ],
+                "warnings": [],
+                "errors": [],
+                "value": {
+                    "id": "{{ps}}",
+                    "definition_id": "{{definition.id}}",
+                    "descriptor_map": [
+                        {
+                            "id": "citizenship_input_1",
+                            "format": "ldp_vc",
+                            "path": "$.verifiableCredential[0]"
+                        }
+                    ]
+                },
+                "areRequiredCredentialsPresent": "info"
+            }
+        },
+        "pd_status": {
+            "thread": {
+                "id": "{{thread.id}}"
+            },
+            "definition_id": "{{definition.id}}",
+            "status": "DELETED",
+            "message": "The presentation definition has been deleted",
+            "challenge": {
+                "token": "{{challenge.token}}"
+            }
+        },
+        "vp_status": {
+            "thread": {
+                "id": "{{thread.id}}"
+            },
+            "presentation_id": "{{presentation.id}}",
+            "status": "ACCEPTED",
+            "message": "The presentation has been accepted without reservation",
+            "challenge": {
+                "token": "{{challenge.token}}"
+            }
+        }
+    },
+    {
+        "pd": {
+            "thread": {
+                "id": "{{thread.id}}"
+            },
+            "id": "{{definition.id}}",
+            "comment": "Create PD test",
+            "presentation_definition": {
+                "id": "{{definition.id}}",
+                "name": "Conference Entry Requirements",
+                "purpose": "We can only allow people associated with Washington State business representatives into conference areas",
+                "format": {
+                    "jwt": {
+                        "alg": [
+                            "ES384"
+                        ]
+                    },
+                    "jwt_vc": {
+                        "alg": [
+                            "ES384"
+                        ]
+                    },
+                    "jwt_vp": {
+                        "alg": [
+                            "ES384"
+                        ]
+                    },
+                    "ldp_vc": {
+                        "proof_type": [
+                            "JsonWebSignature2020",
+                            "Ed25519Signature2018",
+                            "EcdsaSecp256k1Signature2019",
+                            "RsaSignature2018"
+                        ]
+                    },
+                    "ldp_vp": {
+                        "proof_type": [
+                            "Ed25519Signature2018"
+                        ]
+                    },
+                    "ldp": {
+                        "proof_type": [
+                            "RsaSignature2018"
+                        ]
+                    }
+                },
+                "input_descriptors": [
+                    {
+                        "id": "wa_driver_license",
+                        "name": "Washington State Business License",
+                        "purpose": "We can only allow licensed Washington State business representatives into the WA Business Conference"
+                    }
+                ],
+                "frame": {
+                    "@context": {
+                        "@vocab": "http://example.org/",
+                        "within": {
+                            "@reverse": "contains"
+                        }
+                    },
+                    "@type": "Chapter",
+                    "within": {
+                        "@type": "Book",
+                        "within": {
+                            "@type": "Library"
+                        }
+                    }
+                }
+            },
+            "callback": {
+                "url": "http://localhost:3000/pe/v1/definitions/{{definition.id}}/status"
+            },
+            "challenge": {
+                "token": "{{challenge.token}}"
+            }
+        },
+        "vp": {
+            "thread": {
+                "id": "{{thread.id}}"
+            },
+            "id": "{{presentation.id}}",
+            "comment": "Create PD test",
+            "presentation": {
+                "@context": [
+                    "https://www.w3.org/2018/credentials/v1",
+                    "https://identity.foundation/presentation-exchange/submission/v1"
+                ],
+                "presentation_submission": {
+                    "id": "{{presentation_submission.id}}",
+                    "definition_id": "{{definition.id}}",
+                    "descriptor_map": [
+                        {
+                            "id": "867bfe7a-5b91-46b2-9ba4-70028b8d9cc8",
+                            "format": "ldp_vp",
+                            "path": "$.verifiableCredential[0]"
+                        }
+                    ]
+                },
+                "type": [
+                    "VerifiablePresentation",
+                    "PresentationSubmission"
+                ],
+                "verifiableCredential": [
+                    {
+                        "@context": [
+                            "https://www.w3.org/2018/credentials/v1"
+                        ],
+                        "credentialSchema": [
+                            {
+                                "id": "https://www.w3.org/TR/vc-data-model/#types"
+                            }
+                        ],
+                        "credentialSubject": {
+                            "age": 19,
+                            "etc": "etc"
+                        },
+                        "id": "2dc74354-e965-4883-be5e-bfec48bf60c7",
+                        "issuer": "",
+                        "type": "VerifiableCredential",
+                        "proof": {
+                            "type": "BbsBlsSignatureProof2020",
+                            "created": "2020-04-25",
+                            "verificationMethod": "did:example:489398593#test",
+                            "proofPurpose": "assertionMethod",
+                            "proofValue": "kTTbA3pmDa6Qia/JkOnIXDLmoBz3vsi7L5t3DWySI/VLmBqleJ/Tbus5RoyiDERDBEh5rnACXlnOqJ/U8yFQFtcp/mBCc2FtKNPHae9jKIv1dm9K9QK1F3GI1AwyGoUfjLWrkGDObO1ouNAhpEd0+et+qiOf2j8p3MTTtRRx4Hgjcl0jXCq7C7R5/nLpgimHAAAAdAx4ouhMk7v9dXijCIMaG0deicn6fLoq3GcNHuH5X1j22LU/hDu7vvPnk/6JLkZ1xQAAAAIPd1tu598L/K3NSy0zOy6obaojEnaqc1R5Ih/6ZZgfEln2a6tuUp4wePExI1DGHqwj3j2lKg31a/6bSs7SMecHBQdgIYHnBmCYGNQnu/LZ9TFV56tBXY6YOWZgFzgLDrApnrFpixEACM9rwrJ5ORtxAAAAAgE4gUIIC9aHyJNa5TBklMOh6lvQkMVLXa/vEl+3NCLXblxjgpM7UEMqBkE9/QcoD3Tgmy+z0hN+4eky1RnJsEg=",
+                            "nonce": "6i3dTz5yFfWJ8zgsamuyZa4yAHPm75tUOOXddR6krCvCYk77sbCOuEVcdBCDd/l6tIY="
+                        }
+                    }
+                ]
+            },
+            "challenge": {
+                "token": "{{challenge.token}}"
+            },
+            "pdId": "{{definition.id}}",
+            "callback": {
+                "url": "http://localhost:3000/presentations/{{presentation.id}}/statuses"
+            }
+        },
+        "evaluation_result": {
+            "thread": {
+                "id": "{{thread.id}}"
+            },
+            "challenge": {
+                "token": "{{challenge.token}}",
+                "holder": null
+            },
+            "presentation_id": "{{presentation.id}}",
+            "result": {
+                "verifiableCredential": [
+                    {
+                        "@context": [
+                            "https://www.w3.org/2018/credentials/v1"
+                        ],
+                        "credentialSchema": [
+                            {
+                                "id": "https://www.w3.org/TR/vc-data-model/#types"
+                            }
+                        ],
+                        "credentialSubject": {
+                            "age": 19,
+                            "etc": "etc"
+                        },
+                        "id": "2dc74354-e965-4883-be5e-bfec48bf60c7",
+                        "issuer": "",
+                        "type": "VerifiableCredential",
+                        "proof": {
+                            "type": "BbsBlsSignatureProof2020",
+                            "created": "2020-04-25",
+                            "verificationMethod": "did:example:489398593#test",
+                            "proofPurpose": "assertionMethod",
+                            "proofValue": "kTTbA3pmDa6Qia/JkOnIXDLmoBz3vsi7L5t3DWySI/VLmBqleJ/Tbus5RoyiDERDBEh5rnACXlnOqJ/U8yFQFtcp/mBCc2FtKNPHae9jKIv1dm9K9QK1F3GI1AwyGoUfjLWrkGDObO1ouNAhpEd0+et+qiOf2j8p3MTTtRRx4Hgjcl0jXCq7C7R5/nLpgimHAAAAdAx4ouhMk7v9dXijCIMaG0deicn6fLoq3GcNHuH5X1j22LU/hDu7vvPnk/6JLkZ1xQAAAAIPd1tu598L/K3NSy0zOy6obaojEnaqc1R5Ih/6ZZgfEln2a6tuUp4wePExI1DGHqwj3j2lKg31a/6bSs7SMecHBQdgIYHnBmCYGNQnu/LZ9TFV56tBXY6YOWZgFzgLDrApnrFpixEACM9rwrJ5ORtxAAAAAgE4gUIIC9aHyJNa5TBklMOh6lvQkMVLXa/vEl+3NCLXblxjgpM7UEMqBkE9/QcoD3Tgmy+z0hN+4eky1RnJsEg=",
+                            "nonce": "6i3dTz5yFfWJ8zgsamuyZa4yAHPm75tUOOXddR6krCvCYk77sbCOuEVcdBCDd/l6tIY="
+                        }
+                    }
+                ],
+                "warnings": [],
+                "errors": [],
+                "value": {
+                    "id": "{{ps}}",
+                    "definition_id": "{{definition.id}}",
+                    "descriptor_map": [
+                        {
+                            "id": "wa_driver_license",
+                            "format": "ldp_vc",
+                            "path": "$.verifiableCredential[0]"
+                        }
+                    ]
+                },
+                "areRequiredCredentialsPresent": "info"
+            }
+        },
+        "pd_status": {
+            "thread": {
+                "id": "{{thread.id}}"
+            },
+            "definition_id": "{{definition.id}}",
+            "status": "DELETED",
+            "message": "The presentation definition has been deleted",
+            "challenge": {
+                "token": "{{challenge.token}}"
+            }
+        },
+        "vp_status": {
+            "thread": {
+                "id": "{{thread.id}}"
+            },
+            "presentation_id": "{{presentation.id}}",
+            "status": "ACCEPTED",
+            "message": "The presentation has been accepted without reservation",
+            "challenge": {
+                "token": "{{challenge.token}}"
+            }
+        }
+    },
+    {
+        "pd": {
+            "thread": {
+                "id": "{{thread.id}}"
+            },
+            "id": "{{definition.id}}",
+            "comment": "Create PD test",
+            "presentation_definition": {
+                "id": "{{definition.id}}",
+                "name": "Conference Entry Requirements",
+                "purpose": "We can only allow people associated with Washington State business representatives into conference areas",
+                "format": {
+                    "jwt": {
+                        "alg": [
+                            "ES384"
+                        ]
+                    },
+                    "jwt_vc": {
+                        "alg": [
+                            "ES384"
+                        ]
+                    },
+                    "jwt_vp": {
+                        "alg": [
+                            "ES384"
+                        ]
+                    },
+                    "ldp_vc": {
+                        "proof_type": [
+                            "JsonWebSignature2020",
+                            "Ed25519Signature2018",
+                            "EcdsaSecp256k1Signature2019",
+                            "RsaSignature2018"
+                        ]
+                    },
+                    "ldp_vp": {
+                        "proof_type": [
+                            "Ed25519Signature2018"
+                        ]
+                    },
+                    "ldp": {
+                        "proof_type": [
+                            "RsaSignature2018"
+                        ]
+                    }
+                },
+                "input_descriptors": [
+                    {
+                        "id": "wa_driver_license",
+                        "name": "Washington State Business License",
+                        "purpose": "We can only allow licensed Washington State business representatives into the WA Business Conference",
+                        "constraints": {
+                            "limit_disclosure": "required",
+                            "fields": [
+                                {
+                                    "path": [
+                                        "$.credentialSubject.age",
+                                        "$.vc.credentialSubject.age"
+                                    ],
+                                    "purpose": "We can only verify bank accounts if they are attested by a trusted bank, auditor, or regulatory authority.",
+                                    "filter": {
+                                        "type": "number",
+                                        "minimum": 18
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "frame": {
+                    "@context": {
+                        "@vocab": "http://example.org/",
+                        "within": {
+                            "@reverse": "contains"
+                        }
+                    },
+                    "@type": "Chapter",
+                    "within": {
+                        "@type": "Book",
+                        "within": {
+                            "@type": "Library"
+                        }
+                    }
+                }
+            },
+            "callback": {
+                "url": "http://localhost:3000/pe/v1/definitions/{{definition.id}}/status"
+            },
+            "challenge": {
+                "token": "{{challenge.token}}"
+            }
+        },
+        "vp": {
+            "thread": {
+                "id": "{{thread.id}}"
+            },
+            "id": "{{presentation.id}}",
+            "comment": "Create PD test",
+            "presentation": {
+                "@context": [
+                    "https://www.w3.org/2018/credentials/v1",
+                    "https://identity.foundation/presentation-exchange/submission/v1"
+                ],
+                "presentation_submission": {
+                    "id": "{{presentation_submission.id}}",
+                    "definition_id": "{{definition.id}}",
+                    "descriptor_map": [
+                        {
+                            "id": "867bfe7a-5b91-46b2-9ba4-70028b8d9cc8",
+                            "format": "ldp_vp",
+                            "path": "$.verifiableCredential[0]"
+                        }
+                    ]
+                },
+                "type": [
+                    "VerifiablePresentation",
+                    "PresentationSubmission"
+                ],
+                "verifiableCredential": [
+                    {
+                        "@context": [
+                            "https://www.w3.org/2018/credentials/v1"
+                        ],
+                        "credentialSchema": [
+                            {
+                                "id": "https://www.w3.org/TR/vc-data-model/#types"
+                            }
+                        ],
+                        "credentialSubject": {
+                            "age": 19,
+                            "etc": "etc"
+                        },
+                        "id": "2dc74354-e965-4883-be5e-bfec48bf60c7",
+                        "issuer": "",
+                        "type": "VerifiableCredential",
+                        "proof": {
+                            "type": "BbsBlsSignatureProof2020",
+                            "created": "2020-04-25",
+                            "verificationMethod": "did:example:489398593#test",
+                            "proofPurpose": "assertionMethod",
+                            "proofValue": "kTTbA3pmDa6Qia/JkOnIXDLmoBz3vsi7L5t3DWySI/VLmBqleJ/Tbus5RoyiDERDBEh5rnACXlnOqJ/U8yFQFtcp/mBCc2FtKNPHae9jKIv1dm9K9QK1F3GI1AwyGoUfjLWrkGDObO1ouNAhpEd0+et+qiOf2j8p3MTTtRRx4Hgjcl0jXCq7C7R5/nLpgimHAAAAdAx4ouhMk7v9dXijCIMaG0deicn6fLoq3GcNHuH5X1j22LU/hDu7vvPnk/6JLkZ1xQAAAAIPd1tu598L/K3NSy0zOy6obaojEnaqc1R5Ih/6ZZgfEln2a6tuUp4wePExI1DGHqwj3j2lKg31a/6bSs7SMecHBQdgIYHnBmCYGNQnu/LZ9TFV56tBXY6YOWZgFzgLDrApnrFpixEACM9rwrJ5ORtxAAAAAgE4gUIIC9aHyJNa5TBklMOh6lvQkMVLXa/vEl+3NCLXblxjgpM7UEMqBkE9/QcoD3Tgmy+z0hN+4eky1RnJsEg=",
+                            "nonce": "6i3dTz5yFfWJ8zgsamuyZa4yAHPm75tUOOXddR6krCvCYk77sbCOuEVcdBCDd/l6tIY="
+                        }
+                    }
+                ]
+            },
+            "challenge": {
+                "token": "{{challenge.token}}"
+            },
+            "pdId": "{{definition.id}}",
+            "callback": {
+                "url": "http://localhost:3000/presentations/{{presentation.id}}/statuses"
+            }
+        },
+        "evaluation_result": {
+            "thread": {
+                "id": "{{thread.id}}"
+            },
+            "challenge": {
+                "token": "{{challenge.token}}",
+                "holder": null
+            },
+            "presentation_id": "{{presentation.id}}",
+            "result": {
+                "verifiableCredential": [
+                    {
+                        "@context": [
+                            "https://www.w3.org/2018/credentials/v1"
+                        ],
+                        "credentialSchema": [
+                            {
+                                "id": "https://www.w3.org/TR/vc-data-model/#types"
+                            }
+                        ],
+                        "credentialSubject": {
+                            "age": 19
+                        },
+                        "id": "2dc74354-e965-4883-be5e-bfec48bf60c7",
+                        "issuer": "",
+                        "type": "VerifiableCredential",
+                        "proof": {
+                            "type": "BbsBlsSignatureProof2020",
+                            "created": "2020-04-25",
+                            "verificationMethod": "did:example:489398593#test",
+                            "proofPurpose": "assertionMethod",
+                            "proofValue": "kTTbA3pmDa6Qia/JkOnIXDLmoBz3vsi7L5t3DWySI/VLmBqleJ/Tbus5RoyiDERDBEh5rnACXlnOqJ/U8yFQFtcp/mBCc2FtKNPHae9jKIv1dm9K9QK1F3GI1AwyGoUfjLWrkGDObO1ouNAhpEd0+et+qiOf2j8p3MTTtRRx4Hgjcl0jXCq7C7R5/nLpgimHAAAAdAx4ouhMk7v9dXijCIMaG0deicn6fLoq3GcNHuH5X1j22LU/hDu7vvPnk/6JLkZ1xQAAAAIPd1tu598L/K3NSy0zOy6obaojEnaqc1R5Ih/6ZZgfEln2a6tuUp4wePExI1DGHqwj3j2lKg31a/6bSs7SMecHBQdgIYHnBmCYGNQnu/LZ9TFV56tBXY6YOWZgFzgLDrApnrFpixEACM9rwrJ5ORtxAAAAAgE4gUIIC9aHyJNa5TBklMOh6lvQkMVLXa/vEl+3NCLXblxjgpM7UEMqBkE9/QcoD3Tgmy+z0hN+4eky1RnJsEg=",
+                            "nonce": "6i3dTz5yFfWJ8zgsamuyZa4yAHPm75tUOOXddR6krCvCYk77sbCOuEVcdBCDd/l6tIY="
+                        }
+                    }
+                ],
+                "warnings": [],
+                "errors": [],
+                "value": {
+                    "id": "{{ps}}",
+                    "definition_id": "{{definition.id}}",
+                    "descriptor_map": [
+                        {
+                            "id": "wa_driver_license",
+                            "format": "ldp_vc",
+                            "path": "$.verifiableCredential[0]"
+                        }
+                    ]
+                },
+                "areRequiredCredentialsPresent": "info"
+            }
+        },
+        "pd_status": {
+            "thread": {
+                "id": "{{thread.id}}"
+            },
+            "definition_id": "{{definition.id}}",
+            "status": "DELETED",
+            "message": "The presentation definition has been deleted",
+            "challenge": {
+                "token": "{{challenge.token}}"
+            }
+        },
+        "vp_status": {
+            "thread": {
+                "id": "{{thread.id}}"
+            },
+            "presentation_id": "{{presentation.id}}",
+            "status": "ACCEPTED",
+            "message": "The presentation has been accepted without reservation",
+            "challenge": {
+                "token": "{{challenge.token}}"
+            }
+        }
+    },
+    {
+        "pd": {
+            "thread": {
+                "id": "{{thread.id}}"
+            },
+            "id": "{{definition.id}}",
+            "comment": "Create PD test",
+            "presentation_definition": {
+                "id": "{{definition.id}}",
+                "input_descriptors": [
+                    {
+                        "schema": [
+                            {
+                                "uri": "https://www.w3.org/2018/credentials/v1"
+                            }
+                        ],
+                        "name": "EU Driver's License",
+                        "id": "citizenship_input_1"
+                    },
+                    {
+                        "schema": [
+                            {
+                                "uri": "https://business-standards.org/schemas/employment-history.json"
+                            }
+                        ],
+                        "name": "Employment History",
+                        "id": "employment_input"
+                    }
+                ],
+                "format": {
+                    "ldp_vp": {
+                        "proof_type": [
+                            "Ed25519Signature2018"
+                        ]
+                    }
+                }
+            },
+            "callback": {
+                "url": "http://localhost:3000/pe/v1/definitions/{{definition.id}}/status"
+            },
+            "challenge": {
+                "token": "{{challenge.token}}"
+            }
+        },
+        "vp": {
+            "thread": {
+                "id": "{{thread.id}}"
+            },
+            "id": "{{presentation.id}}",
+            "comment": "Create PD test",
+            "presentation": {
+                "@context": [
+                    "https://www.w3.org/2018/credentials/v1",
+                    "https://identity.foundation/presentation-exchange/submission/v1"
+                ],
+                "presentation_submission": {
+                    "id": "{{presentation_submission.id}}",
+                    "definition_id": "{{definition.id}}",
+                    "descriptor_map": [
+                        {
+                            "id": "867bfe7a-5b91-46b2-9ba4-70028b8d9cc8",
+                            "format": "ldp_vp",
+                            "path": "$.verifiableCredential[0]"
+                        },
+                        {
+                            "id": "employment_input",
+                            "format": "ldp_vc",
+                            "path": "$.verifiableCredential[1]"
+                        }
+                    ]
+                },
+                "type": [
+                    "VerifiablePresentation",
+                    "PresentationSubmission"
+                ],
+                "verifiableCredential": [
+                    {
+                        "@context": [
+                            "https://www.w3.org/2018/credentials/v1"
+                        ],
+                        "credentialSchema": [
+                            {
+                                "id": "https://www.w3.org/TR/vc-data-model/#types"
+                            }
+                        ],
+                        "credentialSubject": {
+                            "age": 19,
+                            "etc": "etc"
+                        },
+                        "id": "2dc74354-e965-4883-be5e-bfec48bf60c7",
+                        "issuer": "",
+                        "type": "VerifiableCredential",
+                        "proof": {
+                            "type": "BbsBlsSignatureProof2020",
+                            "created": "2020-04-25",
+                            "verificationMethod": "did:example:489398593#test",
+                            "proofPurpose": "assertionMethod",
+                            "proofValue": "kTTbA3pmDa6Qia/JkOnIXDLmoBz3vsi7L5t3DWySI/VLmBqleJ/Tbus5RoyiDERDBEh5rnACXlnOqJ/U8yFQFtcp/mBCc2FtKNPHae9jKIv1dm9K9QK1F3GI1AwyGoUfjLWrkGDObO1ouNAhpEd0+et+qiOf2j8p3MTTtRRx4Hgjcl0jXCq7C7R5/nLpgimHAAAAdAx4ouhMk7v9dXijCIMaG0deicn6fLoq3GcNHuH5X1j22LU/hDu7vvPnk/6JLkZ1xQAAAAIPd1tu598L/K3NSy0zOy6obaojEnaqc1R5Ih/6ZZgfEln2a6tuUp4wePExI1DGHqwj3j2lKg31a/6bSs7SMecHBQdgIYHnBmCYGNQnu/LZ9TFV56tBXY6YOWZgFzgLDrApnrFpixEACM9rwrJ5ORtxAAAAAgE4gUIIC9aHyJNa5TBklMOh6lvQkMVLXa/vEl+3NCLXblxjgpM7UEMqBkE9/QcoD3Tgmy+z0hN+4eky1RnJsEg=",
+                            "nonce": "6i3dTz5yFfWJ8zgsamuyZa4yAHPm75tUOOXddR6krCvCYk77sbCOuEVcdBCDd/l6tIY="
+                        }
+                    },
+                    {
+                        "@context": "https://business-standards.org/schemas/employment-history.json",
+                        "id": "https://business-standards.org/schemas/employment-history.json",
+                        "type": [
+                            "VerifiableCredential",
+                            "GenericEmploymentCredential"
+                        ],
+                        "issuer": "did:foo:123",
+                        "issuanceDate": "2010-01-01T19:73:24Z",
+                        "credentialSubject": {
+                            "id": "did:example:ebfeb1f712ebc6f1c276e12ec21",
+                            "active": true
+                        }
+                    }
+                ]
+            },
+            "challenge": {
+                "token": "{{challenge.token}}"
+            },
+            "pdId": "{{definition.id}}",
+            "callback": {
+                "url": "http://localhost:3000/presentations/{{presentation.id}}/statuses"
+            }
+        },
+        "evaluation_result": {
+            "thread": {
+                "id": "{{thread.id}}"
+            },
+            "challenge": {
+                "token": "{{challenge.token}}",
+                "holder": null
+            },
+            "presentation_id": "{{presentation.id}}",
+            "result": {
+                "verifiableCredential": [
+                    {
+                        "@context": [
+                            "https://www.w3.org/2018/credentials/v1"
+                        ],
+                        "credentialSchema": [
+                            {
+                                "id": "https://www.w3.org/TR/vc-data-model/#types"
+                            }
+                        ],
+                        "credentialSubject": {
+                            "age": 19,
+                            "etc": "etc"
+                        },
+                        "id": "2dc74354-e965-4883-be5e-bfec48bf60c7",
+                        "issuer": "",
+                        "type": "VerifiableCredential",
+                        "proof": {
+                            "type": "BbsBlsSignatureProof2020",
+                            "created": "2020-04-25",
+                            "verificationMethod": "did:example:489398593#test",
+                            "proofPurpose": "assertionMethod",
+                            "proofValue": "kTTbA3pmDa6Qia/JkOnIXDLmoBz3vsi7L5t3DWySI/VLmBqleJ/Tbus5RoyiDERDBEh5rnACXlnOqJ/U8yFQFtcp/mBCc2FtKNPHae9jKIv1dm9K9QK1F3GI1AwyGoUfjLWrkGDObO1ouNAhpEd0+et+qiOf2j8p3MTTtRRx4Hgjcl0jXCq7C7R5/nLpgimHAAAAdAx4ouhMk7v9dXijCIMaG0deicn6fLoq3GcNHuH5X1j22LU/hDu7vvPnk/6JLkZ1xQAAAAIPd1tu598L/K3NSy0zOy6obaojEnaqc1R5Ih/6ZZgfEln2a6tuUp4wePExI1DGHqwj3j2lKg31a/6bSs7SMecHBQdgIYHnBmCYGNQnu/LZ9TFV56tBXY6YOWZgFzgLDrApnrFpixEACM9rwrJ5ORtxAAAAAgE4gUIIC9aHyJNa5TBklMOh6lvQkMVLXa/vEl+3NCLXblxjgpM7UEMqBkE9/QcoD3Tgmy+z0hN+4eky1RnJsEg=",
+                            "nonce": "6i3dTz5yFfWJ8zgsamuyZa4yAHPm75tUOOXddR6krCvCYk77sbCOuEVcdBCDd/l6tIY="
+                        }
+                    },
+                    {
+                        "@context": "https://business-standards.org/schemas/employment-history.json",
+                        "id": "https://business-standards.org/schemas/employment-history.json",
+                        "type": [
+                            "VerifiableCredential",
+                            "GenericEmploymentCredential"
+                        ],
+                        "issuer": "did:foo:123",
+                        "issuanceDate": "2010-01-01T19:73:24Z",
+                        "credentialSubject": {
+                            "id": "did:example:ebfeb1f712ebc6f1c276e12ec21",
+                            "active": true
+                        }
+                    }
+                ],
+                "warnings": [],
+                "errors": [],
+                "value": {
+                    "id": "{{ps}}",
+                    "definition_id": "{{definition.id}}",
+                    "descriptor_map": [
+                        {
+                            "id": "citizenship_input_1",
+                            "format": "ldp_vc",
+                            "path": "$.verifiableCredential[0]"
+                        },
+                        {
+                            "id": "employment_input",
+                            "format": "ldp_vc",
+                            "path": "$.verifiableCredential[1]"
+                        }
+                    ]
+                },
+                "areRequiredCredentialsPresent": "info"
+            }
+        },
+        "pd_status": {
+            "thread": {
+                "id": "{{thread.id}}"
+            },
+            "definition_id": "{{definition.id}}",
+            "status": "DELETED",
+            "message": "The presentation definition has been deleted",
+            "challenge": {
+                "token": "{{challenge.token}}"
+            }
+        },
+        "vp_status": {
+            "thread": {
+                "id": "{{thread.id}}"
+            },
+            "presentation_id": "{{presentation.id}}",
+            "status": "ACCEPTED",
+            "message": "The presentation has been accepted without reservation",
+            "challenge": {
+                "token": "{{challenge.token}}"
+            }
+        }
+    },
+    {
+        "pd": {
+            "thread": {
+                "id": "{{thread.id}}"
+            },
+            "id": "{{definition.id}}",
+            "comment": "Create PD test",
+            "presentation_definition": {
+                "id": "{{definition.id}}",
+                "name": "Conference Entry Requirements",
+                "input_descriptors": [
+                    {
+                        "id": "issuer_id",
+                        "name": "Washington State Business License",
+                        "purpose": "We can only allow licensed Washington State business representatives into the WA Business Conference",
+                        "constraints": {
+                            "fields": [
+                                {
+                                    "path": [
+                                        "$.issuer",
+                                        "$.vc.issuer",
+                                        "$.iss"
+                                    ],
+                                    "purpose": "We can only verify bank accounts if they are attested by a trusted bank, auditor, or regulatory authority.",
+                                    "filter": {
+                                        "type": "string",
+                                        "_const": "did:example:123"
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "id": "credential_subject_id",
+                        "name": "credential subject",
+                        "constraints": {
+                            "fields": [
+                                {
+                                    "path": [
+                                        "$.credentialSubject.id",
+                                        "$.vc.credentialSubject.id"
+                                    ],
+                                    "filter": {
+                                        "type": "string",
+                                        "_const": "did:example:ebfeb1f712ebc6f1c276e12ec21"
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "callback": {
+                "url": "http://localhost:3000/pe/v1/definitions/{{definition.id}}/status"
+            },
+            "challenge": {
+                "token": "{{challenge.token}}"
+            }
+        },
+        "vp": {
+            "thread": {
+                "id": "{{thread.id}}"
+            },
+            "id": "{{presentation.id}}",
+            "comment": "Create PD test",
+            "presentation": {
+                "@context": [
+                    "https://www.w3.org/2018/credentials/v1",
+                    "https://identity.foundation/presentation-exchange/submission/v1"
+                ],
+                "presentation_submission": {
+                    "id": "{{presentation_submission.id}}",
+                    "definition_id": "{{definition.id}}",
+                    "descriptor_map": [
+                        {
+                            "id": "867bfe7a-5b91-46b2-9ba4-70028b8d9cc8",
+                            "format": "ldp_vp",
+                            "path": "$.verifiableCredential[0]"
+                        }
+                    ]
+                },
+                "type": [
+                    "VerifiablePresentation",
+                    "PresentationSubmission"
+                ],
+                "verifiableCredential": [
+                    {
+                        "iss": "did:example:123",
+                        "vc": {
+                            "@context": "https://eu.com/claims/DriversLicense",
+                            "id": "https://eu.com/claims/DriversLicense",
+                            "type": [
+                                "EUDriversLicense"
+                            ],
+                            "issuer": "did:example:123",
+                            "issuanceDate": "2010-01-01T19:73:24Z",
+                            "credentialSubject": {
+                                "id": "did:example:ebfeb1f712ebc6f1c276e12ec21",
+                                "accounts": [
+                                    {
+                                        "id": "1234567890",
+                                        "route": "DE-9876543210"
+                                    },
+                                    {
+                                        "id": "2457913570",
+                                        "route": "DE-0753197542"
+                                    }
+                                ]
+                            }
+                        },
+                        "proof": {
+                            "type": "EcdsaSecp256k1VerificationKey2019",
+                            "created": "2017-06-18T21:19:10Z",
+                            "proofPurpose": "assertionMethod",
+                            "verificationMethod": "https://example.edu/issuers/keys/1",
+                            "jws": "..."
+                        }
+                    }
+                ]
+            },
+            "challenge": {
+                "token": "{{challenge.token}}"
+            },
+            "pdId": "{{definition.id}}",
+            "callback": {
+                "url": "http://localhost:3000/presentations/{{presentation.id}}/statuses"
+            }
+        },
+        "evaluation_result": {
+            "thread": {
+                "id": "{{thread.id}}"
+            },
+            "challenge": {
+                "token": "{{challenge.token}}",
+                "holder": null
+            },
+            "presentation_id": "{{presentation.id}}",
+            "result": {
+                "verifiableCredential": [
+                    {
+                        "iss": "did:example:123",
+                        "vc": {
+                            "@context": "https://eu.com/claims/DriversLicense",
+                            "id": "https://eu.com/claims/DriversLicense",
+                            "type": [
+                                "EUDriversLicense"
+                            ],
+                            "issuer": "did:example:123",
+                            "issuanceDate": "2010-01-01T19:73:24Z",
+                            "credentialSubject": {
+                                "id": "did:example:ebfeb1f712ebc6f1c276e12ec21",
+                                "accounts": [
+                                    {
+                                        "id": "1234567890",
+                                        "route": "DE-9876543210"
+                                    },
+                                    {
+                                        "id": "2457913570",
+                                        "route": "DE-0753197542"
+                                    }
+                                ]
+                            }
+                        },
+                        "proof": {
+                            "type": "EcdsaSecp256k1VerificationKey2019",
+                            "created": "2017-06-18T21:19:10Z",
+                            "proofPurpose": "assertionMethod",
+                            "verificationMethod": "https://example.edu/issuers/keys/1",
+                            "jws": "..."
+                        }
+                    }
+                ],
+                "warnings": [],
+                "errors": [],
+                "value": {
+                    "id": "{{ps}}",
+                    "definition_id": "{{definition.id}}",
+                    "descriptor_map": [
+                        {
+                            "id": "issuer_id",
+                            "format": "ldp_vc",
+                            "path": "$.verifiableCredential[0]"
+                        },
+                        {
+                            "id": "credential_subject_id",
+                            "format": "ldp_vc",
+                            "path": "$.verifiableCredential[0]"
+                        }
+                    ]
+                },
+                "areRequiredCredentialsPresent": "info"
+            }
+        },
+        "pd_status": {
+            "thread": {
+                "id": "{{thread.id}}"
+            },
+            "definition_id": "{{definition.id}}",
+            "status": "DELETED",
+            "message": "The presentation definition has been deleted",
+            "challenge": {
+                "token": "{{challenge.token}}"
+            }
+        },
+        "vp_status": {
+            "thread": {
+                "id": "{{thread.id}}"
+            },
+            "presentation_id": "{{presentation.id}}",
+            "status": "ACCEPTED",
+            "message": "The presentation has been accepted without reservation",
+            "challenge": {
+                "token": "{{challenge.token}}"
+            }
+        }
+    },
+    {
+        "pd": {
+            "thread": {
+                "id": "{{thread.id}}"
+            },
+            "id": "{{definition.id}}",
+            "comment": "Create PD test",
+            "presentation_definition": {
+                "submission_requirements": [
+                    {
+                        "from": "A",
+                        "purpose": "We need your driver's license name",
+                        "rule": "all",
+                        "name": "Name on driver's license"
+                    }
+                ],
+                "id": "{{definition.id}}",
+                "input_descriptors": [
+                    {
+                        "id": "citizenship_input_1",
+                        "name": "EU Driver's License",
+                        "group": [
+                            "A"
+                        ],
+                        "constraints": {
+                            "fields": [
+                                {
+                                    "path": [
+                                        "$.vc.@context",
+                                        "$.@context"
+                                    ],
+                                    "filter": {
+                                        "type": "string",
+                                        "_const": "https://eu.com/claims/DriversLicense"
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "id": "citizenship_input_2",
+                        "name": "EU Driver's License",
+                        "group": [
+                            "A"
+                        ],
+                        "constraints": {
+                            "fields": [
+                                {
+                                    "path": [
+                                        "$.iss",
+                                        "$.vc.issuer",
+                                        "$.issuer"
+                                    ],
+                                    "filter": {
+                                        "type": "string",
+                                        "_const": "did:example:123"
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "callback": {
+                "url": "http://localhost:3000/pe/v1/definitions/{{definition.id}}/status"
+            },
+            "challenge": {
+                "token": "{{challenge.token}}"
+            }
+        },
+        "vp": {
+            "thread": {
+                "id": "{{thread.id}}"
+            },
+            "id": "{{presentation.id}}",
+            "comment": "Create PD test",
+            "presentation": {
+                "@context": [
+                    "https://www.w3.org/2018/credentials/v1",
+                    "https://identity.foundation/presentation-exchange/submission/v1"
+                ],
+                "presentation_submission": {
+                    "id": "{{presentation_submission.id}}",
+                    "definition_id": "{{definition.id}}",
+                    "descriptor_map": [
+                        {
+                            "id": "867bfe7a-5b91-46b2-9ba4-70028b8d9cc8",
+                            "format": "ldp_vp",
+                            "path": "$.verifiableCredential[0]"
+                        }
+                    ]
+                },
+                "type": [
+                    "VerifiablePresentation",
+                    "PresentationSubmission"
+                ],
+                "verifiableCredential": [
+                    {
+                        "iss": "did:example:123",
+                        "vc": {
+                            "@context": "https://eu.com/claims/DriversLicense",
+                            "id": "https://eu.com/claims/DriversLicense",
+                            "type": [
+                                "EUDriversLicense"
+                            ],
+                            "issuer": "did:example:123",
+                            "issuanceDate": "2010-01-01T19:73:24Z",
+                            "credentialSubject": {
+                                "id": "did:example:ebfeb1f712ebc6f1c276e12ec21",
+                                "accounts": [
+                                    {
+                                        "id": "1234567890",
+                                        "route": "DE-9876543210"
+                                    },
+                                    {
+                                        "id": "2457913570",
+                                        "route": "DE-0753197542"
+                                    }
+                                ]
+                            }
+                        },
+                        "proof": {
+                            "type": "EcdsaSecp256k1VerificationKey2019",
+                            "created": "2017-06-18T21:19:10Z",
+                            "proofPurpose": "assertionMethod",
+                            "verificationMethod": "https://example.edu/issuers/keys/1",
+                            "jws": "..."
+                        }
+                    }
+                ]
+            },
+            "challenge": {
+                "token": "{{challenge.token}}"
+            },
+            "pdId": "{{definition.id}}",
+            "callback": {
+                "url": "http://localhost:3000/presentations/{{presentation.id}}/statuses"
+            }
+        },
+        "evaluation_result": {
+            "thread": {
+                "id": "{{thread.id}}"
+            },
+            "challenge": {
+                "token": "{{challenge.token}}",
+                "holder": null
+            },
+            "presentation_id": "{{presentation.id}}",
+            "result": {
+                "verifiableCredential": [
+                    {
+                        "iss": "did:example:123",
+                        "vc": {
+                            "@context": "https://eu.com/claims/DriversLicense",
+                            "id": "https://eu.com/claims/DriversLicense",
+                            "type": [
+                                "EUDriversLicense"
+                            ],
+                            "issuer": "did:example:123",
+                            "issuanceDate": "2010-01-01T19:73:24Z",
+                            "credentialSubject": {
+                                "id": "did:example:ebfeb1f712ebc6f1c276e12ec21",
+                                "accounts": [
+                                    {
+                                        "id": "1234567890",
+                                        "route": "DE-9876543210"
+                                    },
+                                    {
+                                        "id": "2457913570",
+                                        "route": "DE-0753197542"
+                                    }
+                                ]
+                            }
+                        },
+                        "proof": {
+                            "type": "EcdsaSecp256k1VerificationKey2019",
+                            "created": "2017-06-18T21:19:10Z",
+                            "proofPurpose": "assertionMethod",
+                            "verificationMethod": "https://example.edu/issuers/keys/1",
+                            "jws": "..."
+                        }
+                    }
+                ],
+                "warnings": [],
+                "errors": [],
+                "value": {
+                    "id": "{{ps}}",
+                    "definition_id": "{{definition.id}}",
+                    "descriptor_map": [
+                        {
+                            "id": "citizenship_input_1",
+                            "format": "ldp_vc",
+                            "path": "$.verifiableCredential[0]"
+                        },
+                        {
+                            "id": "citizenship_input_2",
+                            "format": "ldp_vc",
+                            "path": "$.verifiableCredential[0]"
+                        }
+                    ]
+                },
+                "areRequiredCredentialsPresent": "info"
+            }
+        },
+        "pd_status": {
+            "thread": {
+                "id": "{{thread.id}}"
+            },
+            "definition_id": "{{definition.id}}",
+            "status": "DELETED",
+            "message": "The presentation definition has been deleted",
+            "challenge": {
+                "token": "{{challenge.token}}"
+            }
+        },
+        "vp_status": {
+            "thread": {
+                "id": "{{thread.id}}"
+            },
+            "presentation_id": "{{presentation.id}}",
+            "status": "ACCEPTED",
+            "message": "The presentation has been accepted without reservation",
+            "challenge": {
+                "token": "{{challenge.token}}"
+            }
+        }
+    },
+    {
+        "pd": {
+            "thread": {
+                "id": "{{thread.id}}"
+            },
+            "id": "{{definition.id}}",
+            "comment": "Create PD test",
+            "presentation_definition": {
+                "id": "{{definition.id}}",
+                "input_descriptors": [
+                    {
+                        "id": "banking_input_1",
+                        "name": "Bank Account Information",
+                        "purpose": "We can only remit payment to a currently-valid bank account.",
+                        "group": [
+                            "A"
+                        ],
+                        "schema": [
+                            {
+                                "uri": "https://bank-schemas.org/1.0.0/accounts.json"
+                            },
+                            {
+                                "uri": "https://bank-schemas.org/2.0.0/accounts.json"
+                            }
+                        ],
+                        "constraints": {
+                            "fields": [
+                                {
+                                    "path": [
+                                        "$.issuer",
+                                        "$.vc.issuer",
+                                        "$.iss"
+                                    ],
+                                    "purpose": "We can only verify bank accounts if they are attested by a trusted bank, auditor or regulatory authority.",
+                                    "filter": {
+                                        "type": "string",
+                                        "pattern": "did:example:123|did:example:456"
+                                    }
+                                },
+                                {
+                                    "path": [
+                                        "$.credentialSubject.accounts[*].id",
+                                        "$.vc.credentialSubject.accounts[*].id",
+                                        "$.accounts[*].id"
+                                    ],
+                                    "purpose": "We can only remit payment to a currently-valid bank account in the US, France, or Germany, submitted as an ABA Acct # or IBAN.",
+                                    "filter": {
+                                        "type": "string",
+                                        "pattern": "^[0-9]{10}$"
+                                    }
+                                },
+                                {
+                                    "path": [
+                                        "$.credentialSubject.accounts[*].route",
+                                        "$.vc.credentialSubject.accounts[*].route",
+                                        "$.accounts[*].route"
+                                    ],
+                                    "purpose": "We can only remit payment to a currently-valid account at a US, Japanese, or German federally-accredited bank, submitted as an ABA RTN or SWIFT code.",
+                                    "filter": {
+                                        "type": "string",
+                                        "pattern": "^[a-zA-Z]{2}-[0-9]{10}$"
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "callback": {
+                "url": "http://localhost:3000/pe/v1/definitions/{{definition.id}}/status"
+            },
+            "challenge": {
+                "token": "{{challenge.token}}"
+            }
+        },
+        "vp": {
+            "thread": {
+                "id": "{{thread.id}}"
+            },
+            "id": "{{presentation.id}}",
+            "comment": "Create PD test",
+            "presentation": {
+                "@context": [
+                    "https://www.w3.org/2018/credentials/v1",
+                    "https://identity.foundation/presentation-exchange/submission/v1"
+                ],
+                "type": [
+                    "VerifiablePresentation",
+                    "PresentationSubmission"
+                ],
+                "presentation_submission": {
+                    "id": "{{presentation_submission.id}}",
+                    "definition_id": "{{definition.id}}",
+                    "descriptor_map": [
+                        {
+                            "id": "banking_input_2",
+                            "format": "jwt_vc",
+                            "path": "$.verifiableCredential[0]"
+                        }
+                    ]
+                },
+                "verifiableCredential": [
+                    {
+                        "iss": "did:example:123",
+                        "vc": {
+                            "@context": "https://bank-schemas.org/2.0.0/accounts.json",
+                            "id": "https://bank-schemas.org/2.0.0/accounts.json",
+                            "type": [
+                                "EUDriversLicense"
+                            ],
+                            "issuer": "did:example:123",
+                            "issuanceDate": "2010-01-01T19:73:24Z",
+                            "credentialSubject": {
+                                "id": "did:example:ebfeb1f712ebc6f1c276e12ec21",
+                                "accounts": [
+                                    {
+                                        "id": "1234567890",
+                                        "route": "DE-9876543210"
+                                    },
+                                    {
+                                        "id": "2457913570",
+                                        "route": "DE-0753197542"
+                                    }
+                                ]
+                            }
+                        },
+                        "proof": {
+                            "type": "EcdsaSecp256k1VerificationKey2019",
+                            "created": "2017-06-18T21:19:10Z",
+                            "proofPurpose": "assertionMethod",
+                            "verificationMethod": "https://example.edu/issuers/keys/1",
+                            "jws": "..."
+                        }
+                    }
+                ],
+                "proof": {
+                    "type": "RsaSignature2018",
+                    "created": "2018-09-14T21:19:10Z",
+                    "proofPurpose": "authentication",
+                    "verificationMethod": "did:example:ebfeb1f712ebc6f1c276e12ec21#keys-1",
+                    "challenge": "1f44d55f-f161-4938-a659-f8026467f126",
+                    "domain": "4jt78h47fh47",
+                    "jws": "..."
+                }
+            },
+            "challenge": {
+                "token": "{{challenge.token}}"
+            },
+            "pdId": "{{definition.id}}",
+            "callback": {
+                "url": "http://localhost:3000/presentations/{{presentation.id}}/statuses"
+            }
+        },
+        "evaluation_result": {
+            "thread": {
+                "id": "{{thread.id}}"
+            },
+            "challenge": {
+                "token": "{{challenge.token}}",
+                "holder": null
+            },
+            "presentation_id": "{{presentation.id}}",
+            "result": {
+                "verifiableCredential": [
+                    {
+                        "iss": "did:example:123",
+                        "vc": {
+                            "@context": "https://bank-schemas.org/2.0.0/accounts.json",
+                            "id": "https://bank-schemas.org/2.0.0/accounts.json",
+                            "type": [
+                                "EUDriversLicense"
+                            ],
+                            "issuer": "did:example:123",
+                            "issuanceDate": "2010-01-01T19:73:24Z",
+                            "credentialSubject": {
+                                "id": "did:example:ebfeb1f712ebc6f1c276e12ec21",
+                                "accounts": [
+                                    {
+                                        "id": "1234567890",
+                                        "route": "DE-9876543210"
+                                    },
+                                    {
+                                        "id": "2457913570",
+                                        "route": "DE-0753197542"
+                                    }
+                                ]
+                            }
+                        },
+                        "proof": {
+                            "type": "EcdsaSecp256k1VerificationKey2019",
+                            "created": "2017-06-18T21:19:10Z",
+                            "proofPurpose": "assertionMethod",
+                            "verificationMethod": "https://example.edu/issuers/keys/1",
+                            "jws": "..."
+                        }
+                    }
+                ],
+                "warnings": [],
+                "errors": [],
+                "value": {
+                    "id": "{{ps}}",
+                    "definition_id": "{{definition.id}}",
+                    "descriptor_map": [
+                        {
+                            "id": "banking_input_1",
+                            "format": "ldp_vc",
+                            "path": "$.verifiableCredential[0]"
+                        }
+                    ]
+                },
+                "areRequiredCredentialsPresent": "info"
+            }
+        },
+        "pd_status": {
+            "thread": {
+                "id": "{{thread.id}}"
+            },
+            "definition_id": "{{definition.id}}",
+            "status": "DELETED",
+            "message": "The presentation definition has been deleted",
+            "challenge": {
+                "token": "{{challenge.token}}"
+            }
+        },
+        "vp_status": {
+            "thread": {
+                "id": "{{thread.id}}"
+            },
+            "presentation_id": "{{presentation.id}}",
+            "status": "ACCEPTED",
+            "message": "The presentation has been accepted without reservation",
+            "challenge": {
+                "token": "{{challenge.token}}"
+            }
+        }
+    },
+    {
+        "pd": {
+            "thread": {
+                "id": "{{thread.id}}"
+            },
+            "id": "{{definition.id}}",
+            "comment": "Create PD test",
+            "presentation_definition": {
+                "id": "{{definition.id}}",
+                "input_descriptors": [
+                    {
+                        "id": "bankaccount_input",
+                        "name": "Full Bank Account Routing Information",
+                        "purpose": "We can only remit payment to a currently-valid bank account, submitted as an ABA RTN + Acct # or IBAN.",
+                        "schema": [
+                            {
+                                "uri": "https://bank-standards.example.com/fullaccountroute.json"
+                            }
+                        ],
+                        "constraints": {
+                            "limit_disclosure": "required",
+                            "fields": [
+                                {
+                                    "path": [
+                                        "$.issuer",
+                                        "$.vc.issuer",
+                                        "$.iss"
+                                    ],
+                                    "purpose": "We can only verify bank accounts if they are attested by a trusted bank, auditor, or regulatory authority.",
+                                    "filter": {
+                                        "type": "string",
+                                        "pattern": "did:example:123|did:example:456"
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "id": "us_passport_input",
+                        "name": "US Passport",
+                        "schema": [
+                            {
+                                "uri": "did:foo:123/Collections/schema.us.gov/passport.json"
+                            }
+                        ],
+                        "constraints": {
+                            "fields": [
+                                {
+                                    "path": [
+                                        "A"
+                                    ],
+                                    "filter": {
+                                        "type": "string",
+                                        "const": "Chad"
+                                    }
+                                },
+                                {
+                                    "path": [
+                                        "A"
+                                    ],
+                                    "filter": {
+                                        "type": "number",
+                                        "exclusiveMaximum": 85
+                                    }
+                                },
+                                {
+                                    "path": [
+                                        "A"
+                                    ],
+                                    "filter": {
+                                        "type": "number",
+                                        "exclusiveMinimum": 10000
+                                    }
+                                },
+                                {
+                                    "path": [
+                                        "A"
+                                    ],
+                                    "filter": {
+                                        "type": "string",
+                                        "enum": [
+                                            "red",
+                                            "yellow",
+                                            "blue"
+                                        ]
+                                    }
+                                },
+                                {
+                                    "path": [
+                                        "A"
+                                    ],
+                                    "filter": {
+                                        "type": "number",
+                                        "maximum": 65536
+                                    }
+                                },
+                                {
+                                    "path": [
+                                        "A"
+                                    ],
+                                    "filter": {
+                                        "type": "number",
+                                        "minimum": 18
+                                    }
+                                },
+                                {
+                                    "path": [
+                                        "A"
+                                    ],
+                                    "filter": {
+                                        "type": "string",
+                                        "not": {
+                                            "const": "Karen"
+                                        }
+                                    }
+                                },
+                                {
+                                    "path": [
+                                        "A"
+                                    ],
+                                    "filter": {
+                                        "type": "string",
+                                        "not": {
+                                            "enum": [
+                                                "red",
+                                                "yellow",
+                                                "blue"
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "callback": {
+                "url": "http://localhost:3000/pe/v1/definitions/{{definition.id}}/status"
+            },
+            "challenge": {
+                "token": "{{challenge.token}}"
+            }
+        },
+        "vp": {
+            "thread": {
+                "id": "{{thread.id}}"
+            },
+            "id": "{{presentation.id}}",
+            "comment": "Create PD test",
+            "presentation": {
+                "@context": [
+                    "https://www.w3.org/2018/credentials/v1",
+                    "https://identity.foundation/presentation-exchange/submission/v1"
+                ],
+                "type": [
+                    "VerifiablePresentation",
+                    "PresentationSubmission"
+                ],
+                "presentation_submission": {
+                    "id": "a30e3b91-fb77-4d22-95fa-871689c322e2",
+                    "definition_id": "32f54163-7166-48f1-93d8-ff217bdb0653",
+                    "descriptor_map": [
+                        {
+                            "id": "banking_input_2",
+                            "format": "jwt_vc",
+                            "path": "$.verifiableCredential[0]"
+                        },
+                        {
+                            "id": "employment_input",
+                            "format": "ldp_vc",
+                            "path": "$.verifiableCredential[1]"
+                        },
+                        {
+                            "id": "citizenship_input_1",
+                            "format": "ldp_vc",
+                            "path": "$.verifiableCredential[2]"
+                        }
+                    ]
+                },
+                "verifiableCredential": [
+                    {
+                        "iss": "did:example:123",
+                        "vc": {
+                            "@context": "https://eu.com/claims/DriversLicense",
+                            "id": "https://eu.com/claims/DriversLicense",
+                            "type": [
+                                "EUDriversLicense"
+                            ],
+                            "issuer": "did:example:123",
+                            "issuanceDate": "2010-01-01T19:73:24Z",
+                            "credentialSubject": {
+                                "id": "did:example:ebfeb1f712ebc6f1c276e12ec21",
+                                "accounts": [
+                                    {
+                                        "id": "1234567890",
+                                        "route": "DE-9876543210"
+                                    },
+                                    {
+                                        "id": "2457913570",
+                                        "route": "DE-0753197542"
+                                    }
+                                ]
+                            }
+                        },
+                        "proof": {
+                            "type": "EcdsaSecp256k1VerificationKey2019",
+                            "created": "2017-06-18T21:19:10Z",
+                            "proofPurpose": "assertionMethod",
+                            "verificationMethod": "https://example.edu/issuers/keys/1",
+                            "jws": "..."
+                        }
+                    },
+                    {
+                        "@context": "https://business-standards.org/schemas/employment-history.json",
+                        "id": "https://business-standards.org/schemas/employment-history.json",
+                        "type": [
+                            "VerifiableCredential",
+                            "GenericEmploymentCredential"
+                        ],
+                        "issuer": "did:foo:123",
+                        "issuanceDate": "2010-01-01T19:73:24Z",
+                        "credentialSubject": {
+                            "id": "did:example:ebfeb1f712ebc6f1c276e12ec21",
+                            "active": true
+                        },
+                        "proof": {
+                            "type": "EcdsaSecp256k1VerificationKey2019",
+                            "created": "2017-06-18T21:19:10Z",
+                            "proofPurpose": "assertionMethod",
+                            "verificationMethod": "https://example.edu/issuers/keys/1",
+                            "jws": "..."
+                        }
+                    },
+                    {
+                        "@context": "https://www.w3.org/2018/credentials/v1",
+                        "id": "https://eu.com/claims/DriversLicense",
+                        "type": [
+                            "EUDriversLicense"
+                        ],
+                        "issuer": "did:foo:123",
+                        "issuanceDate": "2010-01-01T19:73:24Z",
+                        "credentialSubject": {
+                            "id": "did:example:ebfeb1f712ebc6f1c276e12ec21",
+                            "license": {
+                                "number": "34DGE352",
+                                "dob": "07/13/80"
+                            }
+                        },
+                        "proof": {
+                            "type": "RsaSignature2018",
+                            "created": "2017-06-18T21:19:10Z",
+                            "proofPurpose": "assertionMethod",
+                            "verificationMethod": "https://example.edu/issuers/keys/1",
+                            "jws": "..."
+                        }
+                    }
+                ],
+                "proof": {
+                    "type": "RsaSignature2018",
+                    "created": "2018-09-14T21:19:10Z",
+                    "proofPurpose": "authentication",
+                    "verificationMethod": "did:example:ebfeb1f712ebc6f1c276e12ec21#keys-1",
+                    "challenge": "1f44d55f-f161-4938-a659-f8026467f126",
+                    "domain": "4jt78h47fh47",
+                    "jws": "..."
+                }
+            },
+            "challenge": {
+                "token": "{{challenge.token}}"
+            },
+            "pdId": "{{definition.id}}",
+            "callback": {
+                "url": "http://localhost:3000/presentations/{{presentation.id}}/statuses"
+            }
+        },
+        "evaluation_result": {
+            "thread": {
+                "id": "{{thread.id}}"
+            },
+            "challenge": {
+                "token": "{{challenge.token}}",
+                "holder": null
+            },
+            "message": "Not all input descriptors are satisfied",
+            "verifiableCredential": [
+                {
+                    "iss": "did:example:123",
+                    "vc": {
+                        "@context": "https://eu.com/claims/DriversLicense",
+                        "id": "https://eu.com/claims/DriversLicense",
+                        "type": [
+                            "EUDriversLicense"
+                        ],
+                        "issuer": "did:example:123",
+                        "issuanceDate": "2010-01-01T19:73:24Z",
+                        "credentialSubject": {
+                            "id": "did:example:ebfeb1f712ebc6f1c276e12ec21",
+                            "accounts": [
+                                {
+                                    "id": "1234567890",
+                                    "route": "DE-9876543210"
+                                },
+                                {
+                                    "id": "2457913570",
+                                    "route": "DE-0753197542"
+                                }
+                            ]
+                        }
+                    },
+                    "proof": {
+                        "type": "EcdsaSecp256k1VerificationKey2019",
+                        "created": "2017-06-18T21:19:10Z",
+                        "proofPurpose": "assertionMethod",
+                        "verificationMethod": "https://example.edu/issuers/keys/1",
+                        "jws": "..."
+                    }
+                },
+                {
+                    "@context": "https://business-standards.org/schemas/employment-history.json",
+                    "id": "https://business-standards.org/schemas/employment-history.json",
+                    "type": [
+                        "VerifiableCredential",
+                        "GenericEmploymentCredential"
+                    ],
+                    "issuer": "did:foo:123",
+                    "issuanceDate": "2010-01-01T19:73:24Z",
+                    "credentialSubject": {
+                        "id": "did:example:ebfeb1f712ebc6f1c276e12ec21",
+                        "active": true
+                    },
+                    "proof": {
+                        "type": "EcdsaSecp256k1VerificationKey2019",
+                        "created": "2017-06-18T21:19:10Z",
+                        "proofPurpose": "assertionMethod",
+                        "verificationMethod": "https://example.edu/issuers/keys/1",
+                        "jws": "..."
+                    }
+                },
+                {
+                    "@context": "https://www.w3.org/2018/credentials/v1",
+                    "id": "https://eu.com/claims/DriversLicense",
+                    "type": [
+                        "EUDriversLicense"
+                    ],
+                    "issuer": "did:foo:123",
+                    "issuanceDate": "2010-01-01T19:73:24Z",
+                    "credentialSubject": {
+                        "id": "did:example:ebfeb1f712ebc6f1c276e12ec21",
+                        "license": {
+                            "number": "34DGE352",
+                            "dob": "07/13/80"
+                        }
+                    },
+                    "proof": {
+                        "type": "RsaSignature2018",
+                        "created": "2017-06-18T21:19:10Z",
+                        "proofPurpose": "assertionMethod",
+                        "verificationMethod": "https://example.edu/issuers/keys/1",
+                        "jws": "..."
+                    }
+                }
+            ],
+            "warnings": [],
+            "errors": [
+                {
+                    "tag": "UriEvaluation",
+                    "status": "error",
+                    "message": "@context URI for the of the candidate input MUST be equal to one of the input_descriptors object uri values exactly.: $.input_descriptors[0]: $[0]"
+                },
+                {
+                    "tag": "UriEvaluation",
+                    "status": "error",
+                    "message": "@context URI for the of the candidate input MUST be equal to one of the input_descriptors object uri values exactly.: $.input_descriptors[0]: $[1]"
+                },
+                {
+                    "tag": "UriEvaluation",
+                    "status": "error",
+                    "message": "@context URI for the of the candidate input MUST be equal to one of the input_descriptors object uri values exactly.: $.input_descriptors[0]: $[2]"
+                },
+                {
+                    "tag": "UriEvaluation",
+                    "status": "error",
+                    "message": "@context URI for the of the candidate input MUST be equal to one of the input_descriptors object uri values exactly.: $.input_descriptors[1]: $[0]"
+                },
+                {
+                    "tag": "UriEvaluation",
+                    "status": "error",
+                    "message": "@context URI for the of the candidate input MUST be equal to one of the input_descriptors object uri values exactly.: $.input_descriptors[1]: $[1]"
+                },
+                {
+                    "tag": "UriEvaluation",
+                    "status": "error",
+                    "message": "@context URI for the of the candidate input MUST be equal to one of the input_descriptors object uri values exactly.: $.input_descriptors[1]: $[2]"
+                },
+                {
+                    "tag": "FilterEvaluation",
+                    "status": "error",
+                    "message": "Input candidate does not contain property: $.input_descriptors[1]: $[0]"
+                },
+                {
+                    "tag": "FilterEvaluation",
+                    "status": "error",
+                    "message": "Input candidate does not contain property: $.input_descriptors[1]: $[0]"
+                },
+                {
+                    "tag": "FilterEvaluation",
+                    "status": "error",
+                    "message": "Input candidate does not contain property: $.input_descriptors[1]: $[0]"
+                },
+                {
+                    "tag": "FilterEvaluation",
+                    "status": "error",
+                    "message": "Input candidate does not contain property: $.input_descriptors[1]: $[0]"
+                },
+                {
+                    "tag": "FilterEvaluation",
+                    "status": "error",
+                    "message": "Input candidate does not contain property: $.input_descriptors[1]: $[0]"
+                },
+                {
+                    "tag": "FilterEvaluation",
+                    "status": "error",
+                    "message": "Input candidate does not contain property: $.input_descriptors[1]: $[0]"
+                },
+                {
+                    "tag": "FilterEvaluation",
+                    "status": "error",
+                    "message": "Input candidate does not contain property: $.input_descriptors[1]: $[0]"
+                },
+                {
+                    "tag": "FilterEvaluation",
+                    "status": "error",
+                    "message": "Input candidate does not contain property: $.input_descriptors[1]: $[0]"
+                },
+                {
+                    "tag": "FilterEvaluation",
+                    "status": "error",
+                    "message": "Input candidate failed filter evaluation: $.input_descriptors[0]: $[1]"
+                },
+                {
+                    "tag": "FilterEvaluation",
+                    "status": "error",
+                    "message": "Input candidate does not contain property: $.input_descriptors[1]: $[1]"
+                },
+                {
+                    "tag": "FilterEvaluation",
+                    "status": "error",
+                    "message": "Input candidate does not contain property: $.input_descriptors[1]: $[1]"
+                },
+                {
+                    "tag": "FilterEvaluation",
+                    "status": "error",
+                    "message": "Input candidate does not contain property: $.input_descriptors[1]: $[1]"
+                },
+                {
+                    "tag": "FilterEvaluation",
+                    "status": "error",
+                    "message": "Input candidate does not contain property: $.input_descriptors[1]: $[1]"
+                },
+                {
+                    "tag": "FilterEvaluation",
+                    "status": "error",
+                    "message": "Input candidate does not contain property: $.input_descriptors[1]: $[1]"
+                },
+                {
+                    "tag": "FilterEvaluation",
+                    "status": "error",
+                    "message": "Input candidate does not contain property: $.input_descriptors[1]: $[1]"
+                },
+                {
+                    "tag": "FilterEvaluation",
+                    "status": "error",
+                    "message": "Input candidate does not contain property: $.input_descriptors[1]: $[1]"
+                },
+                {
+                    "tag": "FilterEvaluation",
+                    "status": "error",
+                    "message": "Input candidate does not contain property: $.input_descriptors[1]: $[1]"
+                },
+                {
+                    "tag": "FilterEvaluation",
+                    "status": "error",
+                    "message": "Input candidate failed filter evaluation: $.input_descriptors[0]: $[2]"
+                },
+                {
+                    "tag": "FilterEvaluation",
+                    "status": "error",
+                    "message": "Input candidate does not contain property: $.input_descriptors[1]: $[2]"
+                },
+                {
+                    "tag": "FilterEvaluation",
+                    "status": "error",
+                    "message": "Input candidate does not contain property: $.input_descriptors[1]: $[2]"
+                },
+                {
+                    "tag": "FilterEvaluation",
+                    "status": "error",
+                    "message": "Input candidate does not contain property: $.input_descriptors[1]: $[2]"
+                },
+                {
+                    "tag": "FilterEvaluation",
+                    "status": "error",
+                    "message": "Input candidate does not contain property: $.input_descriptors[1]: $[2]"
+                },
+                {
+                    "tag": "FilterEvaluation",
+                    "status": "error",
+                    "message": "Input candidate does not contain property: $.input_descriptors[1]: $[2]"
+                },
+                {
+                    "tag": "FilterEvaluation",
+                    "status": "error",
+                    "message": "Input candidate does not contain property: $.input_descriptors[1]: $[2]"
+                },
+                {
+                    "tag": "FilterEvaluation",
+                    "status": "error",
+                    "message": "Input candidate does not contain property: $.input_descriptors[1]: $[2]"
+                },
+                {
+                    "tag": "FilterEvaluation",
+                    "status": "error",
+                    "message": "Input candidate does not contain property: $.input_descriptors[1]: $[2]"
+                },
+                {
+                    "tag": "LimitDisclosureEvaluation",
+                    "status": "error",
+                    "message": "Limit disclosure not supported: $.input_descriptors[0]: $[0]"
+                },
+                {
+                    "tag": "LimitDisclosureEvaluation",
+                    "status": "error",
+                    "message": "Limit disclosure not supported: $.input_descriptors[0]: $[1]"
+                },
+                {
+                    "tag": "LimitDisclosureEvaluation",
+                    "status": "error",
+                    "message": "Limit disclosure not supported: $.input_descriptors[0]: $[2]"
+                },
+                {
+                    "tag": "MarkForSubmissionEvaluation",
+                    "status": "error",
+                    "message": "The input candidate is not eligible for submission: $.input_descriptors[0]: $[0]"
+                },
+                {
+                    "tag": "MarkForSubmissionEvaluation",
+                    "status": "error",
+                    "message": "The input candidate is not eligible for submission: $.input_descriptors[0]: $[1]"
+                },
+                {
+                    "tag": "MarkForSubmissionEvaluation",
+                    "status": "error",
+                    "message": "The input candidate is not eligible for submission: $.input_descriptors[0]: $[2]"
+                },
+                {
+                    "tag": "MarkForSubmissionEvaluation",
+                    "status": "error",
+                    "message": "The input candidate is not eligible for submission: $.input_descriptors[1]: $[0]"
+                },
+                {
+                    "tag": "MarkForSubmissionEvaluation",
+                    "status": "error",
+                    "message": "The input candidate is not eligible for submission: $.input_descriptors[1]: $[1]"
+                },
+                {
+                    "tag": "MarkForSubmissionEvaluation",
+                    "status": "error",
+                    "message": "The input candidate is not eligible for submission: $.input_descriptors[1]: $[2]"
+                }
+            ],
+            "areRequiredCredentialsPresent": "error"
+        },
+        "pd_status": {
+            "thread": {
+                "id": "{{thread.id}}"
+            },
+            "definition_id": "{{definition.id}}",
+            "status": "DELETED",
+            "message": "The presentation definition has been deleted",
+            "challenge": {
+                "token": "{{challenge.token}}"
+            }
+        },
+        "vp_status": {
+            "thread": {
+                "id": "{{thread.id}}"
+            },
+            "presentation_id": "{{presentation.id}}",
+            "status": "ACCEPTED",
+            "message": "The presentation has been accepted without reservation",
+            "challenge": {
+                "token": "{{challenge.token}}"
+            }
+        }
+    }
+]
